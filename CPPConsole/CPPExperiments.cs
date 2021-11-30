@@ -175,10 +175,16 @@ namespace CPP
             mInstances.Clear();
 
 //                        mInstances.Add(new TestInstance(2000, "p1000-1.txt", MediumFolder));
-//                        mInstances.Add(new TestInstance(10000, "rand100-100.txt", SmallFolder));
+//                            mInstances.Add(new TestInstance(100, "rand100-100.txt", SmallFolder));
 
-//            mInstances.Add(new TestInstance(4000, "p1500-5.txt", MediumFolder));
-            mInstances.Add(new TestInstance(4000, "new_b2500.5.txt", LargeFolder));
+            //                        mInstances.Add(new TestInstance(10000, "rand100-100.txt", SmallFolder));
+
+            //           mInstances.Add(new TestInstance(4000, "p1500-5.txt", MediumFolder));
+
+            //            mInstances.Add(new TestInstance(20000, "new_p4000.3.txt", LargeFolder));
+            //            mInstances.Add(new TestInstance(20000, "new_p6000.1.txt", LargeFolder));
+
+                        mInstances.Add(new TestInstance(4000, "new_b2500.5.txt", LargeFolder));
 
 
             foreach (TestInstance t in mInstances)
@@ -207,16 +213,20 @@ namespace CPP
 
             CPPProblem tProblem;
             InitInstances();
-            int tNumParallel = 2;
+            int tNumParallel = 10;
             List<CPPProblem> tProblems = new List<CPPProblem>();
             mInstances.Clear();
 
-                                    mInstances.Add(new TestInstance(10000, "rand100-100.txt", SmallFolder));
 
-            //            mInstances.Add(new TestInstance(4000, "p1500-5.txt", MediumFolder));
-//            mInstances.Add(new TestInstance(4000, "new_b2500.5.txt", LargeFolder));
+//                                    mInstances.Add(new TestInstance(100, "rand100-100.txt", SmallFolder));
+
+//                        mInstances.Add(new TestInstance(4000, "p1500-1.txt", MediumFolder));
+                        mInstances.Add(new TestInstance(4000, "new_b2500.5.txt", LargeFolder));
+//            mInstances.Add(new TestInstance(10000, "p2000-2.txt", MediumFolder));
 
             /**/
+
+
             for (int i = 0; i < tNumParallel; i++) { 
                 
     
@@ -231,54 +241,51 @@ namespace CPP
             
             int c;
 
-            StreamWriter A = new StreamWriter("t1.txt");
-            StreamWriter B = new StreamWriter("t2.txt");
-
-
-
-            Parallel.ForEach(tProblems, Prob =>
-            {
-                for (int i = 0; i < 100; i++)
-                {
-
-                    if (Prob.ID == 0) {
-                        A.WriteLine("Thread :" + Thread.CurrentThread.ManagedThreadId);
-                    }
-
-                    if (Prob.ID == 0)
-                    {
-                        B.WriteLine("Thread :" + Thread.CurrentThread.ManagedThreadId);
-                    }
-                }
-            }
-
-
-
-
-
-            );
-
-
-            A.Close();
-            B.Close();
-
+            //StreamWriter A = new StreamWriter("t1.txt");
+            ///            StreamWriter B = new StreamWriter("t2.txt");
 
 /*
-                ); ; ; ; ;
+            foreach (CPPProblem Prob in tProblems) {
 
-            foreach (TestInstance t in mInstances)
-            {
+                Prob.SolveFixSetSearch(mInstances[0].mCalcTime, 10000);
 
-                tProblem = new CPPProblem(t.mFolder + t.mFileName, t.mFileName);
-                tProblem.SetID(2);
-                tProblem.AllocateSolution();
-
-                tProblem.SASelect = SASelectType.Dual;
-                tProblem.Calibrate(t.mCalcTime);
-                //                tProblem.SolveGRASP(10000, t.mCalcTime);
-                tProblem.SolveFixSetSearch(t.mCalcTime, 100000);
             }
 */
+            
+                        Parallel.ForEach(tProblems, Prob =>
+                        {
+
+                                Prob.SolveFixSetSearch(mInstances[0].mCalcTime, 10000);
+                        }
+            );
+            /**/
+
+
+
+
+
+
+
+            //            A.Close();
+            //            B.Close();
+
+
+            /*
+                            ); ; ; ; ;
+
+                        foreach (TestInstance t in mInstances)
+                        {
+
+                            tProblem = new CPPProblem(t.mFolder + t.mFileName, t.mFileName);
+                            tProblem.SetID(2);
+                            tProblem.AllocateSolution();
+
+                            tProblem.SASelect = SASelectType.Dual;
+                            tProblem.Calibrate(t.mCalcTime);
+                            //                tProblem.SolveGRASP(10000, t.mCalcTime);
+                            tProblem.SolveFixSetSearch(t.mCalcTime, 100000);
+                        }
+            */
 
         }
 

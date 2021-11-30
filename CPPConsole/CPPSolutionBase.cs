@@ -17,13 +17,20 @@ namespace CPP
         int mMaxBuffer;
         int[][] mAllConnections;
         SASelectType mSASelectType;
-        List<int>    mRestricted;   
+        List<int>    mRestricted;
+        Random       mGenerator;
 
         public SASelectType SASType{
             get { return mSASelectType; }
             set { mSASelectType = value; }
         }
 
+
+        public Random Generator
+        {
+            get { return mGenerator; }
+            set { mGenerator = value; }
+        }
 
         public void InitRestricted(int Size) {
 
@@ -33,7 +40,7 @@ namespace CPP
                 mRestricted.Add(i);
             }
 
-            CPPProblem.shuffle(mRestricted);
+            CPPProblem.shuffle(mRestricted, mGenerator);
 
             mRestricted.RemoveRange(Size - 1, mInstance.NumberOfNodes - Size);
 
@@ -298,10 +305,15 @@ namespace CPP
 
             Size = mInstance.NumberOfNodes;
 
+  //          HPCsharp.ParallelAlgorithms.Addition.AddToSsePar(newAllConnectedNode, NodeWeigths);
+//            HPCsharp.ParallelAlgorithms.Addition.AddToSsePar(oldAllConnectedNode, NodeNegativeWeigths);
+
+
             HPCsharp.ParallelAlgorithms.Addition.AddToSse(newAllConnectedNode, NodeWeigths);
             HPCsharp.ParallelAlgorithms.Addition.AddToSse(oldAllConnectedNode, NodeNegativeWeigths);
 
-            /*
+
+/*            
             for (int tn = 0; tn < Size; tn++)
             {
 
@@ -310,7 +322,7 @@ namespace CPP
 
 
             }
-            */
+            /**/
         }
 
 
@@ -600,7 +612,7 @@ namespace CPP
 
             for (int c = 0; c < mCliques.Count; c++) {
 
-
+                /**/
                 CliqueConnections = mAllConnections[c];
 
                     cChange0 = n0RemoveChange + CliqueConnections[n0];
@@ -625,7 +637,7 @@ namespace CPP
                         cBest = cChange1;
                     }
                 }
-               
+              
                 if ((n1Clique != c) && (n0Clique != c))
                 {
 
@@ -678,6 +690,7 @@ namespace CPP
                     return;
 
                 }
+              
             }
 
             if (cBest > BestChange) 
@@ -719,6 +732,9 @@ namespace CPP
                     }
                 }
             }
+
+            if (cBest == 0)
+                cBest = cBest;
         }
 
      
@@ -883,7 +899,7 @@ namespace CPP
         public bool SimulatedAnealing(Random iGenerator, double InitTemperature, out double AcceptRelative)
         {
 
-            int SizeSARepeat = 16;
+            int SizeSARepeat = 8;
             int NeiborhoodSize = mInstance.NumberOfNodes * NumberOfCliques;
             double MinAccept = 0.01;
             double SACool = 0.95;
@@ -906,7 +922,14 @@ namespace CPP
 
             T = InitTemperature;
 
+            /*
+                        int[] Track = new int[mInstance.NumberOfNodes];
 
+
+                        for (int i = 0; i < mInstance.NumberOfNodes; i++) {
+                            Track[i] = 0;
+                        }
+            */
             cSolObjective = StartObjective;
             AcceptTotal = 0;
             while (true) {
@@ -933,7 +956,7 @@ namespace CPP
 
                             UpdateAllConnections(t[0], t[1]);
                             MoveNode(t[0], t[1]);
-
+                       
                         }
                         while (RemoveEmptyClique(true)) ;
                         
@@ -1025,7 +1048,7 @@ namespace CPP
                     }
                     while (RemoveEmptyClique(true)) ;
 
-//                    cSol = CalculateObjective();
+ //                   cSol = CalculateObjective();
                     cSolObjective += cBestChange;
                     if (cSol != cSolObjective)
                         cSol = cSol;
@@ -1348,7 +1371,7 @@ namespace CPP
                 shuffleCliques.Add(i);
             }
 
-            CPPProblem.shuffle(shuffleCliques);
+            CPPProblem.shuffle(shuffleCliques,mGenerator);
 
             foreach (List<int> l in Nodes) {
                 for (int tc = 0; tc < mCliques.Count; tc++)
@@ -1396,7 +1419,7 @@ namespace CPP
                 shuffleNodes.Add(i);
             }
 
-            CPPProblem.shuffle(shuffleNodes);
+            CPPProblem.shuffle(shuffleNodes,  mGenerator);
 
             shuffleCliques = new List<int>();
             for (int i = 0; i < mCliques.Count; i++)
@@ -1404,7 +1427,7 @@ namespace CPP
                 shuffleCliques.Add(i);
             }
 
-            CPPProblem.shuffle(shuffleCliques);
+            CPPProblem.shuffle(shuffleCliques, mGenerator);
             int n;
             int c;
 
@@ -1511,7 +1534,7 @@ namespace CPP
                 shuffleNodes.Add(i);
             }
 
-            CPPProblem.shuffle(shuffleNodes);
+            CPPProblem.shuffle(shuffleNodes,mGenerator);
 
             shuffleCliques = new List<int>();
             for (int i = 0; i < mCliques.Count; i++)
@@ -1519,7 +1542,7 @@ namespace CPP
                 shuffleCliques.Add(i);
             }
 
-            CPPProblem.shuffle(shuffleCliques);
+            CPPProblem.shuffle(shuffleCliques, mGenerator);
             int n;
             int c;
 
@@ -1715,7 +1738,7 @@ namespace CPP
                 shuffleCliques.Add(i);
             }
 
-            CPPProblem.shuffle(shuffleCliques);
+            CPPProblem.shuffle(shuffleCliques,mGenerator);
 
 
 

@@ -11,6 +11,7 @@ namespace CPPConsole
 
             CPPExperiments tExperiments = new CPPExperiments();
 
+//            tExperiments.SolveSingleParallel();
             tExperiments.SolveSingle();
 
         }

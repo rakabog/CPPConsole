@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Diagnostics;
+using System.Threading;
 
 namespace CPP
 {
@@ -20,7 +21,7 @@ namespace CPP
         RCL<CPPCandidate>   mRCL;
 
         int                 mRCLSize;
-        static Random       mGenerator;
+        Random       mGenerator;
         List<List<int>>     mAvailableNodes;
         GreedyHeuristicType mGreedyHeuristic;
         int                 mBestSolutionValue;
@@ -53,6 +54,7 @@ namespace CPP
 
             mLogFileName = "Log_" +mID+"_" + mInstanceName;
             StreamWriter S = new StreamWriter(mLogFileName);
+            mGenerator = new Random(mID);
             S.Close();
 
 
@@ -150,13 +152,13 @@ namespace CPP
 
 
 
-        public static void shuffle(List<int> list)
+        public static void shuffle(List<int> list, Random iGenerator)
         {
             //            Random rng = new Random();   // i.e., java.util.Random.
             int n = list.Count;        // The number of items left to shuffle (loop invariant).
             while (n > 1)
             {
-                int k = mGenerator.Next(n);  // 0 <= k < n.
+                int k = iGenerator.Next(n);  // 0 <= k < n.
                 n--;                     // n is now the last pertinent index;
                 int temp = list[n];     // swap array[n] with array[k] (does nothing if k == n).
                 list[n] = list[k];
@@ -202,6 +204,7 @@ namespace CPP
                     mSolution = new CPPSolutionMaxIncrease(mInstance);
                     break;
             }
+            mSolution.Generator = mGenerator;
 
             mSolution.SASType = mSASType;
 
@@ -475,8 +478,8 @@ namespace CPP
 
             List<int> SelectSet = WeightedRadnomSampling.GetWeightedRadnomSampling(tN, tK, w, mGenerator);
             int tB = (int)Math.Min(tN, 10);
-//            int BaseIndex = mGenerator.Next() % tN;
-            int BaseIndex = mGenerator.Next() % tB;
+             int BaseIndex = mGenerator.Next() % tN;
+//            int BaseIndex = mGenerator.Next() % tB;
 
             if (!mSolutionHolder.Solutions[BaseIndex].CheckSolutionValid(mInstance))
             {
@@ -579,6 +582,7 @@ namespace CPP
                 mIntermediateSolutionsIterations.Add(mNumberOfSolutionsGenerated);
                 mIntermediateSolutionsTimes.Add(mStopWatch.ElapsedMilliseconds);
                 LogResult();
+                Console.WriteLine("Value :" +  mBestSolutionValue +  "  Thread :" + Thread.CurrentThread.ManagedThreadId);
                 return true;
             }
 

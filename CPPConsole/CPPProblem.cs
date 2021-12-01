@@ -1,44 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using System.Threading;
 
 namespace CPP
 {
     class CPPProblem
     {
-        public enum GreedyHeuristicType  { MaxIncrease, Random };
-       public enum CPPMetaheuristic { GRASP, FSS }
+        public enum GreedyHeuristicType { MaxIncrease, Random };
+        public enum CPPMetaheuristic { GRASP, FSS }
 
-        CPPInstance         mInstance;
-        CPPSolutionBase     mSolution;
-        CPPSolutionHolder   mSolutionHolder;
-        
-        RCL<CPPCandidate>   mRCL;
+        CPPInstance mInstance;
+        CPPSolutionBase mSolution;
+        CPPSolutionHolder mSolutionHolder;
 
-        int                 mRCLSize;
-        Random       mGenerator;
-        List<List<int>>     mAvailableNodes;
+        RCL<CPPCandidate> mRCL;
+
+        int mRCLSize;
+        Random mGenerator;
+        List<List<int>> mAvailableNodes;
         GreedyHeuristicType mGreedyHeuristic;
-        int                 mBestSolutionValue;
-        string              mLogFileName;
-        string              mFileName;
-        string              mInstanceName;
+        int mBestSolutionValue;
+        string mLogFileName;
+        string mFileName;
+        string mInstanceName;
 
-        CPPMetaheuristic    mMetaHeuristic;
+        CPPMetaheuristic mMetaHeuristic;
         Stopwatch mStopWatch;
-        SASelectType    mSASType;
+        SASelectType mSASType;
 
         int mFixStagnation;
         int mFixK;
         int mFixInitPopulation;
         int mFixN;
-        double          mSAInitTemperature;
-        int             mID;
+        double mSAInitTemperature;
+        int mID;
 
 
         List<int> mIntermediateSolutions;
@@ -47,12 +45,13 @@ namespace CPP
         int mNumberOfSolutionsGenerated;
 
 
-        public void SetID(int iID) {
+        public void SetID(int iID)
+        {
 
             mID = iID;
 
 
-            mLogFileName = "Log_" +mID+"_" + mInstanceName;
+            mLogFileName = "Log_" + mID + "_" + mInstanceName;
             StreamWriter S = new StreamWriter(mLogFileName);
             mGenerator = new Random(mID);
             S.Close();
@@ -80,7 +79,8 @@ namespace CPP
             set { mSASType = value; }
         }
 
-        public void InitAvailable(List<List<int>> FixedSet) {
+        public void InitAvailable(List<List<int>> FixedSet)
+        {
             List<int> temp;
             bool[] usedNodes = new bool[mInstance.NumberOfNodes];
 
@@ -99,33 +99,34 @@ namespace CPP
                 return;
             }
 
-                foreach (List<int> l in FixedSet)
+            foreach (List<int> l in FixedSet)
+            {
+
+                mAvailableNodes.Add(l);
+                foreach (int n in l)
+                {
+                    usedNodes[n] = true;
+                }
+            }
+
+            for (int i = 0; i < mInstance.NumberOfNodes; i++)
+            {
+
+                if (!usedNodes[i])
                 {
 
-                    mAvailableNodes.Add(l);
-                    foreach (int n in l)
-                    {
-                        usedNodes[n] = true;
-                    }
+                    temp = new List<int>();
+                    temp.Add(i);
+                    mAvailableNodes.Add(temp);
                 }
+            }
 
-                for (int i = 0; i < mInstance.NumberOfNodes; i++)
-                {
+            for (int i = 0; i < FixedSet.Count; i++)
+            {
 
-                    if (!usedNodes[i])
-                    {
+                AddToSolution(new CPPCandidate(FixedSet[i], i, 0));
+            }
 
-                        temp = new List<int>();
-                        temp.Add(i);
-                        mAvailableNodes.Add(temp);
-                    }
-                }
-
-                for (int i = 0; i < FixedSet.Count; i++) {
-
-                    AddToSolution(new CPPCandidate(FixedSet[i], i, 0));
-                }
-            
         }
 
         public void InitTracking()
@@ -145,8 +146,8 @@ namespace CPP
 
             mFixStagnation = 10;
             mFixK = 10;
-            mFixInitPopulation = 100;
-            mFixN  =100;
+            mFixInitPopulation = 20;
+            mFixN = 100;
         }
 
 
@@ -166,20 +167,21 @@ namespace CPP
             }
         }
 
-        public CPPProblem(string FileName, string InstanceName) {
+        public CPPProblem(string FileName, string InstanceName)
+        {
 
             mInstance = new CPPInstance(FileName);
             mSolution = new CPPSolutionMaxIncrease(mInstance);
             mGenerator = new Random(2);
 
-            mRCLSize =2;
+            mRCLSize = 2;
 
             mFileName = FileName;
             mInstanceName = InstanceName;
 
 
-            mRCL = new RCL< CPPCandidate > (mRCLSize);
-            mLogFileName = "Log"+ mInstanceName;
+            mRCL = new RCL<CPPCandidate>(mRCLSize);
+            mLogFileName = "Log" + mInstanceName;
             StreamWriter S = new StreamWriter(mLogFileName);
             S.Close();
             mSolutionHolder = new CPPSolutionHolder();
@@ -188,17 +190,19 @@ namespace CPP
 
             mMetaHeuristic = CPPMetaheuristic.FSS;
 
-           mGreedyHeuristic = GreedyHeuristicType.MaxIncrease;
+            mGreedyHeuristic = GreedyHeuristicType.MaxIncrease;
             //          mGreedyHeuristic = GreedyHeuristicType.Agglomeration;
 
             CPPSolutionMaxIncrease.Init(mInstance.NumberOfNodes);
 
         }
 
-        public void AllocateSolution() {
+        public void AllocateSolution()
+        {
 
             mSolution = null;
-            switch (mGreedyHeuristic) {
+            switch (mGreedyHeuristic)
+            {
 
                 case GreedyHeuristicType.MaxIncrease:
                     mSolution = new CPPSolutionMaxIncrease(mInstance);
@@ -210,31 +214,37 @@ namespace CPP
 
         }
 
-        public double[] GetFrequency(int BaseSolutionIndex, List<int> SelectedSolutionIndexes) {
+        public double[] GetFrequency(int BaseSolutionIndex, List<int> SelectedSolutionIndexes)
+        {
 
             double[] frequency = new double[mInstance.NumberOfNodes];
             CPPSolutionBase Base = mSolutionHolder.Solutions[BaseSolutionIndex];
 
             for (int i = 0; i < mInstance.NumberOfNodes; i++)
                 frequency[i] = 0;
-            foreach (int sel in SelectedSolutionIndexes) {
+            foreach (int sel in SelectedSolutionIndexes)
+            {
                 UpdateFrequency(Base, mSolutionHolder.Solutions[sel], frequency);
             }
 
-            for (int i = 0; i < mInstance.NumberOfNodes; i++) {
-                frequency[i] /= Base.CliqueForNode(i).Count* SelectedSolutionIndexes.Count;
+            for (int i = 0; i < mInstance.NumberOfNodes; i++)
+            {
+                frequency[i] /= Base.CliqueForNode(i).Count * SelectedSolutionIndexes.Count;
             }
 
             return frequency;
         }
 
-        public void UpdateEdgeFrequency(int[,] Occurence, CPPSolutionBase Base, CPPSolutionBase Update) {
+        public void UpdateEdgeFrequency(int[,] Occurence, CPPSolutionBase Base, CPPSolutionBase Update)
+        {
 
 
-            foreach (List<int> l in Base.Cliques) {
+            foreach (List<int> l in Base.Cliques)
+            {
 
-                for (int i = 0; i < l.Count; i++) {
-                    for (int j = i+1; j < l.Count; j++)
+                for (int i = 0; i < l.Count; i++)
+                {
+                    for (int j = i + 1; j < l.Count; j++)
                     {
                         if (Update.InSameClique(l[i], l[j]))
                             Occurence[l[i], l[j]]++;
@@ -251,8 +261,9 @@ namespace CPP
 
             Occurance = new int[mInstance.NumberOfNodes, mInstance.NumberOfNodes];
 
-            for (int i = 0; i < mInstance.NumberOfNodes; i++) {
-                for (int j = i+1; j < mInstance.NumberOfNodes; j++)
+            for (int i = 0; i < mInstance.NumberOfNodes; i++)
+            {
+                for (int j = i + 1; j < mInstance.NumberOfNodes; j++)
                 {
                     Occurance[i, j] = 0;
                 }
@@ -262,27 +273,31 @@ namespace CPP
                 UpdateEdgeFrequency(Occurance, Base, mSolutionHolder.Solutions[sel]);
             }
 
-        
+
             return Occurance;
         }
 
 
-        public void UpdateFrequency(CPPSolutionBase Base, CPPSolutionBase Test, double[] frequency) {
+        public void UpdateFrequency(CPPSolutionBase Base, CPPSolutionBase Test, double[] frequency)
+        {
 
             List<int> CurrentCliqueBase;
-            int       CurrentNodeClique;
-            
-            for (int i = 0; i < mInstance.NumberOfNodes; i++) {
+            int CurrentNodeClique;
+
+            for (int i = 0; i < mInstance.NumberOfNodes; i++)
+            {
 
                 CurrentCliqueBase = Base.CliqueForNode(i);
                 CurrentNodeClique = Test.NodeClique[i];
 
-                foreach (int n in CurrentCliqueBase) {
-                    if (CurrentNodeClique == Test.NodeClique[n]) {
+                foreach (int n in CurrentCliqueBase)
+                {
+                    if (CurrentNodeClique == Test.NodeClique[n])
+                    {
                         frequency[i]++;
                     }
                 }
-                
+
             }
         }
 
@@ -326,8 +341,8 @@ namespace CPP
 
             List<int[]>[] Hold;
             int[] temp;
-    
-            Hold = new List<int[]>[tK+1];
+
+            Hold = new List<int[]>[tK + 1];
             for (int i = 0; i < tK + 1; i++)
                 Hold[i] = new List<int[]>();
 
@@ -350,25 +365,29 @@ namespace CPP
             int[] tNodeClique = new int[mInstance.NumberOfNodes];
             int[] superNodeClique = new int[mInstance.NumberOfNodes];
 
-            for (int i = 0; i < mInstance.NumberOfNodes; i++) {
+            for (int i = 0; i < mInstance.NumberOfNodes; i++)
+            {
                 tNodeClique[i] = i;
             }
 
-            int counter = (int)(FixSize * mInstance.NumberOfNodes -5);
+            int counter = (int)(FixSize * mInstance.NumberOfNodes - 5);
             int size = 10;
-            int ElemIndex =0;
+            int ElemIndex = 0;
             int[] tPair;
             bool Finish = false;
             int low;
 
             if (size >= Hold.Length)
                 size = Hold.Length - 1;
-            while (counter > 0) {
+            while (counter > 0)
+            {
 
-                while (ElemIndex < Hold[size].Count) {
+                while (ElemIndex < Hold[size].Count)
+                {
 
                     tPair = Hold[size][ElemIndex];
-                    if (tNodeClique[tPair[0]] != tNodeClique[tPair[1]]) {
+                    if (tNodeClique[tPair[0]] != tNodeClique[tPair[1]])
+                    {
 
                         if (tNodeClique[tPair[0]] < tNodeClique[tPair[1]])
                             low = tNodeClique[tPair[0]];
@@ -376,7 +395,7 @@ namespace CPP
                             low = tNodeClique[tPair[1]];
 
                         counter--;
-                        for(int j=0; j< mInstance.NumberOfNodes; j++)
+                        for (int j = 0; j < mInstance.NumberOfNodes; j++)
                         {
                             if ((tNodeClique[j] == tNodeClique[tPair[1]]) || (tNodeClique[j] == tNodeClique[tPair[0]]))
                                 tNodeClique[j] = low;
@@ -391,7 +410,8 @@ namespace CPP
                     }
                     ElemIndex++;
                 }
-                if (size == Hold.Length - 1) {
+                if (size == Hold.Length - 1)
+                {
                     Array.Copy(tNodeClique, superNodeClique, mInstance.NumberOfNodes);
                 }
 
@@ -406,7 +426,8 @@ namespace CPP
             List<int>[] CollectCliques = new List<int>[mInstance.NumberOfNodes];
             List<int>[] CollectSuperCliques = new List<int>[mInstance.NumberOfNodes];
 
-            for (int i = 0; i < mInstance.NumberOfNodes; i++) {
+            for (int i = 0; i < mInstance.NumberOfNodes; i++)
+            {
                 CollectCliques[i] = new List<int>();
                 CollectSuperCliques[i] = new List<int>();
             }
@@ -424,14 +445,16 @@ namespace CPP
                 if (CollectCliques[i].Count > 1)
                     Res.Add(CollectCliques[i]);
 
-                if (CollectSuperCliques[i].Count > 1) {
+                if (CollectSuperCliques[i].Count > 1)
+                {
 
-                    if (!ContainsList(SuperNodes,CollectSuperCliques[i])) {
+                    if (!ContainsList(SuperNodes, CollectSuperCliques[i]))
+                    {
                         SuperNodes.Add(CollectSuperCliques[i]);
                     }
-                    
+
                 }
-                    
+
 
 
             }
@@ -441,9 +464,11 @@ namespace CPP
             return Res;
         }
 
-        bool ContainsList(List<List<int>> Container, List<int> Test) {
+        bool ContainsList(List<List<int>> Container, List<int> Test)
+        {
 
-            foreach (List<int> l in Container) {
+            foreach (List<int> l in Container)
+            {
                 if (l.Count != Test.Count)
                     continue;
                 if ((l.Except(Test).Any() || Test.Except(l).Any()))
@@ -456,7 +481,7 @@ namespace CPP
 
         public List<List<int>> GetFix(int N, int K, double FixSize)
         {
-            List<List<int>> resultCliques; 
+            List<List<int>> resultCliques;
             double[] Freq;
             int cNode;
 
@@ -478,8 +503,8 @@ namespace CPP
 
             List<int> SelectSet = WeightedRadnomSampling.GetWeightedRadnomSampling(tN, tK, w, mGenerator);
             int tB = (int)Math.Min(tN, 10);
-             int BaseIndex = mGenerator.Next() % tN;
-//            int BaseIndex = mGenerator.Next() % tB;
+            int BaseIndex = mGenerator.Next() % tN;
+            //            int BaseIndex = mGenerator.Next() % tB;
 
             if (!mSolutionHolder.Solutions[BaseIndex].CheckSolutionValid(mInstance))
             {
@@ -495,24 +520,26 @@ namespace CPP
             }
 
 
-            for (int i = 0; i < mInstance.NumberOfNodes; i++){
-                            TElem = new double[2];
-                            TElem[0] = i;
-                            TElem[1] = Freq[i];
-                            Elem.Add(TElem);
-            }
-             Elem = Elem.OrderBy(o => o[1]).ToList();
-             Elem.Reverse();
-
-/*
-            for (int i = 0; i < FixSize * mInstance.NumberOfNodes; i++)
+            for (int i = 0; i < mInstance.NumberOfNodes; i++)
             {
-                Result.Add((int)Elem[i][0]);
+                TElem = new double[2];
+                TElem[0] = i;
+                TElem[1] = Freq[i];
+                Elem.Add(TElem);
             }
-*/
+            Elem = Elem.OrderBy(o => o[1]).ToList();
+            Elem.Reverse();
+
+            /*
+                        for (int i = 0; i < FixSize * mInstance.NumberOfNodes; i++)
+                        {
+                            Result.Add((int)Elem[i][0]);
+                        }
+            */
             resultCliques = new List<List<int>>();
 
-            for (int i = 0; i < mSolutionHolder.Solutions[BaseIndex].Cliques.Count; i++) {
+            for (int i = 0; i < mSolutionHolder.Solutions[BaseIndex].Cliques.Count; i++)
+            {
                 resultCliques.Add(new List<int>());
             }
 
@@ -527,9 +554,11 @@ namespace CPP
             }
             List<List<int>> cResultCliques = new List<List<int>>();
 
-            foreach (List<int> l in resultCliques) {
+            foreach (List<int> l in resultCliques)
+            {
 
-                if (l.Count > 0) {
+                if (l.Count > 0)
+                {
                     cResultCliques.Add(l);
                 }
             }
@@ -539,16 +568,17 @@ namespace CPP
         }
 
 
-        void LogResult() {
+        void LogResult()
+        {
 
             StreamWriter S = new StreamWriter(mLogFileName, true);
 
-            S.WriteLine(mBestSolutionValue + " "+ mNumberOfSolutionsGenerated+ " " + mStopWatch.ElapsedMilliseconds);
+            S.WriteLine(mBestSolutionValue + " " + mNumberOfSolutionsGenerated + " " + mStopWatch.ElapsedMilliseconds);
             S.Close();
 
         }
 
-        void LogString (string OutText)
+        void LogString(string OutText)
         {
 
             StreamWriter S = new StreamWriter(mLogFileName, true);
@@ -559,14 +589,15 @@ namespace CPP
         }
 
 
-      
 
-        public void InitGreedy() {
+
+        public void InitGreedy()
+        {
 
 
             mSolution.Clear();
             InitAvailable(null);
-            
+
         }
 
         public bool CheckBest()
@@ -582,7 +613,7 @@ namespace CPP
                 mIntermediateSolutionsIterations.Add(mNumberOfSolutionsGenerated);
                 mIntermediateSolutionsTimes.Add(mStopWatch.ElapsedMilliseconds);
                 LogResult();
-                Console.WriteLine("Value :" +  mBestSolutionValue +  "  Thread :" + Thread.CurrentThread.ManagedThreadId);
+                Console.WriteLine("Value :" + mBestSolutionValue + "  Thread :" + Thread.CurrentThread.ManagedThreadId);
                 return true;
             }
 
@@ -600,7 +631,7 @@ namespace CPP
 
             double[] w = new double[mFixN];
             double FixSize = 0.50;
-            int cSolutionValue=0;
+            int cSolutionValue = 0;
             double Accept;
 
             List<List<int>> FixSet;
@@ -643,13 +674,13 @@ namespace CPP
 
 
                 FixSet = GetFix(mFixN, mFixK, FixSize);
-//              FixSet = GetFixEdge(mFixN, mFixK, FixSize, SuperNodes);
+                //              FixSet = GetFixEdge(mFixN, mFixK, FixSize, SuperNodes);
 
                 SolveGreedy(FixSet);
                 cObj = mSolution.CalculateObjective();
 
 
-//               mSolution.LocalSearch(null);
+                //               mSolution.LocalSearch(null);
 
                 mSolution.LocalSearch(mGenerator, null);
                 cObj = mSolution.CalculateObjective();
@@ -687,7 +718,8 @@ namespace CPP
             }
 
         }
-        public void Calibrate(double iTimeLimit) {
+        public void Calibrate(double iTimeLimit)
+        {
 
 
             double Accept;
@@ -695,7 +727,7 @@ namespace CPP
             double UT = 2000;
             double Tolerate = 0.05;
             double DesiredAcceptance = 0.5;
-            int    cSolutionValue;
+            int cSolutionValue;
             AllocateSolution();
 
             mBestSolutionValue = int.MinValue;
@@ -707,7 +739,7 @@ namespace CPP
 
             mSAInitTemperature = 1000;
             mNumberOfSolutionsGenerated = 0;
-            while(true)
+            while (true)
             {
 
                 SolveGreedy();
@@ -744,14 +776,16 @@ namespace CPP
         }
 
 
-        public void SolveGRASP(int MaxIterations, double iTimeLimit) {
+        public void SolveGRASP(int MaxIterations, double iTimeLimit)
+        {
             int cSolutionValue;
 
             double Accept;
-         
 
-    
-            for (int i = 0; i < MaxIterations; i++) {
+
+
+            for (int i = 0; i < MaxIterations; i++)
+            {
 
 
 
@@ -763,7 +797,7 @@ namespace CPP
                 mSolution.LocalSearch(mGenerator);
                 cSolutionValue = mSolution.CalculateObjective();
                 mSolution.SimulatedAnealing(mGenerator, mSAInitTemperature, out Accept);
-       //         mSolution.SARestricted(mGenerator, mSAInitTemperature, out Accept);
+                //         mSolution.SARestricted(mGenerator, mSAInitTemperature, out Accept);
                 cSolutionValue = mSolution.CalculateObjective();
                 mNumberOfSolutionsGenerated++;
                 mSolutionHolder.Add(mSolution);
@@ -771,7 +805,8 @@ namespace CPP
             }
         }
 
-        public void SolveGreedy(List<List<int>> FixedSet= null) {
+        public void SolveGreedy(List<List<int>> FixedSet = null)
+        {
 
 
             CPPCandidate Select = null;
@@ -785,49 +820,54 @@ namespace CPP
 
 
 
-            while (true) {
-              
+            while (true)
+            {
+
                 Select = GetHeuristic();
                 if (Select == null)
                     break;
                 AddToSolution(Select);
             }
             mSolution.FixCliques();
-         
+
         }
 
 
         CPPCandidate GetHeuristicMaxIncrease()
         {
             int cValue;
-            int Select; 
+            int Select;
             if (mAvailableNodes.Count == 0)
                 return null;
-            
-            mRCL = new RCL< CPPCandidate> (mRCLSize);
+
+            mRCL = new RCL<CPPCandidate>(mRCLSize);
 
             //   shuffle(mAvalilableNodes);
 
-            if (mSolution.Cliques.Count == 0) {
+            if (mSolution.Cliques.Count == 0)
+            {
 
                 Select = mGenerator.Next() % mAvailableNodes.Count;
                 AddToSolution(new CPPCandidate(mAvailableNodes[Select], 0, Select));
             }
 
             int counter = 0;
-            foreach (List<int> n in mAvailableNodes) {
+            foreach (List<int> n in mAvailableNodes)
+            {
 
-                for(int c=0; c< mSolution.NumberOfCliques; c++) {
+                for (int c = 0; c < mSolution.NumberOfCliques; c++)
+                {
 
                     cValue = mSolution.GetChange(n, c);
 
-                    mRCL.Add(new CPPCandidate(n, c,counter), cValue);
+                    mRCL.Add(new CPPCandidate(n, c, counter), cValue);
                 }
 
                 counter++;
             }
 
-            if ((mRCL.MaxValue <= 0) || (mRCL.CurrentSize == 0))  {
+            if ((mRCL.MaxValue <= 0) || (mRCL.CurrentSize == 0))
+            {
                 int index;
                 index = mGenerator.Next() % mAvailableNodes.Count;
                 return new CPPCandidate(mAvailableNodes[index], mSolution.NumberOfCliques, index);
@@ -835,9 +875,11 @@ namespace CPP
 
             return mRCL.GetCandidate(mGenerator.Next() % mRCL.CurrentSize);
         }
-        CPPCandidate GetHeuristic() {
+        CPPCandidate GetHeuristic()
+        {
 
-            switch (mGreedyHeuristic) {
+            switch (mGreedyHeuristic)
+            {
 
                 case GreedyHeuristicType.MaxIncrease:
                     return GetHeuristicMaxIncrease();
@@ -846,24 +888,26 @@ namespace CPP
             return null;
         }
 
-        public bool AddToSolution(CPPCandidate N) {
-            
-            
-            if(mGreedyHeuristic == GreedyHeuristicType.MaxIncrease)
+        public bool AddToSolution(CPPCandidate N)
+        {
+
+
+            if (mGreedyHeuristic == GreedyHeuristicType.MaxIncrease)
                 RemoveFromAvaillable(N);
 
-            
+
             mSolution.AddCandidate(N);
             return true;
-        
+
         }
 
-        void RemoveFromAvaillable(CPPCandidate N) {
+        void RemoveFromAvaillable(CPPCandidate N)
+        {
 
             mAvailableNodes.RemoveAt(N.mCandidateIndex);
-        
-        
-        
+
+
+
         }
     }
 }

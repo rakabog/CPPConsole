@@ -1,24 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CPP
 {
     class RCL<T>
     {
 
-        int[]          mValues;
-        T[]    mCandidates;
-        int      mSize;
-        int      mCurrentSize;
+        int[] mValues;
+        T[] mCandidates;
+        int mSize;
+        int mCurrentSize;
 
         double mMinValue;
-        int    mMinIndex;
+        int mMinIndex;
 
         double mMaxValue;
-        int    mMaxIndex;
+        int mMaxIndex;
 
 
         public int CurrentSize

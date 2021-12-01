@@ -1,25 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CPP
 {
     class WeightedRadnomSampling
     {
-        
 
-        
 
-        public static List<int>  GetWeightedRadnomSampling(int mN, int mK, double[] mWeigths, Random mGenerator) {
+
+
+        public static List<int> GetWeightedRadnomSampling(int mN, int mK, double[] mWeigths, Random mGenerator)
+        {
 
             List<int> Result;
             List<double[]> mUi = new List<double[]>();
             double rU;
             double[] temp;
 
-            for (int i = 0; i < mN; i++) {
+            for (int i = 0; i < mN; i++)
+            {
 
                 rU = mGenerator.NextDouble();
                 temp = new double[2];
@@ -32,14 +32,15 @@ namespace CPP
 
             Result = new List<int>();
 
-            for (int i = 0; i < mK; i++) {
+            for (int i = 0; i < mK; i++)
+            {
 
                 Result.Add((int)mUi[i][0]);
             }
 
             return Result;
-            
-         }
+
+        }
 
         public static List<int> GetWeightedRadnomSampling(int mN, int mK, int[] mWeigths, Random mGenerator)
         {
@@ -50,7 +51,8 @@ namespace CPP
 
             dWeigths = new double[mN];
 
-            for (int i = 0; i < mN; i++) {
+            for (int i = 0; i < mN; i++)
+            {
 
                 Sum += mWeigths[i];
 
@@ -61,9 +63,9 @@ namespace CPP
             for (int i = 0; i < mN; i++)
             {
 
-             
 
-                dWeigths[i] = dWeigths[i]/Sum;
+
+                dWeigths[i] = dWeigths[i] / Sum;
             }
             return GetWeightedRadnomSampling(mN, mK, dWeigths, mGenerator);
 

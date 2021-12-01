@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using System.Text.RegularExpressions;
 
@@ -10,9 +7,9 @@ namespace CPP
 {
     class CPPInstance
     {
-        int         mNumberOfNodes;
-        int[][]      mWeights;
-        int[][]      mNegativeWeights;
+        int mNumberOfNodes;
+        int[][] mWeights;
+        int[][] mNegativeWeights;
 
 
 
@@ -26,8 +23,9 @@ namespace CPP
             get { return mNegativeWeights; }
         }
 
-        public CPPInstance() { 
-        
+        public CPPInstance()
+        {
+
         }
 
         public int NumberOfNodes
@@ -40,7 +38,13 @@ namespace CPP
 
             Load(FileName);
         }
-        public void InitNegativeWeights() {
+        public int GetWeight(int n1, int n2)
+        {
+
+            return mWeights[n1][n2];
+        }
+        public void InitNegativeWeights()
+        {
 
             mNegativeWeights = new int[mNumberOfNodes][];
 
@@ -51,21 +55,26 @@ namespace CPP
             for (int i = 0; i < mNumberOfNodes; i++)
                 for (int j = 0; j < mNumberOfNodes; j++)
                     mNegativeWeights[i][j] = -mWeights[i][j];
+
+
+
         }
 
-        public void Allocate() {
+        public void Allocate()
+        {
             mWeights = new int[mNumberOfNodes][];
 
-             for(int i=0; i< mNumberOfNodes; i++)   
+            for (int i = 0; i < mNumberOfNodes; i++)
                 mWeights[i] = new int[mNumberOfNodes];
         }
 
-        public void Load(string FileName) {
+        public void Load(string FileName)
+        {
 
             string[] Lines = File.ReadAllLines(FileName);
             string Temp;
-            int cLine=0;
-            char[] Sep = {  ' ','\t' };
+            int cLine = 0;
+            char[] Sep = { ' ', '\t' };
             string[] words;
             string pattern = "[\\s+\\t]";
             List<int> cWeights;
@@ -78,13 +87,16 @@ namespace CPP
             cLine++;
 
             cWeights = new List<int>();
-            for (int i = 0; i < Lines.Length-1; i++) {
+            for (int i = 0; i < Lines.Length - 1; i++)
+            {
                 words = Regex.Split(Lines[cLine], pattern);
 
 
-                for (int j = 0; j < words.Length; j++) {
+                for (int j = 0; j < words.Length; j++)
+                {
 
-                    if (Int32.TryParse(words[j], out cValue) ){
+                    if (Int32.TryParse(words[j], out cValue))
+                    {
 
                         cWeights.Add(cValue);
                     }
@@ -92,14 +104,16 @@ namespace CPP
                 cLine++;
             }
             Current = 0;
-            for (int i = 0; i < mNumberOfNodes; i++) {
+            for (int i = 0; i < mNumberOfNodes; i++)
+            {
 
-                for (int j = i; j < mNumberOfNodes; j++) {
+                for (int j = i; j < mNumberOfNodes; j++)
+                {
                     mWeights[i][j] = -cWeights[Current];
                     mWeights[j][i] = -cWeights[Current];
                     Current++;
-                }    
-            
+                }
+
             }
 
             InitNegativeWeights();

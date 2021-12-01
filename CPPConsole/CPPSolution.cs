@@ -1,29 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CPP
 {
     class CPPSolutionMaxIncrease : CPPSolutionBase
     {
-        
+
         int[][] mChange;
         public static int[][] EmptyChange;
 
-        public static void Init(int size) {
+        public static void Init(int size)
+        {
 
 
             EmptyChange = new int[size][];
-            for (int i = 0; i < size; i++) {
+            for (int i = 0; i < size; i++)
+            {
 
                 EmptyChange[i] = new int[size];
 
                 Array.Fill(EmptyChange[i], 0);
-               
+
             }
-            
+
         }
 
 
@@ -57,7 +56,7 @@ namespace CPP
             {
                 Array.Copy(CPPSolutionMaxIncrease.EmptyChange[c], mChange[c], mInstance.NumberOfNodes);
             }
-             
+
         }
 
         public override void AddCandidate(CPPCandidate A)
@@ -78,28 +77,28 @@ namespace CPP
         public override int GetChange(List<int> nodes, int iClique)
         {
 
-              int result = 0;
+            int result = 0;
 
             return GetChange(nodes[0], iClique);
-         /*   int result = 0;
+            /*   int result = 0;
 
-            if (iClique >= mCliques.Count)
-                return 0;
+               if (iClique >= mCliques.Count)
+                   return 0;
 
-            foreach (int nnode in nodes)
-            {
-                foreach (int cnode in mCliques[iClique])
-                {
-                    result += mInstance.Weights[nnode][cnode];
+               foreach (int nnode in nodes)
+               {
+                   foreach (int cnode in mCliques[iClique])
+                   {
+                       result += mInstance.Weights[nnode][cnode];
 
-                }
+                   }
 
 
-            }
-            
-            
-            return result;
-         */
+               }
+
+
+               return result;
+            */
         }
 
 
@@ -114,14 +113,14 @@ namespace CPP
             for (int n = 0; n < mInstance.NumberOfNodes; n++)
             {
 
-                cArrClique[n] += cArrNode[ n];
+                cArrClique[n] += cArrNode[n];
             }
 
         }
         public CPPSolutionMaxIncrease()
         {
 
-            
+
         }
 
         public CPPSolutionMaxIncrease(CPPInstance nInstance)
@@ -129,7 +128,8 @@ namespace CPP
 
             mInstance = nInstance;
             mChange = new int[mInstance.NumberOfNodes][];
-            for (int i = 0; i < mInstance.NumberOfNodes; i++) {
+            for (int i = 0; i < mInstance.NumberOfNodes; i++)
+            {
                 mChange[i] = new int[mInstance.NumberOfNodes];
 
             }
@@ -160,8 +160,8 @@ namespace CPP
         public int AddNodeToClique(CPPCandidate N)
         {
             int result = 0;
-            foreach(int n in N.mNodes)
-                result +=  AddNodeToClique(n, N.CandidateIndex);
+            foreach (int n in N.mNodes)
+                result += AddNodeToClique(n, N.CandidateIndex);
 
             return result;
         }
@@ -196,6 +196,6 @@ namespace CPP
             return -1;
         }
 
-       
+
     }
 }

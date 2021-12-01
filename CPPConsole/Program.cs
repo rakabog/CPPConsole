@@ -1,5 +1,5 @@
-﻿using System;
-using CPP;
+﻿using CPP;
+using System;
 
 namespace CPPConsole
 {
@@ -11,8 +11,10 @@ namespace CPPConsole
 
             CPPExperiments tExperiments = new CPPExperiments();
 
+            tExperiments.CreateTable( 10, ".\\Rez121\\");
 //            tExperiments.SolveSingleParallel();
-            tExperiments.SolveSingle();
+//            tExperiments.SolveAllParallel(10);
+            //            tExperiments.SolveSingle();
 
         }
     }

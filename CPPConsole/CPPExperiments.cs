@@ -37,30 +37,19 @@ namespace CPP
             cResult = new ResultsInstance();
 
 
-            cResult.InstanceName =  "rand100-100.txt";
-            cResult.BestObjective = 1407;
-            cResult.AverageObjective = 1407;
-            cResult.AverageTime = 0.70;
-            cResult.Hits = 20;
-            cResult.OutOf = 20;
 
 
-            cResult.InstanceName = "rand100-100.txt";
-            cResult.BestObjective = 1407;
-            cResult.AverageObjective = 1407;
-            cResult.AverageTime = 0.70;
-            cResult.Hits = 20;
-            cResult.OutOf = 20;
-
-
+            cResult = new ResultsInstance();
             cResult.InstanceName = "rand100-5.txt";
             cResult.BestObjective = 1407;
             cResult.AverageObjective = 1407;
             cResult.AverageTime = 0.70;
             cResult.Hits = 20;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
 
 
+            cResult = new ResultsInstance();
             cResult.InstanceName = "rand100-100.txt";
             cResult.BestObjective = 24296;
             cResult.AverageObjective = 24296;
@@ -68,6 +57,9 @@ namespace CPP
             cResult.Hits = 20;
             cResult.OutOf = 20;
 
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
 
             cResult.InstanceName = "rand200-5.txt";
@@ -77,6 +69,9 @@ namespace CPP
             cResult.Hits = 20;
             cResult.OutOf = 20;
 
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
 
             cResult.InstanceName = "rand200-100.txt";
@@ -86,6 +81,9 @@ namespace CPP
             cResult.Hits = 20;
             cResult.OutOf = 20;
 
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
             cResult.InstanceName = "rand300-5.txt";
             cResult.BestObjective = 7732;
@@ -94,6 +92,9 @@ namespace CPP
             cResult.Hits = 20;
             cResult.OutOf = 20;
 
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
 
             cResult.InstanceName = "rand300-100.txt";
@@ -102,6 +103,9 @@ namespace CPP
             cResult.AverageTime = 2.54;
             cResult.Hits = 20;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
 
             cResult.InstanceName = "sym300-50.txt";
@@ -110,6 +114,9 @@ namespace CPP
             cResult.AverageTime = 100.54;
             cResult.Hits = 20;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
 
             cResult.InstanceName = "regnier300-50.txt";
@@ -118,6 +125,9 @@ namespace CPP
             cResult.AverageTime = 2.21;
             cResult.Hits = 20;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
 
             cResult.InstanceName = "zahn300.txt";
@@ -126,6 +136,9 @@ namespace CPP
             cResult.AverageTime = 7.68;
             cResult.Hits = 20;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
 
             cResult.InstanceName = "rand400-5.txt";
@@ -134,6 +147,9 @@ namespace CPP
             cResult.AverageTime = 142.52;
             cResult.Hits = 20;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
 
 
@@ -143,6 +159,9 @@ namespace CPP
             cResult.AverageTime = 88.53;
             cResult.Hits = 20;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
 
             cResult.InstanceName = "rand500-5.txt";
@@ -151,6 +170,9 @@ namespace CPP
             cResult.AverageTime = 451.24;
             cResult.Hits = 14;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
 
 
@@ -160,6 +182,9 @@ namespace CPP
             cResult.AverageTime = 953.10;
             cResult.Hits = 2;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
 
             cResult.InstanceName = "p500-5-1.txt";
@@ -168,6 +193,9 @@ namespace CPP
             cResult.AverageTime = 188.76;
             cResult.Hits = 20;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
             cResult.InstanceName = "p500-5-2.txt";
             cResult.BestObjective = 17169;
@@ -175,6 +203,9 @@ namespace CPP
             cResult.AverageTime = 476.10;
             cResult.Hits = 11;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
             cResult.InstanceName = "p500-5-3.txt";
             cResult.BestObjective = 16816;
@@ -182,6 +213,9 @@ namespace CPP
             cResult.AverageTime = 447.93;
             cResult.Hits = 9;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
             cResult.InstanceName = "p500-5-4.txt";
             cResult.BestObjective = 16808;
@@ -189,6 +223,9 @@ namespace CPP
             cResult.AverageTime = 192.45;
             cResult.Hits = 20;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
             cResult.InstanceName = "p500-5-5.txt";
             cResult.BestObjective = 16957;
@@ -196,6 +233,9 @@ namespace CPP
             cResult.AverageTime = 161.17;
             cResult.Hits = 20;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
             cResult.InstanceName = "p500-5-6.txt";
             cResult.BestObjective = 16615;
@@ -203,6 +243,9 @@ namespace CPP
             cResult.AverageTime = 289.60;
             cResult.Hits = 19;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
             cResult.InstanceName = "p500-5-7.txt";
             cResult.BestObjective = 16649;
@@ -210,6 +253,9 @@ namespace CPP
             cResult.AverageTime = 447.10;
             cResult.Hits = 16;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
             cResult.InstanceName = "p500-5-8.txt";
             cResult.BestObjective = 16756;
@@ -217,6 +263,9 @@ namespace CPP
             cResult.AverageTime = 326.41;
             cResult.Hits = 17;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
             cResult.InstanceName = "p500-5-9.txt";
             cResult.BestObjective = 16629;
@@ -224,6 +273,9 @@ namespace CPP
             cResult.AverageTime = 322.48;
             cResult.Hits = 19;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
             cResult.InstanceName = "p500-5-10.txt";
             cResult.BestObjective = 17360;
@@ -231,6 +283,9 @@ namespace CPP
             cResult.AverageTime = 25.75;
             cResult.Hits = 20;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
 
 
@@ -241,6 +296,9 @@ namespace CPP
             cResult.AverageTime = 420.82;
             cResult.Hits = 12;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
             cResult.InstanceName = "p500-100-2.txt";
             cResult.BestObjective = 310241;
@@ -248,6 +306,9 @@ namespace CPP
             cResult.AverageTime = 724.81;
             cResult.Hits = 3;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
             cResult.InstanceName = "p500-100-3.txt";
             cResult.BestObjective = 310477;
@@ -255,6 +316,9 @@ namespace CPP
             cResult.AverageTime = 550.08;
             cResult.Hits = 16;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
             cResult.InstanceName = "p500-100-4.txt";
             cResult.BestObjective = 16808;
@@ -262,6 +326,9 @@ namespace CPP
             cResult.AverageTime = 192.45;
             cResult.Hits = 20;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
             cResult.InstanceName = "p500-100-5.txt";
             cResult.BestObjective = 309567;
@@ -269,6 +336,9 @@ namespace CPP
             cResult.AverageTime = 509.23;
             cResult.Hits = 16;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
             cResult.InstanceName = "p500-100-6.txt";
             cResult.BestObjective = 310280;
@@ -276,6 +346,9 @@ namespace CPP
             cResult.AverageTime = 83.06;
             cResult.Hits = 20;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
             cResult.InstanceName = "p500-100-7.txt";
             cResult.BestObjective = 310063;
@@ -283,6 +356,9 @@ namespace CPP
             cResult.AverageTime = 403.36;
             cResult.Hits = 18;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
             cResult.InstanceName = "p500-100-8.txt";
             cResult.BestObjective = 303148;
@@ -291,12 +367,18 @@ namespace CPP
             cResult.Hits = 20;
             cResult.OutOf = 20;
 
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
             cResult.InstanceName = "p500-100-9.txt";
             cResult.BestObjective = 305305;
             cResult.AverageObjective = 305305;
             cResult.AverageTime = 35.52;
             cResult.Hits = 20;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
             cResult.InstanceName = "p500-100-10.txt";
             cResult.BestObjective = 314864;
@@ -304,6 +386,9 @@ namespace CPP
             cResult.AverageTime = 78.04;
             cResult.Hits = 20;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
 
 
@@ -316,6 +401,9 @@ namespace CPP
             cResult.AverageTime = 429.43;
             cResult.Hits = 18;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
             cResult.InstanceName = "gauss500-100-2.txt";
             cResult.BestObjective = 269076;
@@ -323,6 +411,9 @@ namespace CPP
             cResult.AverageTime = 320.45;
             cResult.Hits = 20;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
             cResult.InstanceName = "gauss500-100-3.txt";
             cResult.BestObjective = 257700;
@@ -330,6 +421,9 @@ namespace CPP
             cResult.AverageTime = 504.67;
             cResult.Hits = 12;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
             cResult.InstanceName = "gauss500-100-4.txt";
             cResult.BestObjective = 267683;
@@ -337,6 +431,9 @@ namespace CPP
             cResult.AverageTime = 114.68;
             cResult.Hits = 20;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
             cResult.InstanceName = "gauss500-100-5.txt";
             cResult.BestObjective = 271567;
@@ -344,6 +441,9 @@ namespace CPP
             cResult.AverageTime = 38.68;
             cResult.Hits = 20;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
 
 
@@ -353,6 +453,9 @@ namespace CPP
             cResult.AverageTime = 550.73;
             cResult.Hits = 10;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
 
             cResult.InstanceName = "unif700-100-2.txt";
@@ -361,6 +464,9 @@ namespace CPP
             cResult.AverageTime = 344.76;
             cResult.Hits = 15;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
             cResult.InstanceName = "unif700-100-3.txt";
             cResult.BestObjective = 512351;
@@ -368,6 +474,9 @@ namespace CPP
             cResult.AverageTime = 575.41;
             cResult.Hits = 4;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
             cResult.InstanceName = "unif700-100-4.txt";
             cResult.BestObjective = 513582;
@@ -375,6 +484,9 @@ namespace CPP
             cResult.AverageTime = 677.96;
             cResult.Hits = 7;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
             cResult.InstanceName = "unif700-100-5.txt";
             cResult.BestObjective = 510585;
@@ -382,6 +494,9 @@ namespace CPP
             cResult.AverageTime = 395.83;
             cResult.Hits = 1;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
 
 
@@ -392,6 +507,9 @@ namespace CPP
             cResult.Hits = 6;
             cResult.OutOf = 20;
 
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
             cResult.InstanceName = "unif800-100-2.txt";
             cResult.BestObjective = 630704;
@@ -400,12 +518,18 @@ namespace CPP
             cResult.Hits = 4;
             cResult.OutOf = 20;
 
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
             cResult.InstanceName = "unif800-100-3.txt";
             cResult.BestObjective = 629108;
             cResult.AverageObjective = 628551.30;
             cResult.AverageTime = 776.37;
             cResult.Hits = 2;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
             cResult.InstanceName = "unif800-100-4.txt";
             cResult.BestObjective = 624728;
@@ -413,13 +537,18 @@ namespace CPP
             cResult.AverageTime = 826.25;
             cResult.Hits = 1;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
 
+            cResult = new ResultsInstance();
             cResult.InstanceName = "unif800-100-5.txt";
             cResult.BestObjective = 625905;
             cResult.AverageObjective = 625664.15;
             cResult.AverageTime = 428.21;
             cResult.Hits =6;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
 
 
@@ -429,6 +558,9 @@ namespace CPP
             cResult.AverageTime = 968.40;
             cResult.Hits = 2;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
             cResult.InstanceName = "p1000-2.txt";
             cResult.BestObjective = 881751;
@@ -436,6 +568,9 @@ namespace CPP
             cResult.AverageTime = 1000.54;
             cResult.Hits = 5;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
 
             cResult.InstanceName = "p1000-3.txt";
@@ -444,6 +579,9 @@ namespace CPP
             cResult.AverageTime = 1454.97;
             cResult.Hits = 2;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
             cResult.InstanceName = "p1000-4.txt";
             cResult.BestObjective = 869374;
@@ -451,6 +589,9 @@ namespace CPP
             cResult.AverageTime = 1287.82;
             cResult.Hits = 9;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
             cResult.InstanceName = "p1000-5.txt";
             cResult.BestObjective = 888960;
@@ -458,6 +599,9 @@ namespace CPP
             cResult.AverageTime = 1356.64;
             cResult.Hits = 1;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
 
 
@@ -467,6 +611,9 @@ namespace CPP
             cResult.AverageTime = 3126.51;
             cResult.Hits = 4;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
             cResult.InstanceName = "p1500-2.txt";
             cResult.BestObjective = 1649778;
@@ -474,6 +621,9 @@ namespace CPP
             cResult.AverageTime = 2248.48;
             cResult.Hits = 1;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
 
             cResult.InstanceName = "p1500-3.txt";
@@ -482,6 +632,9 @@ namespace CPP
             cResult.AverageTime = 3599.09;
             cResult.Hits = 1;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
             cResult.InstanceName = "p1500-4.txt";
             cResult.BestObjective = 1641933;
@@ -489,6 +642,9 @@ namespace CPP
             cResult.AverageTime = 3067.75;
             cResult.Hits = 3;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
             cResult.InstanceName = "p1500-5.txt";
             cResult.BestObjective = 1595627;
@@ -496,6 +652,9 @@ namespace CPP
             cResult.AverageTime = 2897.65;
             cResult.Hits = 4;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
 
 
@@ -507,6 +666,9 @@ namespace CPP
             cResult.AverageTime = 9054.82;
             cResult.Hits = 1;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
             cResult.InstanceName = "p2000-2.txt";
             cResult.BestObjective = 2494840;
@@ -514,6 +676,9 @@ namespace CPP
             cResult.AverageTime = 7786.81;
             cResult.Hits = 1;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
 
             cResult.InstanceName = "p2000-3.txt";
@@ -522,6 +687,9 @@ namespace CPP
             cResult.AverageTime = 8492.93;
             cResult.Hits = 1;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
             cResult.InstanceName = "p2000-4.txt";
             cResult.BestObjective = 2528684;
@@ -529,6 +697,9 @@ namespace CPP
             cResult.AverageTime = 7119.96;
             cResult.Hits = 1;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
 
             cResult.InstanceName = "p2000-5.txt";
             cResult.BestObjective = 2513199;
@@ -536,6 +707,122 @@ namespace CPP
             cResult.AverageTime = 7308.74;
             cResult.Hits = 1;
             cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
+
+
+
+            cResult.InstanceName = "newb2500.1.txt";
+            cResult.BestObjective = 1063447;
+            cResult.AverageObjective = 1061285.90;
+            cResult.AverageTime = 9603.47;
+            cResult.Hits = 1;
+            cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
+
+            cResult.InstanceName = "newb2500.2.txt";
+            cResult.BestObjective = 1063517;
+            cResult.AverageObjective = 1061926.35;
+            cResult.AverageTime = 7465.33;
+            cResult.Hits = 1;
+            cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
+
+            cResult.InstanceName = "newb2500.3.txt";
+            cResult.BestObjective = 1082275;
+            cResult.AverageObjective = 1080759.70;
+            cResult.AverageTime = 7991.01;
+            cResult.Hits = 1;
+            cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
+
+            cResult.InstanceName = "newb2500.4.txt";
+            cResult.BestObjective = 1065977;
+            cResult.AverageObjective = 1063602.25;
+            cResult.AverageTime = 9871.94;
+            cResult.Hits = 1;
+            cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
+
+            cResult.InstanceName = "newb2500.5.txt";
+            cResult.BestObjective = 1066387;
+            cResult.AverageObjective = 1063602.25;
+            cResult.AverageTime = 6777.81;
+            cResult.Hits = 1;
+            cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
+
+            cResult.InstanceName = "newb2500.6.txt";
+            cResult.BestObjective = 1066847;
+            cResult.AverageObjective = 1065194.10;
+            cResult.AverageTime = 4908.76;
+            cResult.Hits = 1;
+            cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
+
+            cResult.InstanceName = "newb2500.7.txt";
+            cResult.BestObjective = 1068161;
+            cResult.AverageObjective = 1066540.75;
+            cResult.AverageTime = 4400.32;
+            cResult.Hits = 1;
+            cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
+
+
+            cResult.InstanceName = "newb2500.8.txt";
+            cResult.BestObjective = 1069934;
+            cResult.AverageObjective = 1068766.85;
+            cResult.AverageTime = 5681.42;
+            cResult.Hits = 1;
+            cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
+
+
+            cResult.InstanceName = "newb2500.9.txt";
+            cResult.BestObjective = 1071272;
+            cResult.AverageObjective = 1069488.00;
+            cResult.AverageTime = 9088.52;
+            cResult.Hits = 1;
+            cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+            cResult = new ResultsInstance();
+
+            cResult.InstanceName = "newb2500.10.txt";
+            cResult.BestObjective = 1066735;
+            cResult.AverageObjective = 1065303.15;
+            cResult.AverageTime = 8823.48;
+            cResult.Hits = 1;
+            cResult.OutOf = 20;
+            mMDMCP.Add(cResult);
+
+
+
+
+
+
+
+
+
+
+
 
         }
         void InitInstances()
@@ -548,22 +835,22 @@ namespace CPP
 
             mInstances = new List<TestInstance>();
 
-            /* 
-             mInstances.Add(new TestInstance(200, "rand100-100.txt", SmallFolder));
+            /*
              mInstances.Add(new TestInstance(200, "rand100-5.txt", SmallFolder));
-             mInstances.Add(new TestInstance(200, "rand200-100.txt", SmallFolder));
-             mInstances.Add(new TestInstance(200, "rand200-5.txt", SmallFolder));
-             mInstances.Add(new TestInstance(200, "rand300-100.txt", SmallFolder));
-             mInstances.Add(new TestInstance(200, "rand300-5.txt", SmallFolder));
+             mInstances.Add(new TestInstance(200, "rand100-100.txt", SmallFolder));
+            mInstances.Add(new TestInstance(200, "rand200-5.txt", SmallFolder));
+            mInstances.Add(new TestInstance(200, "rand200-100.txt", SmallFolder));
+            mInstances.Add(new TestInstance(200, "rand300-5.txt", SmallFolder));
+            mInstances.Add(new TestInstance(200, "rand300-100.txt", SmallFolder));
              mInstances.Add(new TestInstance(200, "sym300-50.txt", SmallFolder));
              mInstances.Add(new TestInstance(200, "regnier300-50.txt", SmallFolder));
              mInstances.Add(new TestInstance(200, "zahn300.txt", SmallFolder));
 
 
-             mInstances.Add(new TestInstance(500, "rand400-100.txt", SmallFolder));
-             mInstances.Add(new TestInstance(500, "rand400-5.txt", SmallFolder));
-             mInstances.Add(new TestInstance(500, "rand500-100.txt", SmallFolder));
-             mInstances.Add(new TestInstance(500, "rand500-5.txt", SmallFolder));
+            mInstances.Add(new TestInstance(500, "rand400-5.txt", SmallFolder));
+            mInstances.Add(new TestInstance(500, "rand400-100.txt", SmallFolder));
+            mInstances.Add(new TestInstance(500, "rand500-5.txt", SmallFolder));
+            mInstances.Add(new TestInstance(500, "rand500-100.txt", SmallFolder));
 
 
              mInstances.Add(new TestInstance(500, "p500-5-1.txt", SmallFolder));
@@ -597,7 +884,7 @@ namespace CPP
              mInstances.Add(new TestInstance(500, "gauss500-100-3.txt", SmallFolder));
              mInstances.Add(new TestInstance(500, "gauss500-100-4.txt", SmallFolder));
              mInstances.Add(new TestInstance(500, "gauss500-100-5.txt", SmallFolder));
-            */
+
 
             mInstances.Add(new TestInstance(1000, "unif700-100-1.txt", MediumFolder));
              mInstances.Add(new TestInstance(1000, "unif700-100-2.txt", MediumFolder));
@@ -627,7 +914,7 @@ namespace CPP
 
              mInstances.Add(new TestInstance(10000, "p2000-1.txt", MediumFolder));
              mInstances.Add(new TestInstance(10000, "p2000-2.txt", MediumFolder));
-           /*
+           
             mInstances.Add(new TestInstance(10000, "p2000-3.txt", MediumFolder));
             
             mInstances.Add(new TestInstance(10000, "p2000-4.txt", MediumFolder));
@@ -643,6 +930,7 @@ namespace CPP
             mInstances.Add(new TestInstance(10000, "new_b2500.5.txt", LargeFolder));
             mInstances.Add(new TestInstance(10000, "new_b2500.6.txt", LargeFolder));
             mInstances.Add(new TestInstance(10000, "new_b2500.7.txt", LargeFolder));
+            */
             mInstances.Add(new TestInstance(10000, "new_b2500.8.txt", LargeFolder));
             mInstances.Add(new TestInstance(10000, "new_b2500.9.txt", LargeFolder));
             mInstances.Add(new TestInstance(10000, "new_b2500.10.txt", LargeFolder));
@@ -761,12 +1049,12 @@ namespace CPP
             List<CPPProblem> tProblems = new List<CPPProblem>();
             mInstances.Clear();
 
+            mInstances.Add(new TestInstance(2000, "p1000-5.txt", MediumFolder));
 
             //                                    mInstances.Add(new TestInstance(100, "rand100-100.txt", SmallFolder));
 
             //                        mInstances.Add(new TestInstance(4000, "p1500-1.txt", MediumFolder));
-            //                        mInstances.Add(new TestInstance(10000, "new_b2500.5.txt", LargeFolder));
-            mInstances.Add(new TestInstance(10000, "p2000-2.txt", MediumFolder));
+            //          mInstances.Add(new TestInstance(10000, "p2000-2.txt", MediumFolder));
 
             /**/
 
@@ -866,9 +1154,11 @@ namespace CPP
     
    
 
-    void LoadResults(string Filename, long[] Info)
-        { 
-
+    bool LoadResults(string Filename, long[] Info)
+        {
+            if (!File.Exists(Filename))
+                return false;
+            
             string[] Lines = File.ReadAllLines(Filename);
             char[] sep = { ' ' };
             string[] words;
@@ -879,16 +1169,18 @@ namespace CPP
             Info[1] = System.Convert.ToInt64(words[1]);
             Info[2] = System.Convert.ToInt64(words[2]);
 
+            return true;
+
         }
 
-        public ResultsInstance GetAggregateResults(string FileNameBase, string Folder, int NumRuns) {
+        public bool  GetAggregateResults(string FileNameBase, string Folder, int NumRuns, out ResultsInstance r) {
 
             List<long> Res = new List<long>();
             long SumTime = 0;
             long SumIter = 0;
             long SumObjective = 0;
             
-            ResultsInstance r = new ResultsInstance();
+            r = new ResultsInstance();
 
             int Hits;
             string cFileName;
@@ -898,7 +1190,8 @@ namespace CPP
             for (int i = 0; i < NumRuns; i++) { 
                 
                 cFileName = Folder + "Log_"+i+"_" + FileNameBase;
-                LoadResults(cFileName, temp);
+                if (!LoadResults(cFileName, temp))
+                    return false;
 
                 SumTime += temp[2];
                 SumIter += temp[1];
@@ -923,22 +1216,35 @@ namespace CPP
                     r.Hits++;
             }
 
-            return r;
+            return true;
         }
 
         public void CreateTable(int NumRuns, string ResultsFolder)
         {
 
             ResultsInstance Res;
+            List<ResultsInstance> Compare = new List<ResultsInstance>();
             StreamWriter  F = new StreamWriter("Table.txt");
+            string ResString;
 
             InitInstances();
+            InitMDMCPResults();
 
-            foreach (TestInstance t in mInstances)
+
+            for(int i=0; i< mInstances.Count; i++)
             {
-                Res = GetAggregateResults(t.mFileName, ResultsFolder, NumRuns);
+                if (GetAggregateResults(mInstances[i].mFileName, ResultsFolder, NumRuns, out Res)) {
 
-                F.WriteLine(Res.GetTableString(true));
+                    Compare.Clear();
+                    Compare.Add(mMDMCP[i]);
+                    Compare.Add(Res);
+                    ResString = ResultsInstance.GetTableCompareString(Compare, true);
+
+                    F.WriteLine(ResString);
+//                    F.WriteLine(Res.GetTableString(true));
+                }
+
+                
             }
 
             F.Close();

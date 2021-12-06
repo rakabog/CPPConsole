@@ -11,6 +11,7 @@ namespace CPP
     {
         public enum GreedyHeuristicType { MaxIncrease, Random };
         public enum CPPMetaheuristic { GRASP, FSS }
+        public enum CPPCooling {Geometric, LinearMultiplicative }
 
         CPPInstance mInstance;
         CPPSolutionBase mSolution;
@@ -35,7 +36,7 @@ namespace CPP
         int mFixK;
         int mFixInitPopulation;
         int mFixN;
-        double mSAInitTemperature;
+        SAParameters   mSAParams;
         int mID;
 
 
@@ -195,6 +196,9 @@ namespace CPP
 
             CPPSolutionMaxIncrease.Init(mInstance.NumberOfNodes);
 
+            mSAParams = new SAParameters();
+            mSAParams.InitGeometric();
+//            mSAParams.InitLinearMultiplicative();
         }
 
         public void AllocateSolution()
@@ -684,7 +688,7 @@ namespace CPP
 
                 mSolution.LocalSearch(mGenerator, null);
                 cObj = mSolution.CalculateObjective();
-                mSolution.SimulatedAnealing(mGenerator, mSAInitTemperature, out Accept);
+                mSolution.SimulatedAnealing(mGenerator, mSAParams, out Accept);
                 cObj = mSolution.CalculateObjective();
 
 
@@ -737,13 +741,13 @@ namespace CPP
 
             InitTracking();
 
-            mSAInitTemperature = 1000;
+            mSAParams.mInitTemperature = 1000;
             mNumberOfSolutionsGenerated = 0;
             while (true)
             {
 
                 SolveGreedy();
-                mSolution.CalibrateSA(mGenerator, mSAInitTemperature, out Accept);
+                mSolution.CalibrateSA(mGenerator,mSAParams, out Accept);
                 cSolutionValue = mSolution.CalculateObjective();
                 mSolution.Objective = cSolutionValue;
                 mSolutionHolder.Add(mSolution);
@@ -753,15 +757,15 @@ namespace CPP
                 if (Accept > DesiredAcceptance + Tolerate)
                 {
 
-                    UT = mSAInitTemperature;
-                    mSAInitTemperature = (LT + UT) / 2;
+                    UT = mSAParams.mInitTemperature;
+                    mSAParams.mInitTemperature = (LT + UT) / 2;
                     continue;
                 }
 
                 if (Accept < DesiredAcceptance - Tolerate)
                 {
-                    LT = mSAInitTemperature;
-                    mSAInitTemperature = (LT + UT) / 2;
+                    LT = mSAParams.mInitTemperature;
+                    mSAParams.mInitTemperature = (LT + UT) / 2;
                     continue;
                 }
                 break;
@@ -796,7 +800,7 @@ namespace CPP
                 cSolutionValue = mSolution.CalculateObjective();
                 mSolution.LocalSearch(mGenerator);
                 cSolutionValue = mSolution.CalculateObjective();
-                mSolution.SimulatedAnealing(mGenerator, mSAInitTemperature, out Accept);
+                mSolution.SimulatedAnealing(mGenerator, mSAParams, out Accept);
                 //         mSolution.SARestricted(mGenerator, mSAInitTemperature, out Accept);
                 cSolutionValue = mSolution.CalculateObjective();
                 mNumberOfSolutionsGenerated++;

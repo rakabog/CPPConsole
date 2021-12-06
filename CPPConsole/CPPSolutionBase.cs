@@ -1044,13 +1044,10 @@ namespace CPP
             while (RemoveEmptyClique(true)) ;
         }
 
-        public bool SimulatedAnealing(Random iGenerator, double InitTemperature, out double AcceptRelative)
+        public bool SimulatedAnealing(Random iGenerator, SAParameters iSAParameters, out double AcceptRelative)
         {
 
-            int SizeSARepeat = 16;
             int NeiborhoodSize = mInstance.NumberOfNodes * NumberOfCliques;
-            double MinAccept = 0.01;
-            double SACool = 0.9;
             int n;
             double Prob;
             double T = 1;
@@ -1067,7 +1064,7 @@ namespace CPP
 
             InitAllConnections();
 
-            T = InitTemperature;
+            T = iSAParameters.mInitTemperature;
 
             int counterCool = 0;
             cSolObjective = StartObjective;
@@ -1077,7 +1074,7 @@ namespace CPP
                 counter++;
                 Accept = 0;
 
-                for (int i = 0; i < NeiborhoodSize * SizeSARepeat; i++)
+                for (int i = 0; i < NeiborhoodSize * iSAParameters.mSizeRepeat; i++)
                 {
                     cRelocation.mChange = int.MinValue;
 
@@ -1106,10 +1103,20 @@ namespace CPP
                     }
                 }
 
-                T *= SACool;
+
                 counterCool++;
 
-                if ((double)Accept / (NeiborhoodSize * SizeSARepeat) < MinAccept)
+                if (iSAParameters.mCooling == CPPProblem.CPPCooling.Geometric)
+                {
+                    T *= iSAParameters.mCoolingParam;
+                }
+                if (iSAParameters.mCooling == CPPProblem.CPPCooling.LinearMultiplicative) {
+
+                    T = iSAParameters.mInitTemperature *  1 / (1 + iSAParameters.mCoolingParam * counterCool);
+                }
+                
+
+                if ((double)Accept / (NeiborhoodSize * iSAParameters.mSizeRepeat) < iSAParameters.mMinAccept)
                 {
 
                     Stag++;
@@ -1134,15 +1141,15 @@ namespace CPP
 
 //            Console.WriteLine("Cool counter " + counterCool);
 
-            AcceptRelative = ((double)AcceptTotal) / (NeiborhoodSize * SizeSARepeat * counter);
+            AcceptRelative = ((double)AcceptTotal) / (NeiborhoodSize * iSAParameters.mSizeRepeat * counter);
             return true;
         }
 
 
-        public bool CalibrateSA(Random iGenerator, double InitTemperature, out double Accept)
+        public bool CalibrateSA(Random iGenerator, SAParameters iSAParameters, out double Accept)
         {
 
-            int MaxStep = mInstance.NumberOfNodes * NumberOfCliques * 20;
+            int MaxStep = mInstance.NumberOfNodes * NumberOfCliques *iSAParameters.mSizeRepeat;
             int n;
             double Prob;
             double T = 1;
@@ -1166,7 +1173,7 @@ namespace CPP
                 Relocation.mChange = int.MinValue;
                 //                cBestChange = int.MinValue;
                 SASelect(ref Relocation, iGenerator);
-                T = InitTemperature;
+                T = iSAParameters.mInitTemperature;
 
                 //                Prob = Math.Exp(cBestChange / T);
                 Prob = Math.Exp(Relocation.mChange / T);
@@ -1176,19 +1183,7 @@ namespace CPP
                     Accept++;
 
                     ApplyRelocation(Relocation);
-                    /*
-                    foreach (int[] t in cBestRelocation)
-                    {
-
-                        UpdateAllConnections(t[0], t[1]);
-                        MoveNode(t[0], t[1]);
-                        
-
-                    }
-                    while (RemoveEmptyClique(true)) ;
-                    */
-                    //                    cSol = CalculateObjective();
-                    //                    cSolObjective += cBestChange;
+                    
                     cSolObjective += Relocation.mChange;
                     if (cSol != cSolObjective)
                         cSol = cSol;

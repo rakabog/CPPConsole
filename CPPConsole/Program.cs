@@ -12,9 +12,9 @@ namespace CPPConsole
             CPPExperiments tExperiments = new CPPExperiments();
             tExperiments.SolveSingle();
 
-//                        tExperiments.CreateTable( 10, ".\\AllRez\\");
+                        tExperiments.CreateTable( 10, ".\\AllRezNew\\");
 //            tExperiments.SolveSingleParallel(10);
-            tExperiments.SolveAllParallel(10);
+//            tExperiments.SolveAllParallel(10);
             //            tExperiments.SolveSingle();
 
         }

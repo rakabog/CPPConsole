@@ -321,20 +321,20 @@ namespace CPP
             cResult = new ResultsInstance();
 
             cResult.InstanceName = "p500-100-4.txt";
-            cResult.BestObjective = 16808;
-            cResult.AverageObjective = 16808;
-            cResult.AverageTime = 192.45;
-            cResult.Hits = 20;
+            cResult.BestObjective = 309567;
+            cResult.AverageObjective = 309555.50;
+            cResult.AverageTime = 509.23;
+            cResult.Hits = 16;
             cResult.OutOf = 20;
             mMDMCP.Add(cResult);
 
             cResult = new ResultsInstance();
 
             cResult.InstanceName = "p500-100-5.txt";
-            cResult.BestObjective = 309567;
-            cResult.AverageObjective = 309555.50;
-            cResult.AverageTime = 509.23;
-            cResult.Hits = 16;
+            cResult.BestObjective = 309135;
+            cResult.AverageObjective = 309135.00;
+            cResult.AverageTime = 196.45;
+            cResult.Hits = 20;
             cResult.OutOf = 20;
             mMDMCP.Add(cResult);
 

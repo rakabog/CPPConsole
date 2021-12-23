@@ -1,6 +1,6 @@
 ﻿namespace CPP
 {
-    public enum SAMoveType { N0, N1, Both, Swap };
+    public enum SAMoveType { N0, N1, Both, Swap, Slide };
     public class SARelocation
     {
 

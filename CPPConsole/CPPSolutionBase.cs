@@ -4,12 +4,15 @@ using System.IO;
 using System.Linq;
 namespace CPP
 {
-    public enum SASelectType { Simple, Dual, Triple };
+    public enum SASelectType { Single, Dual, Triple };
     class CPPSolutionBase
     {
         protected List<List<int>> mCliques;
+        protected List<int>       mCliqueSizes;
+
         protected int mObjective;
         protected int[] mNodeClique;
+    //    protected int[][] mWeights;
         protected CPPInstance mInstance;
         int mMaxBuffer;
         int[][] mAllConnections;
@@ -405,7 +408,11 @@ namespace CPP
                     mAllConnections[c][tn] = CalculateAllConnections(tn, c);
                 }
             }
+            mCliqueSizes = new List<int>();
 
+            foreach (List<int> cClique in mCliques) {
+                mCliqueSizes.Add(cClique.Count);
+            }
 
         }
 
@@ -571,7 +578,7 @@ namespace CPP
 
 
 
-        void SimulatedAnnealingSelectDual(ref SARelocation Relocation)
+        void SASelectDual(ref SARelocation Relocation)
         {
 
             int[] CliqueConnections;
@@ -587,21 +594,26 @@ namespace CPP
             int cChange1;
             int cChange;
             int swapChange;
-            int Size = mCliques.Count;
+            int Size = mCliqueSizes.Count;
 
             n0RemoveChange = -mAllConnections[n0Clique][Relocation.mN0];
             n1RemoveChange = -mAllConnections[n1Clique][Relocation.mN1];
 
+
+              bWeight = mInstance.Weights[Relocation.mN0][Relocation.mN1];
+//            bWeight = mInstance.mWeightsCopy[Relocation.mN0,Relocation.mN1];
+//            bWeight = mWeights[Relocation.mN0][Relocation.mN1];
+
+
             if (n0RemoveChange < n1RemoveChange)
             {
+                if (mCliqueSizes[n1Clique] > 1)
+                {
 
-                Relocation.mChange = n1RemoveChange;
-                Relocation.mC1 = mCliques.Count;
-                Relocation.mMoveType = SAMoveType.N1;
-
-                //                relocateNode = 1;
-                //                relocateClique = mCliques.Count;
-                //                cBest = n1RemoveChange;
+                    Relocation.mChange = n1RemoveChange;
+                    Relocation.mC1 = Size;
+                    Relocation.mMoveType = SAMoveType.N1;
+                }
 
 
             }
@@ -609,19 +621,16 @@ namespace CPP
             {
 
 
-                Relocation.mChange = n0RemoveChange;
-                Relocation.mC0 = mCliques.Count;
-                Relocation.mMoveType = SAMoveType.N0;
+                if (mCliqueSizes[n0Clique] > 1)
+                {
+                    Relocation.mChange = n0RemoveChange;
+                    Relocation.mC0 = Size;
+                    Relocation.mMoveType = SAMoveType.N0;
+                }
 
-                /*
-                relocateNode = 0;
-                relocateClique = mCliques.Count;
-                cBest = n0RemoveChange;
-                */
             }
 
-            bWeight = mInstance.Weights[Relocation.mN0][Relocation.mN1];
-
+            //           bWeight = mInstance.GetWeight(Relocation.mN0, Relocation.mN1);
             /**/
 
             for (int c = 0; c < Size; c++)
@@ -667,6 +676,191 @@ namespace CPP
 
                 if ((n1Clique != c) && (n0Clique != c))
                 {
+               
+                    if (n1Clique == n0Clique)
+                    {
+
+                        cChange = cChange1 + cChange0 + 2 * bWeight;
+                        //     cChange = int.MinValue;
+                    }
+                    else
+                    {
+                        cChange = cChange1 + cChange0 + bWeight;
+                        //                        cChange = int.MinValue;
+                    }
+
+                    if (cChange > Relocation.mChange)
+                    {
+                        /*
+                        relocateNode = 2;
+                        relocateClique = c;
+                        cBest = cChange;
+                        */
+
+                        Relocation.mChange = cChange;
+                        Relocation.mC0 = c;
+                        Relocation.mC1 = c;
+                        Relocation.mMoveType = SAMoveType.Both;
+                    }
+
+                }
+
+            }
+
+
+            if (n1Clique != n0Clique )
+            {
+                
+
+                swapChange = n0RemoveChange + n1RemoveChange + mAllConnections[n0Clique][Relocation.mN1] + mAllConnections[n1Clique][Relocation.mN0] - 2 * bWeight;
+                if (swapChange > Relocation.mChange)
+                {
+                    Relocation.mChange = swapChange;
+                    Relocation.mMoveType = SAMoveType.Swap;
+                }
+            }
+
+            n0RemoveChange += n1RemoveChange;
+
+
+            if (n1Clique == n0Clique)
+            {
+          
+                //                if (cBest < RemoveChange + 2 * bWeight)
+                if (Relocation.mChange < n0RemoveChange + 2 * bWeight)
+                {
+                    Relocation.mChange = n0RemoveChange + 2 * bWeight;
+                    Relocation.mC0 = Size;
+                    Relocation.mC1 = Size;
+                    Relocation.mMoveType = SAMoveType.Both;
+                }
+
+            }
+            else
+            {
+       
+                if (Relocation.mChange < n0RemoveChange + bWeight)
+                //                    if (cBest < RemoveChange + bWeight)
+                {
+
+                    Relocation.mChange = n0RemoveChange + bWeight;
+                    Relocation.mC0 = Size;
+                    Relocation.mC1 = Size;
+                    Relocation.mMoveType = SAMoveType.Both;
+                }
+
+            }
+
+
+        }
+
+
+        void SASelectDualExt(ref SARelocation Relocation)
+        {
+
+            int[] CliqueConnections;
+
+            int n0Clique = mNodeClique[Relocation.mN0];
+            int n1Clique = mNodeClique[Relocation.mN1];
+            int n0RemoveChange;
+            int n1RemoveChange;
+            int RemoveChange;
+            //-1 non2 0 -n0 1- n1  2-both
+            int bWeight;
+            int cChange0;
+            int cChange1;
+            int cChange;
+            int swapChange;
+            int Size = mCliqueSizes.Count;
+
+            n0RemoveChange = -mAllConnections[n0Clique][Relocation.mN0];
+            n1RemoveChange = -mAllConnections[n1Clique][Relocation.mN1];
+
+
+            bWeight = mInstance.Weights[Relocation.mN0][Relocation.mN1];
+            //            bWeight = mInstance.mWeightsCopy[Relocation.mN0,Relocation.mN1];
+            //            bWeight = mWeights[Relocation.mN0][Relocation.mN1];
+
+
+            if (n0RemoveChange < n1RemoveChange)
+            {
+                if (mCliqueSizes[n1Clique] > 1)
+                {
+
+                    Relocation.mChange = n1RemoveChange;
+                    Relocation.mC1 = Size;
+                    Relocation.mMoveType = SAMoveType.N1;
+                }
+
+
+            }
+            else
+            {
+
+
+                if (mCliqueSizes[n0Clique] > 1)
+                {
+                    Relocation.mChange = n0RemoveChange;
+                    Relocation.mC0 = Size;
+                    Relocation.mMoveType = SAMoveType.N0;
+                }
+
+            }
+
+            //           bWeight = mInstance.GetWeight(Relocation.mN0, Relocation.mN1);
+            /**/
+
+            for (int c = 0; c < Size; c++)
+            {
+
+                /**/
+                CliqueConnections = mAllConnections[c];
+
+                cChange0 = n0RemoveChange + CliqueConnections[Relocation.mN0];
+
+                if (n0Clique != c)
+                {
+                    if (cChange0 > Relocation.mChange)
+                    {
+
+                        Relocation.mChange = cChange0;
+                        Relocation.mC0 = c;
+                        Relocation.mMoveType = SAMoveType.N0;
+                        /*
+                        relocateNode = 0;
+                        relocateClique = c;
+                        cBest = cChange0;
+                        */
+                    }
+
+                
+
+
+                }
+                cChange1 = n1RemoveChange + CliqueConnections[Relocation.mN1];
+
+
+                if (n1Clique != c)
+                {
+                    if (cChange1 > Relocation.mChange)
+                    {
+
+                        Relocation.mChange = cChange1;
+                        Relocation.mC1 = c;
+                        Relocation.mMoveType = SAMoveType.N1;
+
+
+                        /*
+                        relocateNode = 1;
+                        relocateClique = c;
+                        cBest = cChange1;
+                        */
+                    }
+                }
+                // edge
+
+                if ((n1Clique != c) && (n0Clique != c))
+                {
 
                     if (n1Clique == n0Clique)
                     {
@@ -693,13 +887,74 @@ namespace CPP
                         Relocation.mC1 = c;
                         Relocation.mMoveType = SAMoveType.Both;
                     }
+
                 }
+
+                //slide
+                if (n0Clique != n1Clique)
+                {
+                    if (c != n0Clique)
+                    {
+                        if (c != n1Clique)
+                        {
+                            cChange = cChange0 + n1RemoveChange + mAllConnections[n0Clique][Relocation.mN1] - bWeight;
+                        }
+                        else
+                        {
+
+                            cChange = cChange0 + n1RemoveChange + mAllConnections[n0Clique][Relocation.mN1] - 2 * bWeight;
+                        }
+
+                        if (cChange > Relocation.mChange)
+                        {
+
+                            Relocation.mChange = cChange;
+                            Relocation.mC0 = c;
+                            Relocation.mC1 = n0Clique;
+                            Relocation.mMoveType = SAMoveType.Slide;
+                        }
+                    }
+
+                    if (c != n1Clique)
+                    {
+                        if (c != n0Clique)
+                        {
+                            cChange = cChange1 + n0RemoveChange + mAllConnections[n1Clique][Relocation.mN0] - bWeight;
+                        }
+                        else
+                        {
+
+                            cChange = cChange1 + n0RemoveChange + mAllConnections[n1Clique][Relocation.mN0] - 2 * bWeight;
+                        }
+
+                        if (cChange > Relocation.mChange)
+                        {
+
+                            Relocation.mChange = cChange;
+                            Relocation.mC0 = n1Clique;
+                            Relocation.mC1 = c;
+                            Relocation.mMoveType = SAMoveType.Slide;
+                        }
+
+                    }
+
+                }
+                /*
+                
+               
+              /*  */
+
+
+
+
 
             }
 
 
             if (n1Clique != n0Clique)
             {
+
+
                 swapChange = n0RemoveChange + n1RemoveChange + mAllConnections[n0Clique][Relocation.mN1] + mAllConnections[n1Clique][Relocation.mN0] - 2 * bWeight;
                 if (swapChange > Relocation.mChange)
                 {
@@ -713,150 +968,95 @@ namespace CPP
 
             if (n1Clique == n0Clique)
             {
+
                 //                if (cBest < RemoveChange + 2 * bWeight)
                 if (Relocation.mChange < n0RemoveChange + 2 * bWeight)
                 {
                     Relocation.mChange = n0RemoveChange + 2 * bWeight;
-                    Relocation.mC0 = mCliques.Count;
-                    Relocation.mC1 = mCliques.Count;
+                    Relocation.mC0 = Size;
+                    Relocation.mC1 = Size;
                     Relocation.mMoveType = SAMoveType.Both;
                 }
 
             }
             else
             {
+
                 if (Relocation.mChange < n0RemoveChange + bWeight)
                 //                    if (cBest < RemoveChange + bWeight)
                 {
 
                     Relocation.mChange = n0RemoveChange + bWeight;
-                    Relocation.mC0 = mCliques.Count;
-                    Relocation.mC1 = mCliques.Count;
+                    Relocation.mC0 = Size;
+                    Relocation.mC1 = Size;
                     Relocation.mMoveType = SAMoveType.Both;
                 }
 
             }
 
-
-            /*
-            RemoveChange = n0RemoveChange + n1RemoveChange;
-
-
-            if (n1Clique == n0Clique)
-            {
-                //                if (cBest < RemoveChange + 2 * bWeight)
-                if (Relocation.mChange < RemoveChange + 2 * bWeight)
-                {
-                    Relocation.mChange = RemoveChange + 2 * bWeight;
-                    Relocation.mC0 = mCliques.Count;
-                    Relocation.mC1 = mCliques.Count;
-                    Relocation.mMoveType = SAMoveType.Both;
-                }
-
-            }
-            else
-            {
-                if (Relocation.mChange < RemoveChange + bWeight)
-                //                    if (cBest < RemoveChange + bWeight)
-                {
-
-                    Relocation.mChange = RemoveChange + bWeight;
-                    Relocation.mC0 = mCliques.Count;
-                    Relocation.mC1 = mCliques.Count;
-                    Relocation.mMoveType = SAMoveType.Both;
-                }
-
-            }
-
-            */
-
-            /*
-            if (n1Clique != n0Clique)
-        {
-            swapChange = n0RemoveChange + n1RemoveChange + mAllConnections[n0Clique][n1] + mAllConnections[n1Clique][n0] - 2 * bWeight;
-
-            if (swapChange > cBest)
-            {
-
-                BestRelocations.Clear();
-                BestChange = swapChange;
-
-                temp = new int[2];
-                temp[0] = n0;
-                temp[1] = n1Clique;
-
-                BestRelocations.Add(temp);
-
-                temp = new int[2];
-                temp[0] = n1;
-                temp[1] = n0Clique;
-                BestRelocations.Add(temp);
-
-                return;
-
-            }
 
         }
 
-        if (cBest > BestChange) 
+
+        void SimulatedAnnealingSelectSingle(ref SARelocation Relocation)
         {
 
-            BestRelocations.Clear();
-            BestChange = cBest;
-            if (relocateNode == 0)
+            int[] CliqueConnections;
+
+            int n0Clique = mNodeClique[Relocation.mN0];
+            int n0RemoveChange;
+            //-1 non2 0 -n0 1- n1  2-both
+            int Size = mCliques.Count;
+            int cChange0;    
+            n0RemoveChange = -mAllConnections[n0Clique][Relocation.mN0];
+
+
+            Relocation.mChange = n0RemoveChange;
+            Relocation.mC1 = Size;
+            Relocation.mMoveType = SAMoveType.N0;
+
+
+
+           
+            for (int c = 0; c < Size; c++)
             {
-                temp = new int[2];
-                temp[0] = n0;
-                temp[1] = relocateClique;
-                BestRelocations.Add(temp);
 
-            }
-            else
-            {
-                if (relocateNode == 1)
+                /**/
+                CliqueConnections = mAllConnections[c];
+
+                cChange0 = n0RemoveChange + CliqueConnections[Relocation.mN0];
+                if (n0Clique != c)
                 {
-                    temp = new int[2];
-                    temp[0] = n1;
-                    temp[1] = relocateClique;
-                    BestRelocations.Add(temp);
+                    if (cChange0 > Relocation.mChange)
+                    {
 
-
+                        Relocation.mChange = cChange0;
+                        Relocation.mC0 = c;
+                        Relocation.mMoveType = SAMoveType.N0;
+                        /*
+                        relocateNode = 0;
+                        relocateClique = c;
+                        cBest = cChange0;
+                        */
+                    }
                 }
-                else
-                {
-                    temp = new int[2];
-                    temp[0] = n0;
-                    temp[1] = relocateClique;
-
-                    BestRelocations.Add(temp);
-
-                    temp = new int[2];
-                    temp[0] = n1;
-                    temp[1] = relocateClique;
-                    BestRelocations.Add(temp);
-                }
+                
             }
+
+
         }
 
-        if (cBest == 0)
-            cBest = cBest;
-            */
-        }
 
 
 
 
-
-
-        void SimulatedAnnealingSelectDual(ref SARelocation Relocation, Random iGenerator)
+        void SASelectDual(ref SARelocation Relocation, Random iGenerator)
         {
             int n0, n1;
 
 
 
             n0 = iGenerator.Next() % mInstance.NumberOfNodes;
-
-            //          SimulatedAnnealingSelectSimple(n1, ref BestChange, BestRelocations, iGenerator);
 
             while (true)
             {
@@ -867,14 +1067,11 @@ namespace CPP
             }
             Relocation.mN0 = n0;
             Relocation.mN1 = n1;
+            //            int bWeight = mInstance.Weights[Relocation.mN0][Relocation.mN1];
 
+            SASelectDualExt(ref Relocation);
+//            SASelectDual(ref Relocation);
 
-            //         SimulatedAnnealingSelectSimple(n2, ref BestChange, BestRelocations, iGenerator);
-
-            //            SimulatedAnnealingSelectDual(n1, n2, ref BestChange, BestRelocations, iGenerator);
-
-            SimulatedAnnealingSelectDual(ref Relocation);
-            //   return;
 
 
 
@@ -882,110 +1079,31 @@ namespace CPP
         }
 
 
-
-        void SimulatedAnnealingSelectSimple(out int BestChange, List<int[]> BestRelocations, Random iGenerator)
+        void SimulatedAnnealingSelectSingle(ref SARelocation Relocation, Random iGenerator)
         {
-            int n;
-
-            BestChange = int.MinValue;
-            n = iGenerator.Next() % mInstance.NumberOfNodes;
-            SimulatedAnnealingSelectSimple(n, ref BestChange, BestRelocations, iGenerator);
-        }
-
-        /*
-
-         void SimulatedAnnealingSelectTrio(out int BestChange, List<int[]> BestRelocations, Random iGenerator)
-         {
-             int n1, n2, n3;
-
-             n1 = iGenerator.Next() % mInstance.NumberOfNodes;
-             while (true) { 
-
-                 n2 = iGenerator.Next() % mInstance.NumberOfNodes;
-                 if (n1 != n2)
-                        break;
-             }
-
-             while (true)
-             {
-
-                 n3 = iGenerator.Next() % mInstance.NumberOfNodes;
-                 if ((n1 != n3) && (n2 != n3))
-                     break;
-
-             }
+            int n0, n1;
 
 
 
-             BestChange = int.MinValue;
+            n0 = iGenerator.Next() % mInstance.NumberOfNodes;
 
-             SimulatedAnnealingSelectSimple(n1, ref BestChange, BestRelocations, iGenerator);
-             SimulatedAnnealingSelectSimple(n2, ref BestChange, BestRelocations, iGenerator);
-             SimulatedAnnealingSelectSimple(n3, ref BestChange, BestRelocations, iGenerator);
+         
+            Relocation.mN0 = n0;
+            //            int bWeight = mInstance.Weights[Relocation.mN0][Relocation.mN1];
 
-
-             SimulatedAnnealingSelectDual(n1,n2, ref BestChange, BestRelocations);
-             SimulatedAnnealingSelectDual(n1, n3, ref BestChange, BestRelocations);
-             SimulatedAnnealingSelectDual(n2, n3, ref BestChange, BestRelocations);
-
-             SimulatedAnnealingSelectTrio(n1, n2, n3, ref BestChange, BestRelocations, iGenerator);
+            SimulatedAnnealingSelectSingle(ref Relocation);
 
 
-
-         }
-        */
-
-
-        void SimulatedAnnealingSelectSimple(int n, ref int BestChange, List<int[]> BestRelocations, Random iGenerator)
-        {
-
-
-
-
-            int cRemoveChange;
-            int cChangeRelocate;
-            int[] BestReloc;
-            int bestClique;
-            cRemoveChange = mAllConnections[mNodeClique[n]][n];
-
-
-            if ((BestChange < -cRemoveChange))
-
-            {
-
-                BestChange = -cRemoveChange;
-                BestReloc = new int[2];
-
-                BestRelocations.Clear();
-                BestReloc[0] = n;
-                BestReloc[1] = mCliques.Count;
-                BestRelocations.Add(BestReloc);
-            }
-
-            for (int c = 0; c < mCliques.Count; c++)
-            {
-
-                if (c != mNodeClique[n])
-                {
-                    //                    cChangeRelocate = mAllConnections[c][n] - mAllConnections[mNodeClique[n]][n];
-                    cChangeRelocate = mAllConnections[c][n] - cRemoveChange;
-                    if (BestChange < cChangeRelocate)
-                    {
-                        BestReloc = new int[2];
-                        BestReloc[0] = n;
-                        BestReloc[1] = c;
-                        BestChange = cChangeRelocate;
-
-                        BestRelocations.Clear();
-                        BestRelocations.Add(BestReloc);
-
-                    }
-                }
-            }
 
 
 
         }
+
+
+
+
+
+
 
         public void SASelect(ref SARelocation Relocations, Random iGenerator)
         {
@@ -993,17 +1111,17 @@ namespace CPP
             switch (mSASelectType)
             {
 
-                //                case SASelectType.Simple:
-                //                    SimulatedAnnealingSelectSimple(out cBestChange, cBestRelocation,iGenerator);
-                //                    break;
+                case SASelectType.Single:
+                                 SimulatedAnnealingSelectSingle(ref Relocations, iGenerator);
+                                 break;
                 case SASelectType.Dual:
-                    SimulatedAnnealingSelectDual(ref Relocations, iGenerator);
+                    SASelectDual(ref Relocations, iGenerator);
                     break;
                 //                case SASelectType.Triple:
                 //                    SimulatedAnnealingSelectTrio(out cBestChange, cBestRelocation, iGenerator);
                 //                    break;
                 default:
-                    SimulatedAnnealingSelectDual(ref Relocations, iGenerator);
+                    SASelectDual(ref Relocations, iGenerator);
                     //                    SimulatedAnnealingSelectSimple(out cBestChange, cBestRelocation, iGenerator);
                     break;
             }
@@ -1019,29 +1137,44 @@ namespace CPP
                 case SAMoveType.N0:
 
                     UpdateAllConnections(Relocation.mN0, Relocation.mC0);
-                    MoveNode(Relocation.mN0, Relocation.mC0);
+                    MoveNodeSA(Relocation.mN0, Relocation.mC0);
+//                    MoveNode(Relocation.mN0, Relocation.mC0);
+
                     break;
                 case SAMoveType.N1:
                     UpdateAllConnections(Relocation.mN1, Relocation.mC1);
-                    MoveNode(Relocation.mN1, Relocation.mC1);
+//                    MoveNode(Relocation.mN1, Relocation.mC1);
+                    MoveNodeSA(Relocation.mN1, Relocation.mC1);
                     break;
                 case SAMoveType.Both:
 
                     UpdateAllConnections(Relocation.mN0, Relocation.mC0);
-                    MoveNode(Relocation.mN0, Relocation.mC0);
+//                    MoveNode(Relocation.mN0, Relocation.mC0);
+                    MoveNodeSA(Relocation.mN0, Relocation.mC0);
                     UpdateAllConnections(Relocation.mN1, Relocation.mC1);
-                    MoveNode(Relocation.mN1, Relocation.mC1);
+//                    MoveNode(Relocation.mN1, Relocation.mC1);
+                    MoveNodeSA(Relocation.mN1, Relocation.mC1);
                     break;
                 case SAMoveType.Swap:
                     int oldC0 = mNodeClique[Relocation.mN0];
                     UpdateAllConnections(Relocation.mN0, mNodeClique[Relocation.mN1]);
-                    MoveNode(Relocation.mN0, mNodeClique[Relocation.mN1]);
+//                    MoveNode(Relocation.mN0, mNodeClique[Relocation.mN1]);
+                    MoveNodeSA(Relocation.mN0, mNodeClique[Relocation.mN1]);
                     UpdateAllConnections(Relocation.mN1, oldC0);
-                    MoveNode(Relocation.mN1, oldC0);
+//                    MoveNode(Relocation.mN1, oldC0);
+                    MoveNodeSA(Relocation.mN1, oldC0);
+                    break;
+                case SAMoveType.Slide:
+                    UpdateAllConnections(Relocation.mN0, Relocation.mC0);
+                    //                    MoveNode(Relocation.mN0, Relocation.mC0);
+                    MoveNodeSA(Relocation.mN0, Relocation.mC0);
+                    UpdateAllConnections(Relocation.mN1, Relocation.mC1);
+                    //                    MoveNode(Relocation.mN1, Relocation.mC1);
+                    MoveNodeSA(Relocation.mN1, Relocation.mC1);
                     break;
             }
 
-            while (RemoveEmptyClique(true)) ;
+            while (RemoveEmptyCliqueSA(true,true)) ;
         }
 
         public bool SimulatedAnealing(Random iGenerator, SAParameters iSAParameters, out double AcceptRelative)
@@ -1060,20 +1193,26 @@ namespace CPP
             int AcceptTotal;
             int Stag = 0;
             int counter = 0;
+            int[] NodesChange = new int[mInstance.NumberOfNodes];
             SARelocation cRelocation = new SARelocation();
+            int waste =0;
 
             InitAllConnections();
+            Array.Copy(mNodeClique, tNodeClique, mInstance.NumberOfNodes);
 
             T = iSAParameters.mInitTemperature;
 
+            
             int counterCool = 0;
             cSolObjective = StartObjective;
             AcceptTotal = 0;
+            int sumNodeChange;
             while (true)
             {
                 counter++;
                 Accept = 0;
 
+                waste = 0;
                 for (int i = 0; i < NeiborhoodSize * iSAParameters.mSizeRepeat; i++)
                 {
                     cRelocation.mChange = int.MinValue;
@@ -1086,10 +1225,12 @@ namespace CPP
                     if (Prob * 1000 > 1 + iGenerator.Next() % 1000)
                     {
                         Accept++;
-
+                     
                         ApplyRelocation(cRelocation);
 
-                        //                     cSol = CalculateObjective();
+//                        CreateFromNodeClique(mNodeClique);
+
+//                        cSol = CalculateObjective();
                         cSolObjective += cRelocation.mChange;
                         if (cSol != cSolObjective)
                             cSol = cSol;
@@ -1114,7 +1255,10 @@ namespace CPP
 
                     T = iSAParameters.mInitTemperature *  1 / (1 + iSAParameters.mCoolingParam * counterCool);
                 }
-                
+
+              
+               
+
 
                 if ((double)Accept / (NeiborhoodSize * iSAParameters.mSizeRepeat) < iSAParameters.mMinAccept)
                 {
@@ -1134,10 +1278,10 @@ namespace CPP
             }
 
 
-            if (StartObjective < BestSol)
-            {
+ //           if (StartObjective < BestSol)
+ //           {
                 CreateFromNodeClique(tNodeClique);
-            }
+//            }
 
 //            Console.WriteLine("Cool counter " + counterCool);
 
@@ -1163,7 +1307,7 @@ namespace CPP
             SARelocation Relocation = new SARelocation();
 
             InitAllConnections();
-
+            Array.Copy(mNodeClique, tNodeClique, mInstance.NumberOfNodes);
 
             cSolObjective = StartObjective;
             for (int i = 0; i < MaxStep; i++)
@@ -1198,10 +1342,10 @@ namespace CPP
                 }
             }
 
-            if (StartObjective < BestSol)
-            {
+//            if (StartObjective < BestSol)
+//            {
                 CreateFromNodeClique(tNodeClique);
-            }
+//            }
 
             Accept = Accept / MaxStep;
             return true;
@@ -1216,72 +1360,7 @@ namespace CPP
             return BitConverter.Int64BitsToDouble(tmp << 32);
         }
 
-        /*
-        public bool SimulatedAnealing1(Random iGenerator, double InitTemperature, out double Accept) {
-
-            int MaxStep = mInstance.NumberOfNodes *NumberOfCliques*200;
-            int n;
-            double Prob1;
-            double Prob;
-            double T = 1;
-            int BestSol = int.MinValue;
-            int cSol = int.MinValue;
-            int[] tNodeClique = new int[mInstance.NumberOfNodes];
-            int StartObjective = CalculateObjective();
-            int cSolObjective;
-            int NoImprove = 0;
-            int cBestChange;
-            List<int[]> cBestRelocation = new List<int[]>();
-            int checkClique;
-            Accept = 0;
-
-            InitAllConnections();
-          
-             
-            cSolObjective = StartObjective;
-            for (int i = 0; i < MaxStep; i++) {
-                NoImprove++;
-
-                cBestChange = int.MinValue;
-
-                SASelect(out cBestChange, cBestRelocation, iGenerator);
-
-                T = InitTemperature * (1 - (i + 1) / (double)MaxStep);
-                Prob = FastExp(cBestChange / T);
-
-                if (Prob * 1000 >1+ iGenerator.Next() % 1000) {
-                    Accept++;
-                    foreach (int[] t in cBestRelocation) {
-                     
-                        UpdateAllConnections(t[0], t[1]);
-                        MoveNode(t[0], t[1]);
-
-                    }
-                    while (RemoveEmptyClique(true)) ;
-                    cSol = CalculateObjective();
-                    cSolObjective += cBestChange;
-                    if (cSol != cSolObjective)
-                        cSol = cSol;
-
-                    if (BestSol < cSolObjective)
-                    {
-                        NoImprove = 0;
-                        BestSol = cSolObjective;
-                        Array.Copy(mNodeClique, tNodeClique, mInstance.NumberOfNodes);
-                    }
-
-                }
-            }
-
-            if (StartObjective < BestSol) {
-                CreateFromNodeClique(tNodeClique);
-            }
-
-            Accept = Accept / MaxStep;
-            return true;
-        }
-
-        */
+        
         int CalculateMoveChange(List<int> iNodes, int iClique)
         {
 
@@ -1440,7 +1519,30 @@ namespace CPP
 
 
         }
-        public bool RemoveEmptyClique(bool bUpdateAllConections = false)
+
+        bool MoveNodeSA(int iNode, int NewClique)
+        {
+
+            mCliqueSizes[mNodeClique[iNode]]--;
+
+            mNodeClique[iNode] = NewClique;
+            if (mCliqueSizes.Count <= NewClique)
+            {
+                mCliqueSizes.Add(1);
+            }
+            else {
+
+                mCliqueSizes[NewClique]++;
+            }
+
+            return true;
+
+
+        }
+
+
+        public bool RemoveEmptyClique(bool bUpdateAllConections = false, bool bUseCliqueSize=false)
+
         {
 
             for (int i = 0; i < mCliques.Count; i++)
@@ -1450,6 +1552,11 @@ namespace CPP
                 {
 
                     mCliques.RemoveAt(i);
+
+                    if(bUseCliqueSize)
+                    mCliqueSizes.RemoveAt(i);
+                    
+
                     for (int j = 0; j < mNodeClique.Length; j++)
                     {
                         if (mNodeClique[j] > i)
@@ -1475,6 +1582,49 @@ namespace CPP
 
             return false;
         }
+
+
+        public bool RemoveEmptyCliqueSA(bool bUpdateAllConections = false, bool bUseCliqueSize = false)
+
+        {
+
+            for (int i = 0; i < mCliqueSizes.Count; i++)
+            {
+
+                if (mCliqueSizes[i] == 0)
+                {
+
+
+                    if (bUseCliqueSize)
+                        mCliqueSizes.RemoveAt(i);
+
+
+                    for (int j = 0; j < mNodeClique.Length; j++)
+                    {
+                        if (mNodeClique[j] > i)
+                            mNodeClique[j]--;
+                    }
+                    if (bUpdateAllConections)
+                    {
+                        int[][] nAllConnections = new int[mAllConnections.Length - 1][];
+
+                        int counter = 0;
+                        for (int ii = 0; ii < mAllConnections.Length; ii++)
+                        {
+                            if (ii != i)
+                                nAllConnections[counter++] = mAllConnections[ii];
+
+                        }
+
+                        mAllConnections = nAllConnections;
+                    }
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
 
 
         public virtual bool LocalSearch(Random iGenerator, List<List<int>> Nodes = null)
@@ -1662,185 +1812,7 @@ namespace CPP
         }
 
 
-        bool ImproveMoveExt(List<BufferElement> currentBuffer, Random iGenerator)
-        {
-
-            int removeChange;
-            List<int> shuffleNodes = new List<int>();
-            List<int> shuffleCliques = new List<int>();
-
-            int[] InitTest;
-            BufferElement tempSet;
-
-            currentBuffer.Add(new BufferElement(mInstance.NumberOfNodes));
-
-
-
-
-            mMaxBuffer = 1000;
-
-            shuffleNodes = new List<int>();
-            for (int i = 0; i < mInstance.NumberOfNodes; i++)
-            {
-
-                shuffleNodes.Add(i);
-            }
-
-            CPPProblem.shuffle(shuffleNodes, mGenerator);
-
-            shuffleCliques = new List<int>();
-            for (int i = 0; i < mCliques.Count; i++)
-            {
-                shuffleCliques.Add(i);
-            }
-
-            CPPProblem.shuffle(shuffleCliques, mGenerator);
-            int n;
-            int c;
-
-            List<int[]> Bad = new List<int[]>();
-            int[] tempBad;
-
-            for (int tn = 0; tn < mInstance.NumberOfNodes; tn++)
-            {
-
-                n = shuffleNodes[tn];
-
-                removeChange = CalculateRemoveChange(n);
-                for (int tc = 0; tc < mCliques.Count; tc++)
-                {
-
-                    c = shuffleCliques[tc];
-                    if (mNodeClique[n] != c)
-                    {
-                        if (CheckMove(n, c, removeChange))
-                        {
-
-                            ExpandedBuffer(currentBuffer, n, c, mNodeClique[n]);
-                        }
-                        /*                        else {
-
-                                                    tempBad = new int[3];
-                                                    tempBad[0] = n;
-                                                    tempBad[1] = c;
-                                                    tempBad[2] = CalculateMoveChange(n, c, removeChange);
-                                                    Bad.Add(tempBad);
-                                                }
-                        */
-                    }
-
-                    if (currentBuffer.Count > mMaxBuffer)
-                        break;
-                }
-
-                if (removeChange < 0)
-                {
-                    if (CheckMove(n, mCliques.Count))
-                    {
-
-                        ExpandedBuffer(currentBuffer, n, mCliques.Count, mNodeClique[n]);
-                    }
-                }
-                else
-                {
-                    /*      tempBad = new int[3];
-                          tempBad[0] = n;
-                          tempBad[1] = mCliques.Count;
-                          tempBad[2] = removeChange;
-                          Bad.Add(tempBad);
-                    */
-                }
-
-                if (currentBuffer.Count > mMaxBuffer)
-                    break;
-
-
-            }
-
-
-            int NewObjective;
-            int ReturnObjective;
-            int[] tempR;
-            int SumComb;
-            int MaxIncrease = 0;
-            BufferElement MaxSet = null;
-            List<BufferElement> tBuffers;
-
-            /*    if (currentBuffer.Count < mMaxBuffer) {
-
-                    Bad = Bad.OrderBy(o => o[2]).ToList();
-                    Bad.Reverse();
-                    foreach(int[] t in Bad){
-
-                        if (iGenerator.NextDouble() > 0.5) {
-                            ExpandedBuffer(currentBuffer,t[0], t[1], mNodeClique[t[0]]);
-                        }
-
-                        if (currentBuffer.Count > mMaxBuffer)
-                            break;
-                    }
-                }
-            */
-            foreach (BufferElement cSet in currentBuffer)
-            {
-
-
-                SumComb = CalculateMoveChange(cSet);
-                if (MaxIncrease < SumComb)
-                {
-
-                    MaxIncrease = SumComb;
-                    MaxSet = cSet;
-                }
-            }
-
-            if (MaxSet == null)
-                return false;
-
-            //            tBuffers =  MaxSet.SplitIndependet();
-
-            foreach (int[] r in MaxSet.mRelocations)
-            {
-                MoveNode(r[0], r[1]);
-            }
-            /**/
-
-            /*
-            int[] Selected = MaxSet.TakeRandomRelocation(iGenerator);
-
-            MoveNode(Selected[0], Selected[1]);
-
-            if (MaxSet.mRelocations.Count > 0)
-                currentBuffer.Add(MaxSet);
-            List<BufferElement> nBuffer = new List<BufferElement>();
-
-            foreach (BufferElement b in currentBuffer) {
-
-                if (!b.HasRelocation(Selected)) {
-
-                    if (CalculateMoveChange(b) > 0)
-                        nBuffer.Add(b);
-                }
-            }
-
-            */
-            currentBuffer.Clear();
-
-            //        currentBuffer.Add(new BufferElement(mInstance.NumberOfNodes));
-            /*foreach (BufferElement b in nBuffer)
-            {
-
-                currentBuffer.Add(b);
-            }
-            
-            
-            /**/
-            //            
-            return true;
-
-
-            return false;
-        }
+        
 
 
 
@@ -1876,57 +1848,6 @@ namespace CPP
             return NewA + NewB - OldA - OldB;
         }
 
-        public bool ImproveSwap()
-        {
-
-            int ocA, ocB;
-
-            List<int> shuffleCliques = new List<int>();
-            List<int> AClique, BClique;
-
-
-            shuffleCliques = new List<int>();
-            for (int i = 0; i < mCliques.Count; i++)
-            {
-                shuffleCliques.Add(i);
-            }
-
-            CPPProblem.shuffle(shuffleCliques, mGenerator);
-
-
-
-            foreach (int AC in shuffleCliques)
-            {
-                foreach (int BC in shuffleCliques)
-                {
-                    if (AC != BC)
-                    {
-                        AClique = mCliques[AC];
-                        BClique = mCliques[BC];
-
-                        foreach (int A in AClique)
-                        {
-                            foreach (int B in BClique)
-                            {
-                                if (CalculateSwap(A, AClique, B, BClique) > 0)
-                                {
-
-                                    ocA = mNodeClique[A];
-                                    ocB = mNodeClique[B];
-                                    MoveNode(A, ocB);
-                                    MoveNode(B, ocA);
-
-                                    return true;
-                                }
-                            }
-                        }
-
-                    }
-                }
-            }
-
-            return false;
-        }
 
         public int CalculateRemoveChange(int iNode)
         {

@@ -19,7 +19,7 @@ namespace CPP
 
             mCooling = CPPProblem.CPPCooling.Geometric;
             mSizeRepeat = 32;
-            mCoolingParam = 0.9;
+            mCoolingParam = 0.95;
             mMinAccept = 0.01;
             mMaxStagnation = 5;
         }
@@ -30,7 +30,7 @@ namespace CPP
 
             mCooling = CPPProblem.CPPCooling.LinearMultiplicative;
             mSizeRepeat = 16;
-            mCoolingParam = 0.5;
+            mCoolingParam = 0.3;
             mMinAccept = 0.01;
             mMaxStagnation = 5;
         }

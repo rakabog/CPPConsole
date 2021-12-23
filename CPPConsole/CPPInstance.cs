@@ -104,6 +104,8 @@ namespace CPP
                 cLine++;
             }
             Current = 0;
+
+//            mWeightsCopy = new int[mNumberOfNodes, mNumberOfNodes];
             for (int i = 0; i < mNumberOfNodes; i++)
             {
 
@@ -111,6 +113,10 @@ namespace CPP
                 {
                     mWeights[i][j] = -cWeights[Current];
                     mWeights[j][i] = -cWeights[Current];
+
+//                    mWeightsCopy[i,j] = -cWeights[Current];
+//                    mWeightsCopy[j, i] = -cWeights[Current];
+
                     Current++;
                 }
 

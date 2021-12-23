@@ -54,7 +54,7 @@ namespace CPP
 
             mLogFileName = "Log_" + mID + "_" + mInstanceName;
             StreamWriter S = new StreamWriter(mLogFileName);
-            mGenerator = new Random(mID);
+            mGenerator = new Random(mID+10);
             S.Close();
 
 
@@ -167,6 +167,40 @@ namespace CPP
                 list[k] = temp;
             }
         }
+
+        public CPPProblem(string FileName, string InstanceName, CPPInstance nInstance)
+        {
+
+            mInstance = nInstance;
+            mSolution = new CPPSolutionMaxIncrease(mInstance);
+            mGenerator = new Random(2);
+
+            mRCLSize = 2;
+
+            mFileName = FileName;
+            mInstanceName = InstanceName;
+
+
+            mRCL = new RCL<CPPCandidate>(mRCLSize);
+            mLogFileName = "Log" + mInstanceName;
+            StreamWriter S = new StreamWriter(mLogFileName);
+            S.Close();
+            mSolutionHolder = new CPPSolutionHolder();
+
+            InitFSS();
+
+            mMetaHeuristic = CPPMetaheuristic.FSS;
+
+            mGreedyHeuristic = GreedyHeuristicType.MaxIncrease;
+            //          mGreedyHeuristic = GreedyHeuristicType.Agglomeration;
+
+            CPPSolutionMaxIncrease.Init(mInstance.NumberOfNodes);
+
+            mSAParams = new SAParameters();
+            mSAParams.InitGeometric();
+            //            mSAParams.InitLinearMultiplicative();
+        }
+
 
         public CPPProblem(string FileName, string InstanceName)
         {
@@ -699,6 +733,11 @@ namespace CPP
                     cSolutionValue = cSolutionValue;
 
 
+ //               for (int j = 0; j < mInstance.NumberOfNodes; j++)
+//                    if (mSolution.NodeClique[j] >= mSolution.NumberOfCliques)
+  //                      j = j;
+
+
                 mSolutionHolder.Add(mSolution);
 
                 mNumberOfSolutionsGenerated++;
@@ -804,6 +843,10 @@ namespace CPP
                 //         mSolution.SARestricted(mGenerator, mSAInitTemperature, out Accept);
                 cSolutionValue = mSolution.CalculateObjective();
                 mNumberOfSolutionsGenerated++;
+
+//                for (int j = 0; j < mInstance.NumberOfNodes; j++)
+//                    if (mSolution.NodeClique[j] >= mSolution.NumberOfCliques)
+//                        j = j;
                 mSolutionHolder.Add(mSolution);
                 CheckBest();
             }

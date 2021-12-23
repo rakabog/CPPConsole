@@ -134,6 +134,7 @@ namespace CPP
 
             }
             Allocate();
+      //      mWeights = nInstance.Weights;
         }
 
         public void Allocate()

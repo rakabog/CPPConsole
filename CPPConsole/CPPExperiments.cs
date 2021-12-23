@@ -745,7 +745,7 @@ namespace CPP
 
             cResult.InstanceName = "newb2500.4.txt";
             cResult.BestObjective = 1065977;
-            cResult.AverageObjective = 1063602.25;
+            cResult.AverageObjective = 1064729.95;
             cResult.AverageTime = 9871.94;
             cResult.Hits = 1;
             cResult.OutOf = 20;
@@ -1038,122 +1038,130 @@ namespace CPP
 
 
             mInstances = new List<TestInstance>();
-           
-           
-             mInstances.Add(new TestInstance(200, "rand100-5.txt", SmallFolder));
-             mInstances.Add(new TestInstance(200, "rand100-100.txt", SmallFolder));
-            mInstances.Add(new TestInstance(200, "rand200-5.txt", SmallFolder));
-            mInstances.Add(new TestInstance(200, "rand200-100.txt", SmallFolder));
-            mInstances.Add(new TestInstance(200, "rand300-5.txt", SmallFolder));
-            mInstances.Add(new TestInstance(200, "rand300-100.txt", SmallFolder));
-             mInstances.Add(new TestInstance(200, "sym300-50.txt", SmallFolder));
-             mInstances.Add(new TestInstance(200, "regnier300-50.txt", SmallFolder));
-             mInstances.Add(new TestInstance(200, "zahn300.txt", SmallFolder));
+
+               mInstances.Add(new TestInstance(200, "rand100-5.txt", SmallFolder));
+               mInstances.Add(new TestInstance(200, "rand100-100.txt", SmallFolder));
+              mInstances.Add(new TestInstance(200, "rand200-5.txt", SmallFolder));
+              mInstances.Add(new TestInstance(200, "rand200-100.txt", SmallFolder));
+              mInstances.Add(new TestInstance(200, "rand300-5.txt", SmallFolder));
+              mInstances.Add(new TestInstance(200, "rand300-100.txt", SmallFolder));
+               mInstances.Add(new TestInstance(200, "sym300-50.txt", SmallFolder));
+               mInstances.Add(new TestInstance(200, "regnier300-50.txt", SmallFolder));
+               mInstances.Add(new TestInstance(200, "zahn300.txt", SmallFolder));
 
 
-            mInstances.Add(new TestInstance(500, "rand400-5.txt", SmallFolder));
-            mInstances.Add(new TestInstance(500, "rand400-100.txt", SmallFolder));
-            mInstances.Add(new TestInstance(500, "rand500-5.txt", SmallFolder));
-            mInstances.Add(new TestInstance(500, "rand500-100.txt", SmallFolder));
+              mInstances.Add(new TestInstance(500, "rand400-5.txt", SmallFolder));
+              mInstances.Add(new TestInstance(500, "rand400-100.txt", SmallFolder));
+              mInstances.Add(new TestInstance(500, "rand500-5.txt", SmallFolder));
+              mInstances.Add(new TestInstance(500, "rand500-100.txt", SmallFolder));
 
 
-             mInstances.Add(new TestInstance(500, "p500-5-1.txt", SmallFolder));
-             mInstances.Add(new TestInstance(500, "p500-5-2.txt", SmallFolder));
-             mInstances.Add(new TestInstance(500, "p500-5-3.txt", SmallFolder));
-             mInstances.Add(new TestInstance(500, "p500-5-4.txt", SmallFolder));
-             mInstances.Add(new TestInstance(500, "p500-5-5.txt", SmallFolder));
-             mInstances.Add(new TestInstance(500, "p500-5-6.txt", SmallFolder));
-             mInstances.Add(new TestInstance(500, "p500-5-7.txt", SmallFolder));
-             mInstances.Add(new TestInstance(500, "p500-5-8.txt", SmallFolder));
-             mInstances.Add(new TestInstance(500, "p500-5-9.txt", SmallFolder));
-             mInstances.Add(new TestInstance(500, "p500-5-10.txt", SmallFolder));
-
-
-
-             mInstances.Add(new TestInstance(500, "p500-100-1.txt", SmallFolder));
-             mInstances.Add(new TestInstance(500, "p500-100-2.txt", SmallFolder));
-             mInstances.Add(new TestInstance(500, "p500-100-3.txt", SmallFolder));
-             mInstances.Add(new TestInstance(500, "p500-100-4.txt", SmallFolder));
-             mInstances.Add(new TestInstance(500, "p500-100-5.txt", SmallFolder));
-             mInstances.Add(new TestInstance(500, "p500-100-6.txt", SmallFolder));
-             mInstances.Add(new TestInstance(500, "p500-100-7.txt", SmallFolder));
-             mInstances.Add(new TestInstance(500, "p500-100-8.txt", SmallFolder));
-             mInstances.Add(new TestInstance(500, "p500-100-9.txt", SmallFolder));
-             mInstances.Add(new TestInstance(500, "p500-100-10.txt", SmallFolder));
+               mInstances.Add(new TestInstance(500, "p500-5-1.txt", SmallFolder));
+               mInstances.Add(new TestInstance(500, "p500-5-2.txt", SmallFolder));
+               mInstances.Add(new TestInstance(500, "p500-5-3.txt", SmallFolder));
+               mInstances.Add(new TestInstance(500, "p500-5-4.txt", SmallFolder));
+               mInstances.Add(new TestInstance(500, "p500-5-5.txt", SmallFolder));
+               mInstances.Add(new TestInstance(500, "p500-5-6.txt", SmallFolder));
+               mInstances.Add(new TestInstance(500, "p500-5-7.txt", SmallFolder));
+               mInstances.Add(new TestInstance(500, "p500-5-8.txt", SmallFolder));
+               mInstances.Add(new TestInstance(500, "p500-5-9.txt", SmallFolder));
+               mInstances.Add(new TestInstance(500, "p500-5-10.txt", SmallFolder));
 
 
 
-             mInstances.Add(new TestInstance(500, "gauss500-100-1.txt", SmallFolder));
-             mInstances.Add(new TestInstance(500, "gauss500-100-2.txt", SmallFolder));
-             mInstances.Add(new TestInstance(500, "gauss500-100-3.txt", SmallFolder));
-             mInstances.Add(new TestInstance(500, "gauss500-100-4.txt", SmallFolder));
-             mInstances.Add(new TestInstance(500, "gauss500-100-5.txt", SmallFolder));
+               mInstances.Add(new TestInstance(500, "p500-100-1.txt", SmallFolder));
+               mInstances.Add(new TestInstance(500, "p500-100-2.txt", SmallFolder));
+               mInstances.Add(new TestInstance(500, "p500-100-3.txt", SmallFolder));
+               mInstances.Add(new TestInstance(500, "p500-100-4.txt", SmallFolder));
+               mInstances.Add(new TestInstance(500, "p500-100-5.txt", SmallFolder));
+               mInstances.Add(new TestInstance(500, "p500-100-6.txt", SmallFolder));
+               mInstances.Add(new TestInstance(500, "p500-100-7.txt", SmallFolder));
+               mInstances.Add(new TestInstance(500, "p500-100-8.txt", SmallFolder));
+               mInstances.Add(new TestInstance(500, "p500-100-9.txt", SmallFolder));
+               mInstances.Add(new TestInstance(500, "p500-100-10.txt", SmallFolder));
 
 
-            mInstances.Add(new TestInstance(1000, "unif700-100-1.txt", MediumFolder));
-             mInstances.Add(new TestInstance(1000, "unif700-100-2.txt", MediumFolder));
-             mInstances.Add(new TestInstance(1000, "unif700-100-3.txt", MediumFolder));
-             mInstances.Add(new TestInstance(1000, "unif700-100-4.txt", MediumFolder));
-             mInstances.Add(new TestInstance(1000, "unif700-100-5.txt", MediumFolder));
 
-             mInstances.Add(new TestInstance(1000, "unif800-100-1.txt", MediumFolder));
-             mInstances.Add(new TestInstance(1000, "unif800-100-2.txt", MediumFolder));
-             mInstances.Add(new TestInstance(1000, "unif800-100-3.txt", MediumFolder));
-             mInstances.Add(new TestInstance(1000, "unif800-100-4.txt", MediumFolder));
-             mInstances.Add(new TestInstance(1000, "unif800-100-5.txt", MediumFolder));
+               mInstances.Add(new TestInstance(500, "gauss500-100-1.txt", SmallFolder));
+               mInstances.Add(new TestInstance(500, "gauss500-100-2.txt", SmallFolder));
+               mInstances.Add(new TestInstance(500, "gauss500-100-3.txt", SmallFolder));
+               mInstances.Add(new TestInstance(500, "gauss500-100-4.txt", SmallFolder));
+               mInstances.Add(new TestInstance(500, "gauss500-100-5.txt", SmallFolder));
 
 
-             mInstances.Add(new TestInstance(2000, "p1000-1.txt", MediumFolder));
-             mInstances.Add(new TestInstance(2000, "p1000-2.txt", MediumFolder));
-             mInstances.Add(new TestInstance(2000, "p1000-3.txt", MediumFolder));
-             mInstances.Add(new TestInstance(2000, "p1000-4.txt", MediumFolder));
-             mInstances.Add(new TestInstance(2000, "p1000-5.txt", MediumFolder));
+              mInstances.Add(new TestInstance(1000, "unif700-100-1.txt", MediumFolder));
+               mInstances.Add(new TestInstance(1000, "unif700-100-2.txt", MediumFolder));
+               mInstances.Add(new TestInstance(1000, "unif700-100-3.txt", MediumFolder));
+               mInstances.Add(new TestInstance(1000, "unif700-100-4.txt", MediumFolder));
+               mInstances.Add(new TestInstance(1000, "unif700-100-5.txt", MediumFolder));
 
-             mInstances.Add(new TestInstance(4000, "p1500-1.txt", MediumFolder));
-             mInstances.Add(new TestInstance(4000, "p1500-2.txt", MediumFolder));
-             mInstances.Add(new TestInstance(4000, "p1500-3.txt", MediumFolder));
-             mInstances.Add(new TestInstance(4000, "p1500-4.txt", MediumFolder));
-             mInstances.Add(new TestInstance(4000, "p1500-5.txt", MediumFolder));
+               mInstances.Add(new TestInstance(1000, "unif800-100-1.txt", MediumFolder));
+               mInstances.Add(new TestInstance(1000, "unif800-100-2.txt", MediumFolder));
+               mInstances.Add(new TestInstance(1000, "unif800-100-3.txt", MediumFolder));
+               mInstances.Add(new TestInstance(1000, "unif800-100-4.txt", MediumFolder));
+               mInstances.Add(new TestInstance(1000, "unif800-100-5.txt", MediumFolder));
 
 
-             mInstances.Add(new TestInstance(10000, "p2000-1.txt", MediumFolder));
-             mInstances.Add(new TestInstance(10000, "p2000-2.txt", MediumFolder));
-           
-            mInstances.Add(new TestInstance(10000, "p2000-3.txt", MediumFolder));
+               mInstances.Add(new TestInstance(2000, "p1000-1.txt", MediumFolder));
+               mInstances.Add(new TestInstance(2000, "p1000-2.txt", MediumFolder));
+               mInstances.Add(new TestInstance(2000, "p1000-3.txt", MediumFolder));
+               mInstances.Add(new TestInstance(2000, "p1000-4.txt", MediumFolder));
+
+
+               mInstances.Add(new TestInstance(2000, "p1000-5.txt", MediumFolder));
+
+               mInstances.Add(new TestInstance(4000, "p1500-1.txt", MediumFolder));
+               mInstances.Add(new TestInstance(4000, "p1500-2.txt", MediumFolder));
+               mInstances.Add(new TestInstance(4000, "p1500-3.txt", MediumFolder));
+               mInstances.Add(new TestInstance(4000, "p1500-4.txt", MediumFolder));
+               mInstances.Add(new TestInstance(4000, "p1500-5.txt", MediumFolder));
+
+
+               mInstances.Add(new TestInstance(10000, "p2000-1.txt", MediumFolder));
+               mInstances.Add(new TestInstance(10000, "p2000-2.txt", MediumFolder));
+
+              mInstances.Add(new TestInstance(10000, "p2000-3.txt", MediumFolder));
+
+              mInstances.Add(new TestInstance(10000, "p2000-4.txt", MediumFolder));
+              mInstances.Add(new TestInstance(10000, "p2000-5.txt", MediumFolder));
+
+
+
+
+              mInstances.Add(new TestInstance(10000, "new_b2500.1.txt", LargeFolder));
+              mInstances.Add(new TestInstance(10000, "new_b2500.2.txt", LargeFolder));
+
+              mInstances.Add(new TestInstance(10000, "new_b2500.3.txt", LargeFolder));
+
+              mInstances.Add(new TestInstance(10000, "new_b2500.4.txt", LargeFolder));
+              mInstances.Add(new TestInstance(10000, "new_b2500.5.txt", LargeFolder));
+
+              mInstances.Add(new TestInstance(10000, "new_b2500.6.txt", LargeFolder));
+              mInstances.Add(new TestInstance(10000, "new_b2500.7.txt", LargeFolder));
+
+              mInstances.Add(new TestInstance(10000, "new_b2500.8.txt", LargeFolder));
+              mInstances.Add(new TestInstance(10000, "new_b2500.9.txt", LargeFolder));
+              mInstances.Add(new TestInstance(10000, "new_b2500.10.txt", LargeFolder));
+
+
+              mInstances.Add(new TestInstance(20000, "new_p3000.1.txt", LargeFolder));
+              mInstances.Add(new TestInstance(20000, "new_p3000.2.txt", LargeFolder));
+
+              mInstances.Add(new TestInstance(20000, "new_p3000.3.txt", LargeFolder));
+              mInstances.Add(new TestInstance(20000, "new_p3000.4.txt", LargeFolder));
+              mInstances.Add(new TestInstance(20000, "new_p3000.5.txt", LargeFolder));
+
+
+              mInstances.Add(new TestInstance(20000, "new_p4000.1.txt", LargeFolder));
+              mInstances.Add(new TestInstance(20000, "new_p4000.2.txt", LargeFolder));
+         
+              mInstances.Add(new TestInstance(20000, "new_p4000.3.txt", LargeFolder));
+              mInstances.Add(new TestInstance(20000, "new_p4000.4.txt", LargeFolder));
             
-            mInstances.Add(new TestInstance(10000, "p2000-4.txt", MediumFolder));
-            mInstances.Add(new TestInstance(10000, "p2000-5.txt", MediumFolder));
-            
-           
-
-
-            mInstances.Add(new TestInstance(10000, "new_b2500.1.txt", LargeFolder));
-            mInstances.Add(new TestInstance(10000, "new_b2500.2.txt", LargeFolder));
-            mInstances.Add(new TestInstance(10000, "new_b2500.3.txt", LargeFolder));
-            mInstances.Add(new TestInstance(10000, "new_b2500.4.txt", LargeFolder));
-            mInstances.Add(new TestInstance(10000, "new_b2500.5.txt", LargeFolder));
-            mInstances.Add(new TestInstance(10000, "new_b2500.6.txt", LargeFolder));
-            mInstances.Add(new TestInstance(10000, "new_b2500.7.txt", LargeFolder));
-          
-            mInstances.Add(new TestInstance(10000, "new_b2500.8.txt", LargeFolder));
-            mInstances.Add(new TestInstance(10000, "new_b2500.9.txt", LargeFolder));
-            mInstances.Add(new TestInstance(10000, "new_b2500.10.txt", LargeFolder));
-
-
-            mInstances.Add(new TestInstance(20000, "new_p3000.1.txt", LargeFolder));
-            mInstances.Add(new TestInstance(20000, "new_p3000.2.txt", LargeFolder));
-            mInstances.Add(new TestInstance(20000, "new_p3000.3.txt", LargeFolder));
-            mInstances.Add(new TestInstance(20000, "new_p3000.4.txt", LargeFolder));
-            mInstances.Add(new TestInstance(20000, "new_p3000.5.txt", LargeFolder));
-
-            
-            mInstances.Add(new TestInstance(20000, "new_p4000.1.txt", LargeFolder));
-            mInstances.Add(new TestInstance(20000, "new_p4000.2.txt", LargeFolder));
-            mInstances.Add(new TestInstance(20000, "new_p4000.3.txt", LargeFolder));
-            mInstances.Add(new TestInstance(20000, "new_p4000.4.txt", LargeFolder));
             mInstances.Add(new TestInstance(20000, "new_p4000.5.txt", LargeFolder));
-            
+        
             mInstances.Add(new TestInstance(20000, "new_p5000.1.txt", LargeFolder));
+       
             mInstances.Add(new TestInstance(20000, "new_p5000.2.txt", LargeFolder));
             mInstances.Add(new TestInstance(20000, "new_p5000.3.txt", LargeFolder));
             mInstances.Add(new TestInstance(20000, "new_p5000.4.txt", LargeFolder));
@@ -1163,9 +1171,11 @@ namespace CPP
             mInstances.Add(new TestInstance(20000, "new_p6000.1.txt", LargeFolder));
             mInstances.Add(new TestInstance(20000, "new_p6000.2.txt", LargeFolder));
             mInstances.Add(new TestInstance(20000, "new_p6000.3.txt", LargeFolder));
-
-            mInstances.Add(new TestInstance(20000, "new_p7000.1.txt", LargeFolder));
-           /**/
+           
+           mInstances.Add(new TestInstance(20000, "new_p7000.1.txt", LargeFolder));
+            mInstances.Add(new TestInstance(20000, "new_p7000.2.txt", LargeFolder));
+            mInstances.Add(new TestInstance(20000, "new_p7000.3.txt", LargeFolder));
+            /**/
         }
 
         public void SolveSingle()
@@ -1181,7 +1191,7 @@ namespace CPP
 
             mInstances.Clear();
 
-            //                        mInstances.Add(new TestInstance(2000, "p1000-1.txt", MediumFolder));
+                                    mInstances.Add(new TestInstance(2000, "p1000-5.txt", MediumFolder));
 //                                        mInstances.Add(new TestInstance(100, "rand100-100.txt", SmallFolder));
 
             //                        mInstances.Add(new TestInstance(10000, "rand100-100.txt", SmallFolder));
@@ -1189,9 +1199,9 @@ namespace CPP
             //           mInstances.Add(new TestInstance(4000, "p1500-5.txt", MediumFolder));
 
             //            mInstances.Add(new TestInstance(20000, "new_p4000.3.txt", LargeFolder));
-            //            mInstances.Add(new TestInstance(20000, "new_p6000.1.txt", LargeFolder));
+//                        mInstances.Add(new TestInstance(20000, "new_p6000.1.txt", LargeFolder));
 
-//            mInstances.Add(new TestInstance(4000, "new_b2500.5.txt", LargeFolder));
+      //      mInstances.Add(new TestInstance(4000, "new_b2500.5.txt", LargeFolder));
 
 
             foreach (TestInstance t in mInstances)
@@ -1200,6 +1210,7 @@ namespace CPP
                 tProblem = new CPPProblem(t.mFolder + t.mFileName, t.mFileName);
                 tProblem.SetID(2);
                 tProblem.AllocateSolution();
+//                tProblem.SASelect = SASelectType.Single;
 
                 tProblem.SASelect = SASelectType.Dual;
                 tProblem.Calibrate(t.mCalcTime);
@@ -1215,11 +1226,17 @@ namespace CPP
             List<CPPProblem> tProblems = new List<CPPProblem>();
             CPPProblem tProblem;
 
+            CPPInstance tInstance;
+
+            tInstance = new CPPInstance(iInstance.mFolder + iInstance.mFileName);
+
+
+
             for (int i = 0; i < NumParallel; i++)
             {
 
 
-                tProblem = new CPPProblem(iInstance.mFolder + iInstance.mFileName, iInstance.mFileName);
+                tProblem = new CPPProblem(iInstance.mFolder + iInstance.mFileName, iInstance.mFileName, tInstance);
                 tProblem.SetID(i);
                 tProblem.AllocateSolution();
                 tProblem.SASelect = SASelectType.Dual;
@@ -1253,28 +1270,34 @@ namespace CPP
             List<CPPProblem> tProblems = new List<CPPProblem>();
             mInstances.Clear();
 
-//            mInstances.Add(new TestInstance(2000, "p1000-5.txt", MediumFolder));
+                                  mInstances.Add(new TestInstance(2000, "p1000-5.txt", MediumFolder));
+           //                         mInstances.Add(new TestInstance(20000, "new_p4000.5.txt", LargeFolder));
 
-            mInstances.Add(new TestInstance(20000, "new_p3000.3.txt", LargeFolder));
+            //                        mInstances.Add(new TestInstance(20000, "new_p3000.3.txt", LargeFolder));
+            //                        mInstances.Add(new TestInstance(20000, "new_p3000.3.txt", LargeFolder));
+            //                                                mInstances.Add(new TestInstance(10000, "new_p2500.4.txt", LargeFolder));
+            //                                    mInstances.Add(new TestInstance(10000, "new_p3000.3.txt", LargeFolder));
 
-
+            //                        mInstances.Add(new TestInstance(20000, "new_p6000.1.txt", LargeFolder));
             //                                    mInstances.Add(new TestInstance(100, "rand100-100.txt", SmallFolder));
 
-            //                        mInstances.Add(new TestInstance(4000, "p1500-1.txt", MediumFolder));
+            //                                    mInstances.Add(new TestInstance(4000, "p1500-4.txt", MediumFolder));
             //          mInstances.Add(new TestInstance(10000, "p2000-2.txt", MediumFolder));
 
             /**/
 
+            //                mInstances.Add(new TestInstance(10000, "new_b2500.1.txt", LargeFolder));
+            CPPInstance tInstance;
 
+            tInstance = new CPPInstance(mInstances[0].mFolder + mInstances[0].mFileName);
             for (int i = 0; i < tNumParallel; i++)
             {
 
 
-                tProblem = new CPPProblem(mInstances[0].mFolder + mInstances[0].mFileName, mInstances[0].mFileName);
+                tProblem = new CPPProblem(mInstances[0].mFolder + mInstances[0].mFileName, mInstances[0].mFileName, tInstance);
                 tProblem.SetID(i);
                 tProblem.AllocateSolution();
                 tProblem.SASelect = SASelectType.Dual;
-                tProblem.Calibrate(mInstances[0].mCalcTime);
                 tProblems.Add(tProblem);
 
             }
@@ -1285,8 +1308,9 @@ namespace CPP
 
             Parallel.ForEach(tProblems, Prob =>
                                 {
-
+                                    Prob.Calibrate(mInstances[0].mCalcTime);
                                     Prob.SolveFixSetSearch(mInstances[0].mCalcTime, 10000);
+                                    //Prob.SolveGRASP(mInstances[0].mCalcTime, 10000);
                                 }
             );
             /**/
@@ -1349,13 +1373,13 @@ namespace CPP
         public void SolveAllParallel(int NumParallel) {
 
             InitInstances();
-            int counter = 0;
+         //   int counter = 0;
             foreach (TestInstance t in mInstances)
             {
-                if(counter % 2 == 0)
+//                if(counter % 2 == 0)
                     SolveParallelInstance(t, NumParallel);
 
-                counter++;
+//                counter++;
             }
 
         }

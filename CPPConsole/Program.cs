@@ -13,17 +13,26 @@ namespace CPPConsole
             Console.WriteLine("Hello World!");
 
             CPPExperiments tExperiments = new CPPExperiments();
+//                        tExperiments.SolveAllParallelCompare(10, 0);
+//                        tExperiments.SolveAllParallelCompare(10, 10);
+              //          tExperiments.SolveAllParallelCompare(10, 10);
+
+
             //                tExperiments.SolveSingle();
 
 
 
-            //            tExperiments.CreateTable(10, ".\\NewResSlide_16_095\\");
+   //         tExperiments.CreateCompareTable(20, ".\\Compare16\\", "16");
+//            tExperiments.CreateCompareTable(10, ".\\Compare32\\", "32" );
+            //                        tExperiments.CreateTable(10, ".\\NewResSlide_16_095\\");
+            //            tExperiments.CreateTable(10, ".\\t\\");
             //         tExperiments.CreateTable(10, ".\\ResSlide_16_095\\");
-                     tExperiments.CreateTable(10, ".\\ResSlide_New\\");
+            //                     tExperiments.CreateTable(10, ".\\ResSlide_New\\");
 
             //                        tExperiments.CreateTable( 10, ".\\AllRezNew\\");
-//                                      tExperiments.SolveSingleParallel(10);
-//            tExperiments.SolveAllParallel(10);
+            //                                      tExperiments.SolveSingleParallel(10);
+                        tExperiments.SolveAllParallel(10,CPPProblem.CPPMetaheuristic.FSS, SASelectType.Single, 0);
+                        tExperiments.SolveAllParallel(10, CPPProblem.CPPMetaheuristic.FSS, SASelectType.Single, 10);
             //            tExperiments.SolveSingle();
 
         }

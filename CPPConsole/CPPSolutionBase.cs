@@ -997,8 +997,67 @@ namespace CPP
 
         }
 
+        void SASelectSingle(ref SARelocation Relocation)
+        {
 
-        void SimulatedAnnealingSelectSingle(ref SARelocation Relocation)
+            int[] CliqueConnections;
+
+            int n0Clique = mNodeClique[Relocation.mN0];
+            int n0RemoveChange;
+            //-1 non2 0 -n0 1- n1  2-both
+            int cChange0;
+            int Size = mCliqueSizes.Count;
+
+            n0RemoveChange = -mAllConnections[n0Clique][Relocation.mN0];
+
+
+
+           
+
+
+            if (mCliqueSizes[n0Clique] > 1)
+            {
+                Relocation.mChange = n0RemoveChange;
+                Relocation.mC0 = Size;
+                Relocation.mMoveType = SAMoveType.N0;
+            }
+
+           
+
+
+            for (int c = 0; c < Size; c++)
+            {
+
+                /**/
+                CliqueConnections = mAllConnections[c];
+
+                cChange0 = n0RemoveChange + CliqueConnections[Relocation.mN0];
+                if (n0Clique != c)
+                {
+                    if (cChange0 > Relocation.mChange)
+                    {
+
+                        Relocation.mChange = cChange0;
+                        Relocation.mC0 = c;
+                        Relocation.mMoveType = SAMoveType.N0;
+                
+                    }
+                }
+                
+                
+
+            }
+
+
+           
+
+
+        }
+
+
+        /*
+
+        void SASelectSingle(ref SARelocation Relocation)
         {
 
             int[] CliqueConnections;
@@ -1021,7 +1080,7 @@ namespace CPP
             for (int c = 0; c < Size; c++)
             {
 
-                /**/
+              
                 CliqueConnections = mAllConnections[c];
 
                 cChange0 = n0RemoveChange + CliqueConnections[Relocation.mN0];
@@ -1033,11 +1092,7 @@ namespace CPP
                         Relocation.mChange = cChange0;
                         Relocation.mC0 = c;
                         Relocation.mMoveType = SAMoveType.N0;
-                        /*
-                        relocateNode = 0;
-                        relocateClique = c;
-                        cBest = cChange0;
-                        */
+                       
                     }
                 }
                 
@@ -1045,8 +1100,7 @@ namespace CPP
 
 
         }
-
-
+        */
 
 
 
@@ -1069,8 +1123,8 @@ namespace CPP
             Relocation.mN1 = n1;
             //            int bWeight = mInstance.Weights[Relocation.mN0][Relocation.mN1];
 
-            SASelectDualExt(ref Relocation);
-//            SASelectDual(ref Relocation);
+//            SASelectDualExt(ref Relocation);
+              SASelectDual(ref Relocation);
 
 
 
@@ -1079,7 +1133,7 @@ namespace CPP
         }
 
 
-        void SimulatedAnnealingSelectSingle(ref SARelocation Relocation, Random iGenerator)
+        void SASelectSingle(ref SARelocation Relocation, Random iGenerator)
         {
             int n0, n1;
 
@@ -1091,7 +1145,7 @@ namespace CPP
             Relocation.mN0 = n0;
             //            int bWeight = mInstance.Weights[Relocation.mN0][Relocation.mN1];
 
-            SimulatedAnnealingSelectSingle(ref Relocation);
+            SASelectSingle(ref Relocation);
 
 
 
@@ -1112,7 +1166,7 @@ namespace CPP
             {
 
                 case SASelectType.Single:
-                                 SimulatedAnnealingSelectSingle(ref Relocations, iGenerator);
+                                 SASelectSingle(ref Relocations, iGenerator);
                                  break;
                 case SASelectType.Dual:
                     SASelectDual(ref Relocations, iGenerator);

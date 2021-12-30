@@ -18,7 +18,7 @@ namespace CPP
         public void InitGeometric() {
 
             mCooling = CPPProblem.CPPCooling.Geometric;
-            mSizeRepeat = 32;
+            mSizeRepeat = 8;
             mCoolingParam = 0.95;
             mMinAccept = 0.01;
             mMaxStagnation = 5;

@@ -1038,7 +1038,7 @@ namespace CPP
 
 
             mInstances = new List<TestInstance>();
-
+            
                mInstances.Add(new TestInstance(200, "rand100-5.txt", SmallFolder));
                mInstances.Add(new TestInstance(200, "rand100-100.txt", SmallFolder));
               mInstances.Add(new TestInstance(200, "rand200-5.txt", SmallFolder));
@@ -1087,7 +1087,7 @@ namespace CPP
                mInstances.Add(new TestInstance(500, "gauss500-100-3.txt", SmallFolder));
                mInstances.Add(new TestInstance(500, "gauss500-100-4.txt", SmallFolder));
                mInstances.Add(new TestInstance(500, "gauss500-100-5.txt", SmallFolder));
-
+            
 
               mInstances.Add(new TestInstance(1000, "unif700-100-1.txt", MediumFolder));
                mInstances.Add(new TestInstance(1000, "unif700-100-2.txt", MediumFolder));
@@ -1127,7 +1127,7 @@ namespace CPP
 
 
 
-
+            
               mInstances.Add(new TestInstance(10000, "new_b2500.1.txt", LargeFolder));
               mInstances.Add(new TestInstance(10000, "new_b2500.2.txt", LargeFolder));
 
@@ -1149,6 +1149,7 @@ namespace CPP
 
               mInstances.Add(new TestInstance(20000, "new_p3000.3.txt", LargeFolder));
               mInstances.Add(new TestInstance(20000, "new_p3000.4.txt", LargeFolder));
+           
               mInstances.Add(new TestInstance(20000, "new_p3000.5.txt", LargeFolder));
 
 
@@ -1174,9 +1175,52 @@ namespace CPP
            
            mInstances.Add(new TestInstance(20000, "new_p7000.1.txt", LargeFolder));
             mInstances.Add(new TestInstance(20000, "new_p7000.2.txt", LargeFolder));
+          /*  */
             mInstances.Add(new TestInstance(20000, "new_p7000.3.txt", LargeFolder));
             /**/
         }
+
+        void InitInstancesCompare16()
+        {
+
+            string MediumFolder = "c:\\primeri\\CPP\\medium\\";
+            string LargeFolder = "c:\\primeri\\CPP\\large\\";
+
+
+            mInstances = new List<TestInstance>();
+            
+            mInstances.Add(new TestInstance(1000, "unif700-100-1.txt", MediumFolder));
+            
+            mInstances.Add(new TestInstance(1000, "unif800-100-1.txt", MediumFolder));
+
+            mInstances.Add(new TestInstance(2000, "p1000-1.txt", MediumFolder));
+
+            mInstances.Add(new TestInstance(4000, "p1500-1.txt", MediumFolder));
+
+
+            mInstances.Add(new TestInstance(10000, "p2000-1.txt", MediumFolder));
+
+
+
+
+
+            mInstances.Add(new TestInstance(10000, "new_b2500.1.txt", LargeFolder));
+        }
+        void InitInstancesCompare32()
+        {
+
+            string LargeFolder = "c:\\primeri\\CPP\\large\\";
+
+
+            mInstances = new List<TestInstance>();
+            mInstances.Add(new TestInstance(20000, "new_p3000.1.txt", LargeFolder));
+            mInstances.Add(new TestInstance(20000, "new_p5000.1.txt", LargeFolder));
+            mInstances.Add(new TestInstance(20000, "new_p7000.1.txt", LargeFolder));
+            mInstances.Add(new TestInstance(20000, "new_p4000.1.txt", LargeFolder));
+            mInstances.Add(new TestInstance(20000, "new_p6000.1.txt", LargeFolder));
+            /**/
+        }
+
 
         public void SolveSingle()
         {
@@ -1215,13 +1259,13 @@ namespace CPP
                 tProblem.SASelect = SASelectType.Dual;
                 tProblem.Calibrate(t.mCalcTime);
                 //                tProblem.SolveGRASP(10000, t.mCalcTime);
-                tProblem.SolveFixSetSearch(t.mCalcTime, 100000);
+                tProblem.Solve( 100000, t.mCalcTime);
             }
 
 
         }
 
-        void SolveParallelInstance( TestInstance iInstance, int NumParallel) {
+        void SolveParallelInstance( TestInstance iInstance, int NumParallel, CPPProblem.CPPMetaheuristic iMetaHeuristic, SASelectType iSASelectType, int StartValue = 0) {
 
             List<CPPProblem> tProblems = new List<CPPProblem>();
             CPPProblem tProblem;
@@ -1237,10 +1281,12 @@ namespace CPP
 
 
                 tProblem = new CPPProblem(iInstance.mFolder + iInstance.mFileName, iInstance.mFileName, tInstance);
-                tProblem.SetID(i);
+                tProblem.Metaheuristic = iMetaHeuristic;
+                tProblem.SetID(i+StartValue);
                 tProblem.AllocateSolution();
-                tProblem.SASelect = SASelectType.Dual;
-                tProblem.Calibrate(iInstance.mCalcTime);
+                tProblem.SASelect = iSASelectType;
+                tProblem.InitLogFileName();
+                tProblem.Calibrate(iInstance.mCalcTime/4);
                 tProblems.Add(tProblem);
 
             }
@@ -1249,14 +1295,14 @@ namespace CPP
             Parallel.ForEach(tProblems, Prob =>
             {
 
-                Prob.SolveFixSetSearch(iInstance.mCalcTime, 100000);
+                Prob.Solve( 100000, iInstance.mCalcTime / 4);
             }
             );
 
 
         }
 
-        public void SolveSingleParallel(int tNumParallel)
+        public void SolveSingleParallel(int tNumParallel, CPPProblem.CPPMetaheuristic iMetaHeuristic, SASelectType iSASelectType)
         {
 
 
@@ -1270,23 +1316,8 @@ namespace CPP
             List<CPPProblem> tProblems = new List<CPPProblem>();
             mInstances.Clear();
 
-                                  mInstances.Add(new TestInstance(2000, "p1000-5.txt", MediumFolder));
-           //                         mInstances.Add(new TestInstance(20000, "new_p4000.5.txt", LargeFolder));
-
-            //                        mInstances.Add(new TestInstance(20000, "new_p3000.3.txt", LargeFolder));
-            //                        mInstances.Add(new TestInstance(20000, "new_p3000.3.txt", LargeFolder));
-            //                                                mInstances.Add(new TestInstance(10000, "new_p2500.4.txt", LargeFolder));
-            //                                    mInstances.Add(new TestInstance(10000, "new_p3000.3.txt", LargeFolder));
-
-            //                        mInstances.Add(new TestInstance(20000, "new_p6000.1.txt", LargeFolder));
-            //                                    mInstances.Add(new TestInstance(100, "rand100-100.txt", SmallFolder));
-
-            //                                    mInstances.Add(new TestInstance(4000, "p1500-4.txt", MediumFolder));
-            //          mInstances.Add(new TestInstance(10000, "p2000-2.txt", MediumFolder));
-
-            /**/
-
-            //                mInstances.Add(new TestInstance(10000, "new_b2500.1.txt", LargeFolder));
+            mInstances.Add(new TestInstance(2000, "p1000-5.txt", MediumFolder));
+        
             CPPInstance tInstance;
 
             tInstance = new CPPInstance(mInstances[0].mFolder + mInstances[0].mFileName);
@@ -1295,6 +1326,8 @@ namespace CPP
 
 
                 tProblem = new CPPProblem(mInstances[0].mFolder + mInstances[0].mFileName, mInstances[0].mFileName, tInstance);
+                tProblem.SASelect = iSASelectType;
+                tProblem.Metaheuristic = iMetaHeuristic;
                 tProblem.SetID(i);
                 tProblem.AllocateSolution();
                 tProblem.SASelect = SASelectType.Dual;
@@ -1309,38 +1342,11 @@ namespace CPP
             Parallel.ForEach(tProblems, Prob =>
                                 {
                                     Prob.Calibrate(mInstances[0].mCalcTime);
-                                    Prob.SolveFixSetSearch(mInstances[0].mCalcTime, 10000);
+                                    Prob.Solve( 10000, mInstances[0].mCalcTime/4);
                                     //Prob.SolveGRASP(mInstances[0].mCalcTime, 10000);
                                 }
             );
-            /**/
-
-
-
-
-
-
-
-            //            A.Close();
-            //            B.Close();
-
-
-            /*
-                            ); ; ; ; ;
-
-                        foreach (TestInstance t in mInstances)
-                        {
-
-                            tProblem = new CPPProblem(t.mFolder + t.mFileName, t.mFileName);
-                            tProblem.SetID(2);
-                            tProblem.AllocateSolution();
-
-                            tProblem.SASelect = SASelectType.Dual;
-                            tProblem.Calibrate(t.mCalcTime);
-                            //                tProblem.SolveGRASP(10000, t.mCalcTime);
-                            tProblem.SolveFixSetSearch(t.mCalcTime, 100000);
-                        }
-            */
+           
 
         }
 
@@ -1361,7 +1367,7 @@ namespace CPP
 
                 tProblem.SASelect = SASelectType.Dual;
                 tProblem.Calibrate(6);
-                tProblem.SolveFixSetSearch(t.mCalcTime, 100000);
+                tProblem.Solve( 100000, t.mCalcTime);
 
                 S = new StreamWriter("ResAll.txt", true);
                 S.WriteLine(t.mFileName + " " + tProblem.BestSolution);
@@ -1370,25 +1376,43 @@ namespace CPP
 
         }
 
-        public void SolveAllParallel(int NumParallel) {
+        public void SolveAllParallel(int NumParallel, CPPProblem.CPPMetaheuristic iMetaHeuristic, SASelectType iSASelectType, int Start)
+        {
 
             InitInstances();
-         //   int counter = 0;
             foreach (TestInstance t in mInstances)
             {
-//                if(counter % 2 == 0)
-                    SolveParallelInstance(t, NumParallel);
-
-//                counter++;
+                    SolveParallelInstance(t, NumParallel, iMetaHeuristic, iSASelectType,Start);
             }
 
         }
 
 
-    
-   
+        public void SolveAllParallelCompare(int NumParallel, int StartValue)
+        {
+            SASelectType[]                     selectSAType = { SASelectType.Dual, SASelectType.Single};
+            CPPProblem.CPPMetaheuristic[]      selectMetaheuristic = { CPPProblem.CPPMetaheuristic.FSS, CPPProblem.CPPMetaheuristic.GRASP };   
+         //   InitInstances();
 
-    bool LoadResults(string Filename, long[] Info)
+//            InitInstancesCompare16();
+            InitInstancesCompare32();
+            foreach (TestInstance t in mInstances)
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    for (int j = 0; j < 2; j++)
+                    {
+                        SolveParallelInstance(t, NumParallel, selectMetaheuristic[i], selectSAType[j], StartValue);
+                    }
+                }
+            }
+
+        }
+
+
+
+
+        bool LoadResults(string Filename, long[] Info)
         {
             if (!File.Exists(Filename))
                 return false;
@@ -1407,7 +1431,7 @@ namespace CPP
 
         }
 
-        public bool  GetAggregateResults(string FileNameBase, string Folder, int NumRuns, out ResultsInstance r) {
+        public bool  GetAggregateResults(string FileNameBase, string Folder, int NumRuns, out ResultsInstance r,string Method = "") {
 
             List<long> Res = new List<long>();
             long SumTime = 0;
@@ -1421,9 +1445,14 @@ namespace CPP
             long[] temp = new long[3];
 
             r.BestObjective = int.MinValue;
-            for (int i = 0; i < NumRuns; i++) { 
-                
-                cFileName = Folder + "Log_"+i+"_" + FileNameBase;
+            for (int i = 0; i < NumRuns; i++) {
+
+                if (Method == "")
+                    cFileName = Folder + "Log_" + i + "_" + FileNameBase;
+                else
+                     cFileName = Folder + Method + "Log_" + i + "_" + FileNameBase;
+
+
                 if (!LoadResults(cFileName, temp))
                     return false;
 
@@ -1452,6 +1481,9 @@ namespace CPP
 
             return true;
         }
+
+
+
 
         public void CreateTable(int NumRuns, string ResultsFolder)
         {
@@ -1482,6 +1514,60 @@ namespace CPP
 
             F.Close();
         }
+
+
+        public void CreateCompareTable(int NumRuns, string ResultsFolder, string type)
+        {
+
+            ResultsInstance Res;
+            List<ResultsInstance> Compare = new List<ResultsInstance>();
+            StreamWriter F = new StreamWriter("Table"+ type +".txt");
+            string ResString;
+
+     //       InitInstances();
+            //InitMDMCPResults();
+            if(type == "16")
+                InitInstancesCompare16();
+            if (type == "32")
+                InitInstancesCompare32();
+
+
+            for (int i = 0; i < mInstances.Count; i++)
+            {
+
+                Compare.Clear();
+                if (GetAggregateResults(mInstances[i].mFileName, ResultsFolder, NumRuns, out Res, "GRASP_Single_"))
+                {
+                    Compare.Add(Res);
+                }
+                if (GetAggregateResults(mInstances[i].mFileName, ResultsFolder, NumRuns, out Res, "FSS_Single_"))
+                {
+                    Compare.Add(Res);
+                }
+                if (GetAggregateResults(mInstances[i].mFileName, ResultsFolder, NumRuns, out Res, "GRASP_Dual_"))
+                {
+                    Compare.Add(Res);
+                }
+                if (GetAggregateResults(mInstances[i].mFileName, ResultsFolder, NumRuns, out Res, "FSS_Dual_"))
+                {
+                    Compare.Add(Res);
+                }
+
+
+                if (Compare.Count > 0)
+                {
+
+                    ResString = ResultsInstance.GetTableCompareString(Compare, true);
+
+                    F.WriteLine(ResString);
+                }
+
+            }
+
+            F.Close();
+        }
+
+
 
     }
 

@@ -45,6 +45,33 @@ namespace CPP
         List<long> mIntermediateSolutionsIterations;
         int mNumberOfSolutionsGenerated;
 
+        public string GetMethodFileName() {
+
+            string Result = "";
+
+            switch (mMetaHeuristic) { 
+            
+                case CPPMetaheuristic.GRASP:
+                    Result = "GRASP_";
+                    break;
+                case CPPMetaheuristic.FSS:
+                    Result = "FSS_";
+                    break;
+            }
+
+            switch (mSASType) {
+
+                case SASelectType.Single:
+                    Result += "Single";
+                    break;
+                case SASelectType.Dual:
+                    Result += "Dual";
+                    break;
+            }
+
+            return Result;
+        
+        }
 
         public void SetID(int iID)
         {
@@ -57,6 +84,14 @@ namespace CPP
             mGenerator = new Random(mID+10);
             S.Close();
 
+
+        }
+
+        public void InitLogFileName() { 
+            mLogFileName = GetMethodFileName()+ "_Log_"+ mID + "_"+ mInstanceName;
+            
+            StreamWriter S = new StreamWriter(mLogFileName);
+            S.Close();
 
         }
         public int ID
@@ -74,10 +109,34 @@ namespace CPP
 
         }
 
+        public CPPMetaheuristic Metaheuristic
+        {
+            get { return mMetaHeuristic; }
+            set { mMetaHeuristic = value; }
+
+        }
+
+
         public SASelectType SASelect
         {
             get { return mSASType; }
             set { mSASType = value; }
+        }
+
+
+        public void Solve(int iMaxIterations, double iTimeLimit) {
+
+            switch (mMetaHeuristic) {
+
+                case CPPMetaheuristic.FSS:
+                    SolveFixSetSearch(iMaxIterations, iTimeLimit);
+                    break;
+                case CPPMetaheuristic.GRASP:
+                    SolveGRASP(iMaxIterations, iTimeLimit);
+                    break;
+
+            }
+
         }
 
         public void InitAvailable(List<List<int>> FixedSet)
@@ -145,10 +204,10 @@ namespace CPP
         {
 
 
-            mFixStagnation = 10;
+            mFixStagnation = 20;
             mFixK = 10;
-            mFixInitPopulation = 20;
-            mFixN = 100;
+            mFixInitPopulation = 10;
+            mFixN = 50;
         }
 
 
@@ -183,8 +242,8 @@ namespace CPP
 
             mRCL = new RCL<CPPCandidate>(mRCLSize);
             mLogFileName = "Log" + mInstanceName;
-            StreamWriter S = new StreamWriter(mLogFileName);
-            S.Close();
+//            StreamWriter S = new StreamWriter(mLogFileName);
+//            S.Close();
             mSolutionHolder = new CPPSolutionHolder();
 
             InitFSS();
@@ -216,9 +275,6 @@ namespace CPP
 
 
             mRCL = new RCL<CPPCandidate>(mRCLSize);
-            mLogFileName = "Log" + mInstanceName;
-            StreamWriter S = new StreamWriter(mLogFileName);
-            S.Close();
             mSolutionHolder = new CPPSolutionHolder();
 
             InitFSS();
@@ -541,8 +597,8 @@ namespace CPP
 
             List<int> SelectSet = WeightedRadnomSampling.GetWeightedRadnomSampling(tN, tK, w, mGenerator);
             int tB = (int)Math.Min(tN, 10);
-            int BaseIndex = mGenerator.Next() % tN;
-            //            int BaseIndex = mGenerator.Next() % tB;
+            //int BaseIndex = mGenerator.Next() % tN;
+            int BaseIndex = mGenerator.Next() % tB;
 
             if (!mSolutionHolder.Solutions[BaseIndex].CheckSolutionValid(mInstance))
             {
@@ -638,7 +694,7 @@ namespace CPP
 
         }
 
-        public bool CheckBest()
+        public bool CheckBest(double Size = -1)
         {
 
             int nValue = mSolution.CalculateObjective();
@@ -651,7 +707,10 @@ namespace CPP
                 mIntermediateSolutionsIterations.Add(mNumberOfSolutionsGenerated);
                 mIntermediateSolutionsTimes.Add(mStopWatch.ElapsedMilliseconds);
                 LogResult();
-                Console.WriteLine("Value :" + mBestSolutionValue + "  Thread :" + Thread.CurrentThread.ManagedThreadId);
+                if(Size == -1)
+                    Console.WriteLine("Value :" + mBestSolutionValue + "  Thread :" + Thread.CurrentThread.ManagedThreadId);
+                else
+                    Console.WriteLine("Value :" + mBestSolutionValue + "  Thread :" + Thread.CurrentThread.ManagedThreadId+ "  Fixed : "+Size);
                 return true;
             }
 
@@ -660,7 +719,7 @@ namespace CPP
         }
 
 
-        public void SolveFixSetSearch(double iTimeLimit, int MaxGenerated)
+        public void SolveFixSetSearch( int MaxGenerated, double iTimeLimit)
         {
 
 
@@ -687,10 +746,9 @@ namespace CPP
             InitTracking();
 
             SolveGRASP(mFixInitPopulation, iTimeLimit);
-
             int counter = 1;
 
-            while (mInstance.NumberOfNodes / Math.Pow(2, counter) > 10)
+            while (mInstance.NumberOfNodes / Math.Pow(2,  counter) > 10)
             {
 
                 counter++;
@@ -708,7 +766,7 @@ namespace CPP
                 if (mStopWatch.ElapsedMilliseconds > iTimeLimit * 1000)
                     break;
 
-                FixSize = 1 - Math.Pow(2, -1 * (FixSetSizeIndex + 1));
+                FixSize = 1 - Math.Pow(2, -1 * (FixSetSizeIndex + 1 ));
 
 
                 FixSet = GetFix(mFixN, mFixK, FixSize);
@@ -741,7 +799,7 @@ namespace CPP
                 mSolutionHolder.Add(mSolution);
 
                 mNumberOfSolutionsGenerated++;
-                if (!CheckBest())
+                if (!CheckBest(FixSize))
                 {
                     StagCounter++;
                     if (StagCounter >= mFixStagnation)

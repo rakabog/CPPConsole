@@ -1097,26 +1097,30 @@ namespace CPP
 
                mInstances.Add(new TestInstance(1000, "unif800-100-1.txt", MediumFolder));
                mInstances.Add(new TestInstance(1000, "unif800-100-2.txt", MediumFolder));
-               mInstances.Add(new TestInstance(1000, "unif800-100-3.txt", MediumFolder));
+          
+            mInstances.Add(new TestInstance(1000, "unif800-100-3.txt", MediumFolder));
+           
                mInstances.Add(new TestInstance(1000, "unif800-100-4.txt", MediumFolder));
                mInstances.Add(new TestInstance(1000, "unif800-100-5.txt", MediumFolder));
+            
 
-
-               mInstances.Add(new TestInstance(2000, "p1000-1.txt", MediumFolder));
+            mInstances.Add(new TestInstance(2000, "p1000-1.txt", MediumFolder));
+            
                mInstances.Add(new TestInstance(2000, "p1000-2.txt", MediumFolder));
                mInstances.Add(new TestInstance(2000, "p1000-3.txt", MediumFolder));
                mInstances.Add(new TestInstance(2000, "p1000-4.txt", MediumFolder));
-
-
-               mInstances.Add(new TestInstance(2000, "p1000-5.txt", MediumFolder));
-
+            
+            
+            mInstances.Add(new TestInstance(2000, "p1000-5.txt", MediumFolder));
+           
                mInstances.Add(new TestInstance(4000, "p1500-1.txt", MediumFolder));
                mInstances.Add(new TestInstance(4000, "p1500-2.txt", MediumFolder));
                mInstances.Add(new TestInstance(4000, "p1500-3.txt", MediumFolder));
                mInstances.Add(new TestInstance(4000, "p1500-4.txt", MediumFolder));
+            
                mInstances.Add(new TestInstance(4000, "p1500-5.txt", MediumFolder));
 
-
+           
                mInstances.Add(new TestInstance(10000, "p2000-1.txt", MediumFolder));
                mInstances.Add(new TestInstance(10000, "p2000-2.txt", MediumFolder));
 
@@ -1125,18 +1129,21 @@ namespace CPP
               mInstances.Add(new TestInstance(10000, "p2000-4.txt", MediumFolder));
               mInstances.Add(new TestInstance(10000, "p2000-5.txt", MediumFolder));
 
+           
 
-
+                          mInstances.Add(new TestInstance(10000, "new_b2500.1.txt", LargeFolder));
             
-              mInstances.Add(new TestInstance(10000, "new_b2500.1.txt", LargeFolder));
-              mInstances.Add(new TestInstance(10000, "new_b2500.2.txt", LargeFolder));
-
+           
+            mInstances.Add(new TestInstance(10000, "new_b2500.2.txt", LargeFolder));
+            
               mInstances.Add(new TestInstance(10000, "new_b2500.3.txt", LargeFolder));
-
+            
               mInstances.Add(new TestInstance(10000, "new_b2500.4.txt", LargeFolder));
+           
               mInstances.Add(new TestInstance(10000, "new_b2500.5.txt", LargeFolder));
+            
 
-              mInstances.Add(new TestInstance(10000, "new_b2500.6.txt", LargeFolder));
+            mInstances.Add(new TestInstance(10000, "new_b2500.6.txt", LargeFolder));
               mInstances.Add(new TestInstance(10000, "new_b2500.7.txt", LargeFolder));
 
               mInstances.Add(new TestInstance(10000, "new_b2500.8.txt", LargeFolder));
@@ -1175,7 +1182,7 @@ namespace CPP
            
            mInstances.Add(new TestInstance(20000, "new_p7000.1.txt", LargeFolder));
             mInstances.Add(new TestInstance(20000, "new_p7000.2.txt", LargeFolder));
-          /*  */
+          
             mInstances.Add(new TestInstance(20000, "new_p7000.3.txt", LargeFolder));
             /**/
         }
@@ -1286,7 +1293,7 @@ namespace CPP
                 tProblem.AllocateSolution();
                 tProblem.SASelect = iSASelectType;
                 tProblem.InitLogFileName();
-                tProblem.Calibrate(iInstance.mCalcTime/4);
+                tProblem.Calibrate(iInstance.mCalcTime/2);
                 tProblems.Add(tProblem);
 
             }
@@ -1431,7 +1438,7 @@ namespace CPP
 
         }
 
-        public bool  GetAggregateResults(string FileNameBase, string Folder, int NumRuns, out ResultsInstance r,string Method = "") {
+        public bool  GetAggregateResults(string FileNameBase,  string Folder, int NumRuns, out ResultsInstance r,string Method = "") {
 
             List<long> Res = new List<long>();
             long SumTime = 0;
@@ -1450,7 +1457,7 @@ namespace CPP
                 if (Method == "")
                     cFileName = Folder + "Log_" + i + "_" + FileNameBase;
                 else
-                     cFileName = Folder + Method + "Log_" + i + "_" + FileNameBase;
+                     cFileName = Folder + Method + "_Log_" + i + "_" + FileNameBase;
 
 
                 if (!LoadResults(cFileName, temp))
@@ -1485,7 +1492,7 @@ namespace CPP
 
 
 
-        public void CreateTable(int NumRuns, string ResultsFolder)
+        public void CreateTable(int NumRuns, string ResultsFolder, string Method = "")
         {
 
             ResultsInstance Res;
@@ -1499,7 +1506,7 @@ namespace CPP
 
             for(int i=0; i< mInstances.Count; i++)
             {
-                if (GetAggregateResults(mInstances[i].mFileName, ResultsFolder, NumRuns, out Res)) {
+                if (GetAggregateResults(mInstances[i].mFileName, ResultsFolder, NumRuns, out Res, Method)) {
 
                     Compare.Clear();
                     Compare.Add(mMDMCP[i]);

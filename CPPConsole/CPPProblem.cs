@@ -776,9 +776,9 @@ namespace CPP
                 cObj = mSolution.CalculateObjective();
 
 
-                //               mSolution.LocalSearch(null);
+                               mSolution.LocalSearch(null);
 
-                mSolution.LocalSearch(mGenerator, null);
+//                mSolution.LocalSearch(mGenerator, null);
                 cObj = mSolution.CalculateObjective();
                 mSolution.SimulatedAnealing(mGenerator, mSAParams, out Accept);
                 cObj = mSolution.CalculateObjective();
@@ -808,6 +808,8 @@ namespace CPP
                         FixSetSizeIndex++;
                         FixSetSizeIndex %= MaxDiv;
                         StagCounter = 0;
+                 //       if(FixSetSizeIndex == 0)
+                 //                 mSAParams.mSizeRepeat *= 2;
                     }
 
 

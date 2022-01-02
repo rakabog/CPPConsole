@@ -605,6 +605,172 @@ namespace CPP
 //            bWeight = mWeights[Relocation.mN0][Relocation.mN1];
 
 
+            
+
+                if (mCliqueSizes[n0Clique] > Relocation.mChange)
+                {
+                    Relocation.mChange = n0RemoveChange;
+                    Relocation.mC0 = Size;
+                    Relocation.mMoveType = SAMoveType.N0;
+                }
+
+            
+
+            //           bWeight = mInstance.GetWeight(Relocation.mN0, Relocation.mN1);
+            /**/
+
+            for (int c = 0; c < Size; c++)
+            {
+
+                /**/
+                CliqueConnections = mAllConnections[c];
+
+                cChange0 = n0RemoveChange + CliqueConnections[Relocation.mN0];
+                if (n0Clique != c)
+                {
+                    if (cChange0 > Relocation.mChange)
+                    {
+
+                        Relocation.mChange = cChange0;
+                        Relocation.mC0 = c;
+                        Relocation.mMoveType = SAMoveType.N0;
+                        /*
+                        relocateNode = 0;
+                        relocateClique = c;
+                        cBest = cChange0;
+                        */
+                    }
+                }
+                cChange1 = n1RemoveChange + CliqueConnections[Relocation.mN1];
+
+                if ((n1Clique != c) && (n0Clique != c))
+                {
+               
+                    if (n1Clique == n0Clique)
+                    {
+
+                        cChange = cChange1 + cChange0 + 2 * bWeight;
+                        //     cChange = int.MinValue;
+                    }
+                    else
+                    {
+                        cChange = cChange1 + cChange0 + bWeight;
+                        //                        cChange = int.MinValue;
+                    }
+
+                    if (cChange > Relocation.mChange)
+                    {
+                       
+                        Relocation.mChange = cChange;
+                        Relocation.mC0 = c;
+                        Relocation.mC1 = c;
+                        Relocation.mMoveType = SAMoveType.Both;
+                    }
+
+                }
+               /*
+                if (n0Clique != n1Clique)
+                {
+                    if (c != n0Clique)
+                    {
+                        if (c != n1Clique)
+                        {
+                            cChange = cChange0 + n1RemoveChange + mAllConnections[n0Clique][Relocation.mN1] - bWeight;
+                        }
+                        else
+                        {
+
+                            cChange = cChange0 + n1RemoveChange + mAllConnections[n0Clique][Relocation.mN1] - 2 * bWeight;
+                        }
+
+                        if (cChange > Relocation.mChange)
+                        {
+
+                            Relocation.mChange = cChange;
+                            Relocation.mC0 = c;
+                            Relocation.mC1 = n0Clique;
+                            Relocation.mMoveType = SAMoveType.Slide;
+                        }
+                    }
+                }
+              /*  */
+
+                }
+            
+            /*
+            if (n1Clique != n0Clique )
+            {
+                
+
+                swapChange = n0RemoveChange + n1RemoveChange + mAllConnections[n0Clique][Relocation.mN1] + mAllConnections[n1Clique][Relocation.mN0] - 2 * bWeight;
+                if (swapChange > Relocation.mChange)
+                {
+                    Relocation.mChange = swapChange;
+                    Relocation.mMoveType = SAMoveType.Swap;
+                }
+            }
+            /*
+            n0RemoveChange += n1RemoveChange;
+
+
+            if (n1Clique == n0Clique)
+            {
+          
+                //                if (cBest < RemoveChange + 2 * bWeight)
+                if (Relocation.mChange < n0RemoveChange + 2 * bWeight)
+                {
+                    Relocation.mChange = n0RemoveChange + 2 * bWeight;
+                    Relocation.mC0 = Size;
+                    Relocation.mC1 = Size;
+                    Relocation.mMoveType = SAMoveType.Both;
+                }
+
+            }
+            else
+            {
+       
+                if (Relocation.mChange < n0RemoveChange + bWeight)
+                //                    if (cBest < RemoveChange + bWeight)
+                {
+
+                    Relocation.mChange = n0RemoveChange + bWeight;
+                    Relocation.mC0 = Size;
+                    Relocation.mC1 = Size;
+                    Relocation.mMoveType = SAMoveType.Both;
+                }
+
+            }
+            */
+
+        }
+
+        void SASelectDualPrev(ref SARelocation Relocation)
+        {
+
+            int[] CliqueConnections;
+
+            int n0Clique = mNodeClique[Relocation.mN0];
+            int n1Clique = mNodeClique[Relocation.mN1];
+            int n0RemoveChange;
+            int n1RemoveChange;
+            int RemoveChange;
+            //-1 non2 0 -n0 1- n1  2-both
+            int bWeight;
+            int cChange0;
+            int cChange1;
+            int cChange;
+            int swapChange;
+            int Size = mCliqueSizes.Count;
+
+            n0RemoveChange = -mAllConnections[n0Clique][Relocation.mN0];
+            n1RemoveChange = -mAllConnections[n1Clique][Relocation.mN1];
+
+
+            bWeight = mInstance.Weights[Relocation.mN0][Relocation.mN1];
+            //            bWeight = mInstance.mWeightsCopy[Relocation.mN0,Relocation.mN1];
+            //            bWeight = mWeights[Relocation.mN0][Relocation.mN1];
+
+
             if (n0RemoveChange < n1RemoveChange)
             {
                 if (mCliqueSizes[n1Clique] > 1)
@@ -656,27 +822,10 @@ namespace CPP
                     }
                 }
                 cChange1 = n1RemoveChange + CliqueConnections[Relocation.mN1];
-                if (n1Clique != c)
-                {
-                    if (cChange1 > Relocation.mChange)
-                    {
-
-                        Relocation.mChange = cChange1;
-                        Relocation.mC1 = c;
-                        Relocation.mMoveType = SAMoveType.N1;
-
-
-                        /*
-                        relocateNode = 1;
-                        relocateClique = c;
-                        cBest = cChange1;
-                        */
-                    }
-                }
 
                 if ((n1Clique != c) && (n0Clique != c))
                 {
-               
+
                     if (n1Clique == n0Clique)
                     {
 
@@ -691,11 +840,6 @@ namespace CPP
 
                     if (cChange > Relocation.mChange)
                     {
-                        /*
-                        relocateNode = 2;
-                        relocateClique = c;
-                        cBest = cChange;
-                        */
 
                         Relocation.mChange = cChange;
                         Relocation.mC0 = c;
@@ -707,10 +851,10 @@ namespace CPP
 
             }
 
-
-            if (n1Clique != n0Clique )
+        /*
+            if (n1Clique != n0Clique)
             {
-                
+
 
                 swapChange = n0RemoveChange + n1RemoveChange + mAllConnections[n0Clique][Relocation.mN1] + mAllConnections[n1Clique][Relocation.mN0] - 2 * bWeight;
                 if (swapChange > Relocation.mChange)
@@ -722,10 +866,10 @@ namespace CPP
 
             n0RemoveChange += n1RemoveChange;
 
-
+            /*
             if (n1Clique == n0Clique)
             {
-          
+
                 //                if (cBest < RemoveChange + 2 * bWeight)
                 if (Relocation.mChange < n0RemoveChange + 2 * bWeight)
                 {
@@ -738,7 +882,7 @@ namespace CPP
             }
             else
             {
-       
+
                 if (Relocation.mChange < n0RemoveChange + bWeight)
                 //                    if (cBest < RemoveChange + bWeight)
                 {
@@ -750,9 +894,10 @@ namespace CPP
                 }
 
             }
-
+            */
 
         }
+
 
 
         void SASelectDualExt(ref SARelocation Relocation)
@@ -1112,19 +1257,18 @@ namespace CPP
 
             n0 = iGenerator.Next() % mInstance.NumberOfNodes;
 
-            while (true)
-            {
 
-                n1 = iGenerator.Next() % mInstance.NumberOfNodes;
-                if (n0 != n1)
-                    break;
-            }
+            Relocation.mN1 = Relocation.mN0;
             Relocation.mN0 = n0;
-            Relocation.mN1 = n1;
+            
             //            int bWeight = mInstance.Weights[Relocation.mN0][Relocation.mN1];
 
 //            SASelectDualExt(ref Relocation);
-              SASelectDual(ref Relocation);
+            if(Relocation.mN0 != Relocation.mN1)
+                SASelectDual(ref Relocation);
+            else
+                SASelectSingle(ref Relocation);
+
 
 
 
@@ -1283,8 +1427,9 @@ namespace CPP
                         ApplyRelocation(cRelocation);
 
 //                        CreateFromNodeClique(mNodeClique);
-
 //                        cSol = CalculateObjective();
+
+
                         cSolObjective += cRelocation.mChange;
                         if (cSol != cSolObjective)
                             cSol = cSol;

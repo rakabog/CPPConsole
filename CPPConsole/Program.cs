@@ -27,15 +27,19 @@ namespace CPPConsole
             //                        tExperiments.CreateTable(10, ".\\NewResSlide_16_095\\");
             //                        tExperiments.CreateTable(20, ".\\RezSA8_95FSS_I10_S20_B_10_S50\\", "FSS_Single");
 
-//                                    tExperiments.CreateTable(10, ".\\4\\", "FSS_Dual");
+                                tExperiments.CreateTable(10, ".\\RezRADFSS_I10_S20_B_50_S50\\", "FSS_Single");
             //         tExperiments.CreateTable(10, ".\\ResSlide_16_095\\");
             //                     tExperiments.CreateTable(10, ".\\ResSlide_New\\");
 
-            //                        tExperiments.CreateTable( 10, ".\\AllRezNew\\");
-//                                                  tExperiments.SolveSingleParallel(10);
-            tExperiments.SolveAllParallel(10,CPPProblem.CPPMetaheuristic.FSS, SASelectType.Dual, 0);
-//                        tExperiments.SolveAllParallel(10, CPPProblem.CPPMetaheuristic.FSS, SASelectType.Single, 10);
-//                        tExperiments.SolveSingle();
+            //                                    tExperiments.CreateTable( 10, ".\\AllRezNew\\");
+            //                                                  tExperiments.SolveSingleParallel(10);
+
+                                    tExperiments.CreateTable(10, ".\\GraspSingle\\", "GRASP_Single");
+                          //          tExperiments.CreateTable(10, ".\\GraspDual\\", "FSS_Single");
+
+//                         tExperiments.SolveAllParallel(10,CPPProblem.CPPMetaheuristic.FSS, SASelectType.Single, 0);
+            //                        tExperiments.SolveAllParallel(10, CPPProblem.CPPMetaheuristic.FSS, SASelectType.Single, 10);
+            //                        tExperiments.SolveSingle();
 
         }
     }

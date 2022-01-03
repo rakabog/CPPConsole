@@ -1302,7 +1302,7 @@ namespace CPP
             Parallel.ForEach(tProblems, Prob =>
             {
 
-                Prob.Solve( 100000, iInstance.mCalcTime / 4);
+                Prob.Solve( 100000, iInstance.mCalcTime / 2);
             }
             );
 
@@ -1497,7 +1497,7 @@ namespace CPP
 
             ResultsInstance Res;
             List<ResultsInstance> Compare = new List<ResultsInstance>();
-            StreamWriter  F = new StreamWriter("Table.txt");
+            StreamWriter  F = new StreamWriter("Table_"+Method+".txt");
             string ResString;
 
             InitInstances();

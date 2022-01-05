@@ -596,9 +596,9 @@ namespace CPP
 
 
             List<int> SelectSet = WeightedRadnomSampling.GetWeightedRadnomSampling(tN, tK, w, mGenerator);
-        //    int tB = (int)Math.Min(tN, 10);
-            int BaseIndex = mGenerator.Next() % tN;
-            //int BaseIndex = mGenerator.Next() % tB;
+            int tB = (int)Math.Min(tN, 10);
+        //    int BaseIndex = mGenerator.Next() % tN;
+            int BaseIndex = mGenerator.Next() % tB;
 
             if (!mSolutionHolder.Solutions[BaseIndex].CheckSolutionValid(mInstance))
             {

@@ -668,7 +668,7 @@ namespace CPP
                     }
 
                 }
-               /*
+               
                 if (n0Clique != n1Clique)
                 {
                     if (c != n0Clique)

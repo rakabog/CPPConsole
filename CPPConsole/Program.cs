@@ -15,7 +15,10 @@ namespace CPPConsole
             CPPExperiments tExperiments = new CPPExperiments();
             //                        tExperiments.SolveAllParallelCompare(10, 0);
             //                        tExperiments.SolveAllParallelCompare(10, 10);
-            //          tExperiments.SolveAllParallelCompare(10, 10);
+
+
+//            for (int i=0; i< 4; i++)
+//                      tExperiments.SolveAllParallelCompare(5, i*4);
 
 
             //                tExperiments.SolveSingle();
@@ -40,7 +43,7 @@ namespace CPPConsole
             //                                    tExperiments.CreateTable(10, ".\\T\\", "FSS_Dual");
 
 //            tExperiments.SolveAllParallel(10,CPPProblem.CPPMetaheuristic.FSS, SASelectType.Dual, 0);
-            //                        tExperiments.SolveAllParallel(10, CPPProblem.CPPMetaheuristic.FSS, SASelectType.Single, 10);
+//                                        tExperiments.SolveAllParallel(5, CPPProblem.CPPMetaheuristic.FSS, SASelectType.Single, 10);
             //                        tExperiments.SolveSingle();
 
         }

@@ -1297,7 +1297,7 @@ namespace CPP
                 tProblem.AllocateSolution();
                 tProblem.SASelect = iSASelectType;
                 tProblem.InitLogFileName();
-                tProblem.Calibrate(iInstance.mCalcTime/2);
+                tProblem.Calibrate(iInstance.mCalcTime);
                 tProblems.Add(tProblem);
 
             }
@@ -1306,7 +1306,7 @@ namespace CPP
             Parallel.ForEach(tProblems, Prob =>
             {
 
-                Prob.Solve( 100000, iInstance.mCalcTime / 2);
+                Prob.Solve( 100000, iInstance.mCalcTime);
             }
             );
 

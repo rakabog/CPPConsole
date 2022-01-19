@@ -1224,11 +1224,57 @@ namespace CPP
 
 
             mInstances = new List<TestInstance>();
-            mInstances.Add(new TestInstance(20000, "new_p3000.1.txt", LargeFolder));
-            mInstances.Add(new TestInstance(20000, "new_p5000.1.txt", LargeFolder));
-            mInstances.Add(new TestInstance(20000, "new_p7000.1.txt", LargeFolder));
-            mInstances.Add(new TestInstance(20000, "new_p4000.1.txt", LargeFolder));
-            mInstances.Add(new TestInstance(20000, "new_p6000.1.txt", LargeFolder));
+            /*     mInstances.Add(new TestInstance(20000, "new_p3000.1.txt", LargeFolder));
+                 mInstances.Add(new TestInstance(20000, "new_p4000.1.txt", LargeFolder));
+                 mInstances.Add(new TestInstance(20000, "new_p5000.1.txt", LargeFolder));
+                 mInstances.Add(new TestInstance(20000, "new_p6000.1.txt", LargeFolder));
+                 mInstances.Add(new TestInstance(20000, "new_p7000.1.txt", LargeFolder));
+
+                 mInstances.Add(new TestInstance(20000, "new_p3000.2.txt", LargeFolder));
+                 mInstances.Add(new TestInstance(20000, "new_p4000.2.txt", LargeFolder));
+                 mInstances.Add(new TestInstance(20000, "new_p5000.2.txt", LargeFolder));
+                 mInstances.Add(new TestInstance(20000, "new_p6000.2.txt", LargeFolder));
+                 mInstances.Add(new TestInstance(20000, "new_p7000.2.txt", LargeFolder));
+
+                 mInstances.Add(new TestInstance(20000, "new_p3000.3.txt", LargeFolder));
+                 mInstances.Add(new TestInstance(20000, "new_p4000.3.txt", LargeFolder));
+                 mInstances.Add(new TestInstance(20000, "new_p5000.3.txt", LargeFolder));
+
+                 mInstances.Add(new TestInstance(20000, "new_p6000.3.txt", LargeFolder));
+                 mInstances.Add(new TestInstance(20000, "new_p7000.3.txt", LargeFolder));
+
+                 mInstances.Add(new TestInstance(20000, "new_p3000.4.txt", LargeFolder));
+                 mInstances.Add(new TestInstance(20000, "new_p4000.4.txt", LargeFolder));
+                 mInstances.Add(new TestInstance(20000, "new_p5000.4.txt", LargeFolder));
+                        mInstances.Add(new TestInstance(20000, "new_p3000.5.txt", LargeFolder));
+
+            */
+
+            mInstances.Add(new TestInstance(20000, "new_p4000.5.txt", LargeFolder));
+            mInstances.Add(new TestInstance(20000, "new_p5000.5.txt", LargeFolder));
+
+
+
+
+            mInstances.Add(new TestInstance(10000, "new_b2500.1.txt", LargeFolder));
+
+
+            mInstances.Add(new TestInstance(10000, "new_b2500.2.txt", LargeFolder));
+
+            mInstances.Add(new TestInstance(10000, "new_b2500.3.txt", LargeFolder));
+
+            mInstances.Add(new TestInstance(10000, "new_b2500.4.txt", LargeFolder));
+
+            mInstances.Add(new TestInstance(10000, "new_b2500.5.txt", LargeFolder));
+
+
+            mInstances.Add(new TestInstance(10000, "new_b2500.6.txt", LargeFolder));
+            mInstances.Add(new TestInstance(10000, "new_b2500.7.txt", LargeFolder));
+
+            mInstances.Add(new TestInstance(10000, "new_b2500.8.txt", LargeFolder));
+            mInstances.Add(new TestInstance(10000, "new_b2500.9.txt", LargeFolder));
+            mInstances.Add(new TestInstance(10000, "new_b2500.10.txt", LargeFolder));
+
             /**/
         }
 
@@ -1297,7 +1343,7 @@ namespace CPP
                 tProblem.AllocateSolution();
                 tProblem.SASelect = iSASelectType;
                 tProblem.InitLogFileName();
-                tProblem.Calibrate(iInstance.mCalcTime);
+                tProblem.Calibrate(iInstance.mCalcTime/2);
                 tProblems.Add(tProblem);
 
             }
@@ -1306,7 +1352,7 @@ namespace CPP
             Parallel.ForEach(tProblems, Prob =>
             {
 
-                Prob.Solve( 100000, iInstance.mCalcTime);
+                Prob.Solve( 100000, iInstance.mCalcTime/2);
             }
             );
 
@@ -1413,7 +1459,8 @@ namespace CPP
                 {
                     for (int j = 0; j < 2; j++)
                     {
-                        SolveParallelInstance(t, NumParallel, selectMetaheuristic[i], selectSAType[j], StartValue);
+                        if(!((i== 0) &&(j == 0)))
+                             SolveParallelInstance(t, NumParallel, selectMetaheuristic[i], selectSAType[j], StartValue);
                     }
                 }
             }
@@ -1461,7 +1508,7 @@ namespace CPP
                 if (Method == "")
                     cFileName = Folder + "Log_" + i + "_" + FileNameBase;
                 else
-                     cFileName = Folder + Method + "_Log_" + i + "_" + FileNameBase;
+                     cFileName = Folder + Method + "Log_" + i + "_" + FileNameBase;
 
 
                 if (!LoadResults(cFileName, temp))
@@ -1515,7 +1562,7 @@ namespace CPP
                     Compare.Clear();
                     Compare.Add(mMDMCP[i]);
                     Compare.Add(Res);
-                    ResString = ResultsInstance.GetTableCompareString(Compare, true);
+                    ResString = ResultsInstance.GetTableCompareString(Compare, true, true);
 
                     F.WriteLine(ResString);
 //                    F.WriteLine(Res.GetTableString(true));
@@ -1568,7 +1615,7 @@ namespace CPP
                 if (Compare.Count > 0)
                 {
 
-                    ResString = ResultsInstance.GetTableCompareString(Compare, true);
+                    ResString = ResultsInstance.GetTableCompareString(Compare, true, false);
 
                     F.WriteLine(ResString);
                 }

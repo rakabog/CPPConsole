@@ -13,7 +13,7 @@ namespace CPPConsole
             Console.WriteLine("Hello World!");
 
             CPPExperiments tExperiments = new CPPExperiments();
-            //                        tExperiments.SolveAllParallelCompare(10, 0);
+                                      tExperiments.SolveAllParallelCompare(10, 0);
             //                        tExperiments.SolveAllParallelCompare(10, 10);
 
 
@@ -26,7 +26,7 @@ namespace CPPConsole
 
 
             //         tExperiments.CreateCompareTable(20, ".\\Compare16\\", "16");
-            //            tExperiments.CreateCompareTable(10, ".\\Compare32\\", "32" );
+             //           tExperiments.CreateCompareTable(10, ".\\ParallelCompare\\", "32" );
             //                        tExperiments.CreateTable(10, ".\\NewResSlide_16_095\\");
             //                        tExperiments.CreateTable(20, ".\\RezSA8_95FSS_I10_S20_B_10_S50\\", "FSS_Single");
 
@@ -39,7 +39,7 @@ namespace CPPConsole
 
             //                      tExperiments.CreateTable(10, ".\\GraspSingle\\", "GRASP_Single");
             //                                    tExperiments.CreateTable(10, ".\\T\\", "FSS_Single");
-                                                tExperiments.CreateTable(10, ".\\FinalRezRADFSS_I10_S20_B_10_S50\\", "FSS_Dual");
+                                             //   tExperiments.CreateTable(10, ".\\FinalRezRADFSS_I10_S20_B_10_S50\\", "FSS_Dual_");
             //                                    tExperiments.CreateTable(10, ".\\T\\", "FSS_Dual");
 
 //            tExperiments.SolveAllParallel(10,CPPProblem.CPPMetaheuristic.FSS, SASelectType.Dual, 0);

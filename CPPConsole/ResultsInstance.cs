@@ -21,7 +21,7 @@ namespace CPP
         
         }
 
-        public string GetTableString(bool UseInstanceName) {
+        public string GetTableString(bool UseInstanceName, bool UseHits=true) {
 
             string result = "";
             if (UseInstanceName)
@@ -31,12 +31,13 @@ namespace CPP
             result += AverageObjective.ToString("0.00") + " & ";
             result += AverageTime.ToString("0.00") + " & ";
             result += AverageIter.ToString("0.00") + " & ";
-            result += Hits + "/" +OutOf ;
+            if(UseHits)
+                result += Hits + "/" +OutOf ;
 
             return result;
         }
 
-        public static string GetTableCompareString(List<ResultsInstance> Results, bool UseInstanceName)
+        public static string GetTableCompareString(List<ResultsInstance> Results, bool UseInstanceName, bool UseHits)
         {
             string temp;
             string result = "";
@@ -131,15 +132,18 @@ namespace CPP
             {
 
                     sTime += " & " + r.AverageTime.ToString("0.00");
+               
                     sHits += " & " + r.Hits + "/" + r.OutOf;
                     
             }
 
 
-//            result += sHits + " & " + sTime + "\\\\";
-            result += sHits +  "\\\\";
+            //            result += sHits + " & " + sTime + "\\\\";
 
-
+            if (UseHits)
+                result += sHits +  "\\\\";
+            else
+                result += "\\\\";
 
             return result;
         }

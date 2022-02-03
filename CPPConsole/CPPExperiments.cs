@@ -2,6 +2,15 @@
 using System.IO;
 using System.Threading.Tasks;
 
+
+using System;
+
+
+
+using Extreme.Mathematics;
+using Extreme.Statistics;
+using Extreme.Statistics.Tests;
+
 namespace CPP
 {
 
@@ -1224,37 +1233,6 @@ namespace CPP
 
 
             mInstances = new List<TestInstance>();
-            /*     mInstances.Add(new TestInstance(20000, "new_p3000.1.txt", LargeFolder));
-                 mInstances.Add(new TestInstance(20000, "new_p4000.1.txt", LargeFolder));
-                 mInstances.Add(new TestInstance(20000, "new_p5000.1.txt", LargeFolder));
-                 mInstances.Add(new TestInstance(20000, "new_p6000.1.txt", LargeFolder));
-                 mInstances.Add(new TestInstance(20000, "new_p7000.1.txt", LargeFolder));
-
-                 mInstances.Add(new TestInstance(20000, "new_p3000.2.txt", LargeFolder));
-                 mInstances.Add(new TestInstance(20000, "new_p4000.2.txt", LargeFolder));
-                 mInstances.Add(new TestInstance(20000, "new_p5000.2.txt", LargeFolder));
-                 mInstances.Add(new TestInstance(20000, "new_p6000.2.txt", LargeFolder));
-                 mInstances.Add(new TestInstance(20000, "new_p7000.2.txt", LargeFolder));
-
-                 mInstances.Add(new TestInstance(20000, "new_p3000.3.txt", LargeFolder));
-                 mInstances.Add(new TestInstance(20000, "new_p4000.3.txt", LargeFolder));
-                 mInstances.Add(new TestInstance(20000, "new_p5000.3.txt", LargeFolder));
-
-                 mInstances.Add(new TestInstance(20000, "new_p6000.3.txt", LargeFolder));
-                 mInstances.Add(new TestInstance(20000, "new_p7000.3.txt", LargeFolder));
-
-                 mInstances.Add(new TestInstance(20000, "new_p3000.4.txt", LargeFolder));
-                 mInstances.Add(new TestInstance(20000, "new_p4000.4.txt", LargeFolder));
-                 mInstances.Add(new TestInstance(20000, "new_p5000.4.txt", LargeFolder));
-                        mInstances.Add(new TestInstance(20000, "new_p3000.5.txt", LargeFolder));
-
-            */
-
-            mInstances.Add(new TestInstance(20000, "new_p4000.5.txt", LargeFolder));
-            mInstances.Add(new TestInstance(20000, "new_p5000.5.txt", LargeFolder));
-
-
-
 
             mInstances.Add(new TestInstance(10000, "new_b2500.1.txt", LargeFolder));
 
@@ -1274,6 +1252,46 @@ namespace CPP
             mInstances.Add(new TestInstance(10000, "new_b2500.8.txt", LargeFolder));
             mInstances.Add(new TestInstance(10000, "new_b2500.9.txt", LargeFolder));
             mInstances.Add(new TestInstance(10000, "new_b2500.10.txt", LargeFolder));
+
+
+            mInstances.Add(new TestInstance(20000, "new_p3000.1.txt", LargeFolder));
+            mInstances.Add(new TestInstance(20000, "new_p3000.2.txt", LargeFolder));
+
+            mInstances.Add(new TestInstance(20000, "new_p3000.3.txt", LargeFolder));
+            mInstances.Add(new TestInstance(20000, "new_p3000.4.txt", LargeFolder));
+
+            mInstances.Add(new TestInstance(20000, "new_p3000.5.txt", LargeFolder));
+
+
+            mInstances.Add(new TestInstance(20000, "new_p4000.1.txt", LargeFolder));
+            mInstances.Add(new TestInstance(20000, "new_p4000.2.txt", LargeFolder));
+
+            mInstances.Add(new TestInstance(20000, "new_p4000.3.txt", LargeFolder));
+            mInstances.Add(new TestInstance(20000, "new_p4000.4.txt", LargeFolder));
+
+            mInstances.Add(new TestInstance(20000, "new_p4000.5.txt", LargeFolder));
+
+            mInstances.Add(new TestInstance(20000, "new_p5000.1.txt", LargeFolder));
+
+            mInstances.Add(new TestInstance(20000, "new_p5000.2.txt", LargeFolder));
+            mInstances.Add(new TestInstance(20000, "new_p5000.3.txt", LargeFolder));
+            mInstances.Add(new TestInstance(20000, "new_p5000.4.txt", LargeFolder));
+            mInstances.Add(new TestInstance(20000, "new_p5000.5.txt", LargeFolder));
+
+
+            mInstances.Add(new TestInstance(20000, "new_p6000.1.txt", LargeFolder));
+            mInstances.Add(new TestInstance(20000, "new_p6000.2.txt", LargeFolder));
+            mInstances.Add(new TestInstance(20000, "new_p6000.3.txt", LargeFolder));
+
+            mInstances.Add(new TestInstance(20000, "new_p7000.1.txt", LargeFolder));
+
+            mInstances.Add(new TestInstance(20000, "new_p7000.2.txt", LargeFolder));
+
+            mInstances.Add(new TestInstance(20000, "new_p7000.3.txt", LargeFolder));
+
+
+
+
 
             /**/
         }
@@ -1489,6 +1507,32 @@ namespace CPP
 
         }
 
+        public List<long> GetAllResultInstanceValue(string FileNameBase, string Folder, int NumRuns, string Method = "") {
+
+            List<long> Result = new List<long>();
+            long[] temp = new long[3];
+
+            string cFileName;
+            for (int i = 0; i < NumRuns; i++)
+            {
+
+                if (Method == "")
+                    cFileName = Folder + "Log_" + i + "_" + FileNameBase;
+                else
+                    cFileName = Folder + Method + "Log_" + i + "_" + FileNameBase;
+
+
+                if (!LoadResults(cFileName, temp))
+                    return null;
+
+                Result.Add((long)temp[0]);
+            }
+
+
+            return Result;
+        
+        }
+
         public bool  GetAggregateResults(string FileNameBase,  string Folder, int NumRuns, out ResultsInstance r,string Method = "") {
 
             List<long> Res = new List<long>();
@@ -1624,6 +1668,166 @@ namespace CPP
 
             F.Close();
         }
+
+
+        public string StatUnpairedTTEst(List<long> G1, List<long> G2) {
+
+            string result = "$\\approx$";
+
+            var group1Results = Vector.Create(new double[] {
+                62, 77, 61, 94, 75, 82, 86, 83, 64, 84,
+            });
+
+
+            var group2Results = Vector.Create(new double[] {
+                61, 80, 98, 90, 94, 65, 79, 75, 74, 86,
+            });
+
+            for (int ii = 0; ii < 10; ii++)
+            {
+
+                group1Results[ii] = G1[ii];
+                group2Results[ii] = G2[ii];
+                //                    group2Results[ii] = GRASP_Single[ii];
+            }
+
+            var tTest2 = new TwoSampleTTest(group1Results, group2Results, 1, SamplePairing.Unpaired, false, HypothesisType.TwoTailed);
+
+
+
+            if (!tTest2.Reject())
+                return result;
+            Console.WriteLine("P-value:        {0:F4}", tTest2.PValue);
+            Console.WriteLine("Significance level:     {0:F2}", tTest2.SignificanceLevel);
+
+
+            tTest2 = new TwoSampleTTest(group1Results, group2Results, 1, SamplePairing.Unpaired, false, HypothesisType.OneTailedUpper);
+
+            if (!tTest2.Reject())
+            {
+                Console.WriteLine("P-value:        {0:F4}", tTest2.PValue);
+                Console.WriteLine("Significance level:     {0:F2}", tTest2.SignificanceLevel);
+                Console.WriteLine("Reject null hypothesis? {0}", tTest2.Reject() ? "yes" : "no");
+                result = "$<$";
+                return result;
+            }
+
+            tTest2 = new TwoSampleTTest(group1Results, group2Results, 1, SamplePairing.Unpaired, false, HypothesisType.OneTailedLower);
+
+            if (!tTest2.Reject())
+            {
+                result = "$>$";
+                Console.WriteLine("P-value:        {0:F4}", tTest2.PValue);
+                Console.WriteLine("Significance level:     {0:F2}", tTest2.SignificanceLevel);
+                Console.WriteLine("Reject null hypothesis? {0}", tTest2.Reject() ? "yes" : "no");
+                return result;
+            }
+
+            return result;
+
+        }
+        public void CreateStatisticTable(int NumRuns, string ResultsFolder, string type)
+        {
+
+            ResultsInstance Res;
+            List<ResultsInstance> Compare = new List<ResultsInstance>();
+            StreamWriter F = new StreamWriter("TableStat" + type + ".txt");
+            List<long> GRASP_Dual;
+            List<long> GRASP_Single;
+
+            List<long> FSS_Dual;
+            List<long> FSS_Single;
+
+            string ResString;
+
+            var group1Results = Vector.Create(new double[] {
+                62, 77, 61, 94, 75, 82, 86, 83, 64, 84,
+            });
+
+
+            var group2Results = Vector.Create(new double[] {
+                61, 80, 98, 90, 94, 65, 79, 75, 74, 86,
+            });
+
+
+            
+
+            //            var tTest2 = new MannWhitneyTest<double>(group1Results, group2Results); 
+
+            var tTest2 = new TwoSampleTTest(group1Results, group2Results, SamplePairing.Unpaired, false);
+            // We can obtan the value of the test statistic through the Statistic property,
+            // and the corresponding P-value through the Probability property:
+            Console.WriteLine("Test statistic: {0:F4}", tTest2.Statistic);
+            Console.WriteLine("P-value:        {0:F4}", tTest2.PValue);
+
+            // The significance level is the default value of 0.05:
+            Console.WriteLine("Significance level:     {0:F2}", tTest2.SignificanceLevel);
+            // We can now print the test scores:
+            Console.WriteLine("Reject null hypothesis? {0}", tTest2.Reject() ? "yes" : "no");
+
+            Console.WriteLine("Press any key to exit.");
+            Console.ReadLine();
+
+            //       InitInstances();
+            //InitMDMCPResults();
+            if (type == "16")
+                InitInstancesCompare16();
+            if (type == "32")
+                InitInstancesCompare32();
+
+            string temp;
+            for (int i = 0; i < mInstances.Count; i++)
+            {
+
+
+
+
+                ResString = mInstances[i].mFileName ;
+
+                ResString = ResString.Replace(".txt", "");
+                ResString = ResString.Replace("new_", "");
+
+                GRASP_Single = GetAllResultInstanceValue(mInstances[i].mFileName, ResultsFolder, NumRuns, "GRASP_Single_");
+                FSS_Single = GetAllResultInstanceValue(mInstances[i].mFileName, ResultsFolder, NumRuns, "FSS_Single_");
+                GRASP_Dual = GetAllResultInstanceValue(mInstances[i].mFileName, ResultsFolder, NumRuns, "GRASP_Dual_");
+                FSS_Dual = GetAllResultInstanceValue(mInstances[i].mFileName, ResultsFolder, NumRuns, "FSS_Dual_");
+
+                temp = StatUnpairedTTEst(GRASP_Single, GRASP_Dual);
+                ResString += " & " + temp;
+
+                temp = StatUnpairedTTEst(GRASP_Single, FSS_Single);
+                ResString += " & " +temp;
+
+                temp = StatUnpairedTTEst(GRASP_Single, FSS_Dual);
+                ResString += " & " + temp;
+
+                temp = StatUnpairedTTEst(GRASP_Dual, FSS_Single);
+                ResString += " & " + temp;
+
+                temp = StatUnpairedTTEst(GRASP_Dual, FSS_Dual);
+                ResString += " & " + temp;
+
+                temp = StatUnpairedTTEst(FSS_Single, FSS_Dual);
+                ResString += " & " + temp;
+
+                ResString += " \\\\ ";
+
+
+
+
+
+                F.WriteLine(ResString);              
+
+
+
+
+
+
+            }
+
+            F.Close();
+        }
+
 
 
 

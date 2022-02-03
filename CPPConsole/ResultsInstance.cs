@@ -92,42 +92,70 @@ namespace CPP
             counter = 0;
             foreach (ResultsInstance r in Results) {
 
-                if ((r.BestObjective == BestObjective) && (uniqueBest))
+                if (false)
                 {
-                    result += "\\underline{" + r.BestObjective + "}";
-                }
-                else {
-                    result +=  r.BestObjective;
+                    if ((r.BestObjective == BestObjective) && (uniqueBest))
+                    {
+                        result += "\\underline{" + r.BestObjective + "}";
+                    }
+                    else
+                    {
+                        result += r.BestObjective;
+                    }
                 }
 
                 counter++;
-                if(counter < Length)
-                    result += " & ";
-            }
 
-            result += " & ";
+                if (false)
+                {
+                    if (counter == 2)
+                        result += " & ";
+                }
+                if (false)
+                {
+                    if (counter < Length)
+                        result += " & ";
+                }
+            }
+            
+        //    result += " & ";
 
             counter = 0;
 
             foreach (ResultsInstance r in Results)
             {
 
-                if ((r.AverageObjective == BestAverageObjective) && (uniqueAvg))
+                if (true)
                 {
-                    result += "\\underline{" + r.AverageObjective.ToString("0.00") + "}";
+                    if ((r.AverageObjective == BestAverageObjective) && (uniqueAvg))
+                    {
+                        result += "\\underline{" + r.AverageObjective.ToString("0.00") + "}";
+                    }
+                    else
+                    {
+                        result += r.AverageObjective.ToString("0.00");
+                    }
+
                 }
-                else
+                counter++;
+
+                if (true)
                 {
-                    result += r.AverageObjective.ToString("0.00");
+                    if (counter == 2)
+                        result += " & ";
                 }
 
-                counter++;
-                if (counter < Length)
-                    result += " & ";
+                if (true)
+                {
+                    if (counter < Length)
+                        result += " & ";
+                }
             }
+            
             string sTime = "";
             string sIter = "";
             string sHits = ""; 
+            
             foreach (ResultsInstance r in Results)
             {
 
@@ -139,7 +167,7 @@ namespace CPP
 
 
             //            result += sHits + " & " + sTime + "\\\\";
-
+            
             if (UseHits)
                 result += sHits +  "\\\\";
             else

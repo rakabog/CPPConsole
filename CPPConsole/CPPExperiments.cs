@@ -1587,6 +1587,9 @@ namespace CPP
 
 
 
+
+
+
         public void CreateTable(int NumRuns, string ResultsFolder, string Method = "")
         {
 
@@ -1726,7 +1729,97 @@ namespace CPP
             return result;
 
         }
-        public void CreateStatisticTable(int NumRuns, string ResultsFolder, string type)
+
+        public void CreateTimeTable(int NumRuns, string ResultsFolder, string type)
+        {
+
+
+            ResultsInstance Res;
+            List<ResultsInstance> Compare = new List<ResultsInstance>();
+            StreamWriter F = new StreamWriter("TableTime" + type + ".txt");
+            int[] NumInstances = { 10, 5, 5, 5, 3, 3 };
+            int[] InstancesSize = { 2500, 3000, 4000, 5000, 6000, 7000 };
+            int CurrentSizeCounter = 0;
+            int CurrentSizeIndex;
+
+            
+
+
+            if (type == "16")
+                InitInstancesCompare16();
+            if (type == "32")
+                InitInstancesCompare32();
+
+
+            CurrentSizeIndex = 0;
+
+
+            ResultsInstance RGRASP_Single;
+            ResultsInstance RGRASP_Dual;
+
+
+            ResultsInstance RFSS_Single;
+            ResultsInstance RFSS_Dual;
+
+            double AvgTimeIterFSS_Single = 0;
+            double AvgTimeIterFSS_Dual = 0;
+
+            double AvgTimeIterGRASP_Single = 0;
+            double AvgTimeIterGRASP_Dual = 0;
+
+
+
+            for (int i = 0; i < mInstances.Count; i++)
+            {
+
+                GetAggregateResults(mInstances[i].mFileName, ResultsFolder, NumRuns, out RGRASP_Single, "GRASP_Single_");
+                GetAggregateResults(mInstances[i].mFileName, ResultsFolder, NumRuns, out RGRASP_Dual, "GRASP_Dual_");
+                GetAggregateResults(mInstances[i].mFileName, ResultsFolder, NumRuns, out RFSS_Single, "FSS_Single_");
+                GetAggregateResults(mInstances[i].mFileName, ResultsFolder, NumRuns, out RFSS_Dual, "FSS_Dual_");
+
+                AvgTimeIterFSS_Dual += ((double)RFSS_Dual.AverageTime) / RFSS_Dual.AverageIter;
+                AvgTimeIterFSS_Single += ((double)RFSS_Single.AverageTime) / RFSS_Single.AverageIter;
+
+
+                AvgTimeIterGRASP_Dual += ((double)RGRASP_Dual.AverageTime) / RGRASP_Dual.AverageIter;
+                AvgTimeIterGRASP_Single += ((double)RGRASP_Single.AverageTime) / RGRASP_Single.AverageIter;
+
+
+
+
+                CurrentSizeCounter++;
+                if (NumInstances[CurrentSizeIndex] == CurrentSizeCounter)
+                {
+
+                    AvgTimeIterFSS_Dual /= CurrentSizeCounter;
+                    AvgTimeIterFSS_Single /= CurrentSizeCounter;
+
+
+                    AvgTimeIterGRASP_Dual /= CurrentSizeCounter;
+                    AvgTimeIterGRASP_Single /= CurrentSizeCounter;
+
+
+                    F.WriteLine(InstancesSize[CurrentSizeIndex]
+                                + " & " + (mInstances[i].mCalcTime / 2).ToString()
+                                + " & " + AvgTimeIterGRASP_Single.ToString("0.0")
+                                + " & " + AvgTimeIterGRASP_Dual.ToString("0.0")
+                                + " & " + AvgTimeIterFSS_Single.ToString("0.0")
+                                + " & " + AvgTimeIterFSS_Dual.ToString("0.0")
+                                + "\\\\"
+                        );
+
+                    CurrentSizeCounter = 0;
+                    CurrentSizeIndex++;
+
+
+                }
+
+
+            }
+
+            F.Close();
+        }
+            public void CreateStatisticTable(int NumRuns, string ResultsFolder, string type)
         {
 
             ResultsInstance Res;
@@ -1835,4 +1928,5 @@ namespace CPP
 
 
 }
+
 

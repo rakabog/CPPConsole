@@ -27,7 +27,8 @@ namespace CPPConsole
 
             //         tExperiments.CreateCompareTable(20, ".\\Compare16\\", "16");
   //                      tExperiments.CreateCompareTable(10, ".\\ParallelCompare\\", "32" );
-            tExperiments.CreateStatisticTable(10, ".\\ParallelCompare\\", "32");
+//            tExperiments.CreateStatisticTable(10, ".\\ParallelCompare\\", "32");
+              tExperiments.CreateTimeTable(10, ".\\ParallelCompare\\", "32");
             //                        tExperiments.CreateTable(10, ".\\NewResSlide_16_095\\");
             //                        tExperiments.CreateTable(20, ".\\RezSA8_95FSS_I10_S20_B_10_S50\\", "FSS_Single");
 

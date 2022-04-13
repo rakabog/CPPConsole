@@ -853,6 +853,10 @@ namespace CPP
                 CheckBest();
 
 
+                if (mStopWatch.ElapsedMilliseconds > iTimeLimit * 1000)
+                    break;
+
+
                 if (Accept > DesiredAcceptance + Tolerate)
                 {
 
@@ -869,8 +873,6 @@ namespace CPP
                 }
                 break;
 
-                if (mStopWatch.ElapsedMilliseconds > iTimeLimit * 1000)
-                    break;
 
 
             }
@@ -936,7 +938,7 @@ namespace CPP
                 AddToSolution(Select);
             }
             mSolution.FixCliques();
-
+            int Test = mSolution.CalculateObjective();
         }
 
 
@@ -956,6 +958,9 @@ namespace CPP
 
                 Select = mGenerator.Next() % mAvailableNodes.Count;
                 AddToSolution(new CPPCandidate(mAvailableNodes[Select], 0, Select));
+
+//                return new CPPCandidate(mAvailableNodes[Select], 0, Select);
+
             }
 
             int counter = 0;

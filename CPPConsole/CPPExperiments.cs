@@ -1141,34 +1141,68 @@ namespace CPP
             string Folder = "c:\\primeri\\CPP\\MIP\\Table1\\";
             mInstancesTable1 = new List<TestInstance>();
 
-            mInstancesTable1.Add(new TestInstance(200, "CPn25-1.txt", Folder));
-            mInstancesTable1.Add(new TestInstance(200, "CPn25-2.txt", Folder));
-            mInstancesTable1.Add(new TestInstance(200, "CPn25-3.txt", Folder));
-            mInstancesTable1.Add(new TestInstance(200, "CPn25-4.txt", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "CPn25-1.txt", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "CPn25-2.txt", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "CPn25-3.txt", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "CPn25-4.txt", Folder));
 
 
-            mInstancesTable1.Add(new TestInstance(200, "CPn35-1.txt", Folder));
-            mInstancesTable1.Add(new TestInstance(200, "CPn35-2.txt", Folder));
-            mInstancesTable1.Add(new TestInstance(200, "CPn35-3.txt", Folder));
-            mInstancesTable1.Add(new TestInstance(200, "CPn35-4.txt", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "CPn35-1.txt", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "CPn35-2.txt", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "CPn35-3.txt", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "CPn35-4.txt", Folder));
 
 
-            mInstancesTable1.Add(new TestInstance(200, "CPn35-1.txt", Folder));
-            mInstancesTable1.Add(new TestInstance(200, "CPn35-2.txt", Folder));
-            mInstancesTable1.Add(new TestInstance(200, "CPn35-3.txt", Folder));
-            mInstancesTable1.Add(new TestInstance(200, "CPn35-4.txt", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "CPn35-1.txt", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "CPn35-2.txt", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "CPn35-3.txt", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "CPn35-4.txt", Folder));
 
 
 
-            mInstancesTable1.Add(new TestInstance(200, "CPn45-1.txt", Folder));
-            mInstancesTable1.Add(new TestInstance(200, "CPn45-2.txt", Folder));
-            mInstancesTable1.Add(new TestInstance(200, "CPn45-3.txt", Folder));
-            mInstancesTable1.Add(new TestInstance(200, "CPn45-4.txt", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "CPn45-1.txt", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "CPn45-2.txt", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "CPn45-3.txt", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "CPn45-4.txt", Folder));
 
 
 
 
         }
+
+        void InitInstancesTable2()
+        {
+
+            string Folder = "c:\\primeri\\CPP\\MIP\\Table2\\";
+            mInstancesTable1 = new List<TestInstance>();
+
+            mInstancesTable1.Add(new TestInstance(20, "Cars.txt", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "Cetacea.txt", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "Company.txt", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "Micro.txt", Folder));
+
+
+            mInstancesTable1.Add(new TestInstance(20, "Random1.txt", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "Random2.txt", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "Random3.txt", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "UNO1984A.txt", Folder));
+
+
+            mInstancesTable1.Add(new TestInstance(20, "UNO1984B.txt", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "UNO54.txt", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "UNO84A2.txt", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "UNO84B2.txt", Folder));
+
+
+
+            mInstancesTable1.Add(new TestInstance(20, "Wildcats.txt", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "Workers.txt", Folder));
+
+
+
+
+        }
+
 
         void InitInstancesTableGT()
         {
@@ -1519,6 +1553,36 @@ namespace CPP
                 tProblem.Solve(100000, t.mCalcTime/10);
 
                 S = new StreamWriter("ResAllTable1.txt", true);
+                S.WriteLine(t.mFileName + " " + tProblem.BestSolution);
+                S.Close();
+            }
+
+        }
+
+        public void SolveAllTable2()
+        {
+
+            CPPProblem tProblem;
+            StreamWriter S = new StreamWriter("ResAllTable2.txt");
+            CPPInstance In;
+            //            InitInstances();
+            InitInstancesTable2();
+            string Folder = "c:\\primeri\\CPP\\MIP\\Table2\\";
+
+            S.Close();
+            foreach (TestInstance t in mInstancesTable1)
+            {
+
+                In = new CPPInstance();
+                In.LoadMIP_Convert(Folder + t.mFileName);
+                tProblem = new CPPProblem(Folder + t.mFileName, t.mFileName, In);
+                tProblem.AllocateSolution();
+
+                tProblem.SASelect = SASelectType.Dual;
+                tProblem.Calibrate(6);
+                tProblem.Solve(100000, t.mCalcTime / 10);
+
+                S = new StreamWriter("ResAllTable2.txt", true);
                 S.WriteLine(t.mFileName + " " + tProblem.BestSolution);
                 S.Close();
             }

@@ -698,6 +698,9 @@ namespace CPP
         {
 
             int nValue = mSolution.CalculateObjective();
+            if (!mSolution.CheckSolutionValid()) {
+                nValue = nValue;
+            }
             if (nValue > mBestSolutionValue)
             {
                 mBestSolutionValue = nValue;

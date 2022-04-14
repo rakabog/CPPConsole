@@ -21,27 +21,27 @@ namespace CPPConsole
             //CPPProblem Pr = new CPPProblem("c:\\primeri\\CPP\\MIP\\CPP data\\CPn35-3.txt", "CPn35 - 3.txt");
 
             //               Pr.Solve(100, 100);
-                 string filename = "mm_kar_mod1.dat";
-            //     string filename = "mm_lesmis.dat";
-         //   string filename = "mm_netscience.dat";
+//                             string filename = "mm_kar_mod1.dat";
+                             string filename = "mm_lesmis.dat";
+            //   string filename = "mm_netscience.dat";
+//            string filename = "mm_Dolphin_mod1.dat";
+            //            string filename = "mm_A00main.dat";
 
-//            string filename = "mm_A00main.dat";
+                In.LoadMIP_MM("c:\\primeri\\CPP\\MIP\\mm\\"+ filename);
+           //             In.LoadMIP_Convert("c:\\primeri\\CPP\\MIP\\Table2\\Micro.txt");
+            //            In.LoadMIP_Convert("c:\\primeri\\CPP\\MIP\\Table2\\convert_mcc.txt");
+            //   In.LoadMIP_GT("c:\\primeri\\CPP\\MIP\\GT\\les.txt");
 
-        //    In.LoadMIP_MM("c:\\primeri\\CPP\\MIP\\mm\\"+ filename);
-//            In.LoadMIP_Convert("c:\\primeri\\CPP\\MIP\\Table2\\UNO54.txt");
-//            In.LoadMIP_Convert("c:\\primeri\\CPP\\MIP\\Table2\\convert_mcc.txt");
-            In.LoadMIP_GT("c:\\primeri\\CPP\\MIP\\GT\\les.txt");
+                        CPPProblem Pr = new CPPProblem("c:\\primeri\\CPP\\MIP\\Table2\\convert_mcc.txt", "convert_mcc.txt", In);
 
-            CPPProblem Pr = new CPPProblem("c:\\primeri\\CPP\\MIP\\Table2\\convert_mcc.txt", "convert_mcc.txt", In);
-
-                        Pr.SetID(2);
-                        Pr.AllocateSolution();
+                                    Pr.SetID(6);
+                                    Pr.AllocateSolution();
             //                tProblem.SASelect = SASelectType.Single;
 
-                        Pr.SASelect = SASelectType.Dual;
-            //Pr.Calibrate(1000);
-            //                           Pr.SolveGRASP(10000, 10000);
-            //                        Pr.Solve(10000, 1000);
+                                    Pr.SASelect = SASelectType.Dual;
+            Pr.Calibrate(1000);
+                                       Pr.SolveGRASP(10000, 10000);
+                                    Pr.Solve(10000, 1000);
 
             //            Pr.SolveGreedy();
             /*  */
@@ -51,8 +51,9 @@ namespace CPPConsole
 
             //            for (int i=0; i< 4; i++)
             //                      tExperiments.SolveAllParallelCompare(5, i*4);
-            //            tExperiments.SolveAllTable1();
-                        tExperiments.SolveAllTableGT();
+      //      tExperiments.SolveAllTable2();
+      //      tExperiments.SolveAllTable1();
+       //                 tExperiments.SolveAllTableGT();
 
             //            tExperiments.SolveSingle();
 

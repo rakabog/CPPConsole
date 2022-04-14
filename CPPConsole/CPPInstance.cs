@@ -342,7 +342,9 @@ namespace CPP
 
                 Node1 = Node1 - 1;
                 Node2 = Node2 - 1;
-                cValue = (int)(tempVal * 1000000); 
+                cValue = (int)(tempVal * 1000000);
+                if (mWeights[Node1][Node2] != 0)
+                    Node1 = Node1;
                 mWeights[Node1][Node2] = (int)cValue;
                 mWeights[Node2][Node1] = (int)cValue;
 
@@ -428,8 +430,8 @@ namespace CPP
 
                 for (int j = i+1; j < mNumberOfNodes; j++)
                 {
-                    mWeights[i][j] = -AllValues[Current];
-                    mWeights[j][i] = -AllValues[Current];
+                    mWeights[i][j] = AllValues[Current];
+                    mWeights[j][i] = AllValues[Current];
 
                     //                    mWeightsCopy[i,j] = -cWeights[Current];
                     //                    mWeightsCopy[j, i] = -cWeights[Current];

@@ -11,7 +11,7 @@ namespace CPP
     {
         public enum GreedyHeuristicType { MaxIncrease, Random };
         public enum CPPMetaheuristic { GRASP, FSS }
-        public enum CPPCooling {Geometric, LinearMultiplicative }
+        public enum CPPCooling { Geometric, LinearMultiplicative }
 
         CPPInstance mInstance;
         CPPSolutionBase mSolution;
@@ -36,7 +36,7 @@ namespace CPP
         int mFixK;
         int mFixInitPopulation;
         int mFixN;
-        SAParameters   mSAParams;
+        SAParameters mSAParams;
         int mID;
 
 
@@ -49,8 +49,8 @@ namespace CPP
 
             string Result = "";
 
-            switch (mMetaHeuristic) { 
-            
+            switch (mMetaHeuristic) {
+
                 case CPPMetaheuristic.GRASP:
                     Result = "GRASP_";
                     break;
@@ -70,7 +70,7 @@ namespace CPP
             }
 
             return Result;
-        
+
         }
 
         public void SetID(int iID)
@@ -81,15 +81,15 @@ namespace CPP
 
             mLogFileName = "Log_" + mID + "_" + mInstanceName;
             StreamWriter S = new StreamWriter(mLogFileName);
-            mGenerator = new Random(mID+10);
+            mGenerator = new Random(mID + 10);
             S.Close();
 
 
         }
 
-        public void InitLogFileName() { 
-            mLogFileName = GetMethodFileName()+ "_Log_"+ mID + "_"+ mInstanceName;
-            
+        public void InitLogFileName() {
+            mLogFileName = GetMethodFileName() + "_Log_" + mID + "_" + mInstanceName;
+
             StreamWriter S = new StreamWriter(mLogFileName);
             S.Close();
 
@@ -121,6 +121,12 @@ namespace CPP
         {
             get { return mSASType; }
             set { mSASType = value; }
+        }
+
+
+        public long GetBestTime() {
+
+            return mIntermediateSolutionsTimes[mIntermediateSolutionsTimes.Count - 1];
         }
 
 
@@ -241,9 +247,9 @@ namespace CPP
 
 
             mRCL = new RCL<CPPCandidate>(mRCLSize);
-            mLogFileName = "Log" + mInstanceName;
-//            StreamWriter S = new StreamWriter(mLogFileName);
-//            S.Close();
+            mLogFileName = ".\\MIPRes\\Log" + mInstanceName;
+            StreamWriter S = new StreamWriter(mLogFileName);
+            S.Close();
             mSolutionHolder = new CPPSolutionHolder();
 
             InitFSS();
@@ -746,7 +752,7 @@ namespace CPP
 
             mStopWatch = new Stopwatch();
             mStopWatch.Start();
-            InitTracking();
+     //       InitTracking();
 
             SolveGRASP(mFixInitPopulation, iTimeLimit);
             int counter = 1;

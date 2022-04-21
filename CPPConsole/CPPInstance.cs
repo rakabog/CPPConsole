@@ -265,7 +265,41 @@ namespace CPP
 
         }
 
+        public double GetCForModularityMaximization(string FileName) {
 
+            string[] Lines = File.ReadAllLines(FileName);
+            double M;
+            int cLine = 0;
+            char[] Sep = { ' ', '\t' };
+            string[] words;
+            string temp;
+            double N;
+            double Sum = 0;
+            temp = Lines[cLine];
+            int k=0;
+            words = temp.Split(Sep);
+            N= Convert.ToInt32(words[0]);
+            M = Convert.ToDouble(words[1]);
+            cLine++;
+            for (int i = 0; i < N; i++) {
+                temp = Lines[cLine];
+                words = temp.Split(Sep);
+                k = words.Length -1;
+
+                Sum += (k *k) / (4 * M*M);
+                cLine++;
+            }
+
+
+
+
+
+
+
+
+            return Sum;
+        
+        }
 
         public void LoadMIP_MM(string FileName)
         {
@@ -307,13 +341,16 @@ namespace CPP
             int counter;
 
             for (int i = 0; i < mNumberOfNodes; i++)
-                for (int j = 0; j < mNumberOfNodes; j++) {
+            {
+                for (int j = 0; j < mNumberOfNodes; j++)
+                {
 
                     mWeights[i][j] = 0;
-                
-                
+
+
                 }
-                    for (int i = 0; i < Lines.Length - 3; i++)
+            }
+            for (int i = 0; i < Lines.Length - 3; i++)
             {
 
                 Temp = Lines[cLine].Replace(';', ' ');

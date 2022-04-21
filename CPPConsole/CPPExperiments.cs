@@ -20,6 +20,7 @@ namespace CPP
         public string mFileName;
         public string mFolder;
         public int mCalcTime;
+        
 
 
         public TestInstance(int iCalcTime, string iFileName, string iFolder)
@@ -35,94 +36,230 @@ namespace CPP
         List<TestInstance>          mInstances;
         List<ResultsInstance>       mMDMCP;
         List<ResultsInstance>       mTable1;
+        List<ResultsInstance>       mTable2;
+        List<ResultsInstance>       mTableGT;
         List<TestInstance>          mInstancesTable1;
 
-        public void InitInstancesTable1Res() {
+        public void InitInstancesTable2Res() {
 
             ResultsInstance cResult;
 
+            mTable2 = new List<ResultsInstance>();
+
             cResult = new ResultsInstance();
-            cResult.InstanceName = "CPn25-1.txt";
+            
+            cResult.InstanceName = "wild cats & 30 &";
+            cResult.BestObjective = 1304;
+            cResult.AverageTime = 0;
+            mTable2.Add(cResult);
+
+
+            cResult = new ResultsInstance();
+            cResult.InstanceName = "cars & 33 &";
+            cResult.BestObjective = 1501;
+            cResult.AverageTime =0;
+            mTable2.Add(cResult);
+
+
+            cResult = new ResultsInstance();
+            cResult.InstanceName = "workers & 34 &";
+            cResult.BestObjective = 964;
+            cResult.AverageTime = 0;
+            mTable2.Add(cResult);
+
+
+            cResult = new ResultsInstance();
+            cResult.InstanceName = "UNO & 54 &";
+            cResult.BestObjective = 778;
+            cResult.AverageTime = 2;
+            mTable2.Add(cResult);
+
+
+            cResult = new ResultsInstance();
+            cResult.InstanceName = "UNO1a & 158 &";
+            cResult.BestObjective = 12197;
+            cResult.AverageTime = 154.1;
+            mTable2.Add(cResult);
+
+
+            cResult = new ResultsInstance();
+            cResult.InstanceName = "UNO2a & 158 &";
+            cResult.BestObjective = 72820;
+            cResult.AverageTime = 22;
+            mTable2.Add(cResult);
+
+
+
+        }
+
+        public void InitInstancesTableGTRes()
+        {
+
+            ResultsInstance cResult;
+
+            mTableGT = new List<ResultsInstance>();
+
+
+
+
+            cResult = new ResultsInstance();
+
+            cResult.InstanceName = "kumar & 24 &";
+            cResult.BestObjective = 23;
+            cResult.AverageTime = 0;
+            mTableGT.Add(cResult);
+
+
+
+            cResult = new ResultsInstance(); 
+            cResult.InstanceName = "bur & 59 &";
+            cResult.BestObjective = 67;
+            cResult.AverageTime = 14;
+            mTableGT.Add(cResult);
+
+            cResult = new ResultsInstance();
+            cResult.InstanceName = "groover & 43 &";
+            cResult.BestObjective = 55;
+            cResult.AverageTime = 88;
+            mTableGT.Add(cResult);
+
+
+            cResult = new ResultsInstance();
+            cResult.InstanceName = "leskowsky & 38 &";
+            cResult.BestObjective = 30;
+            cResult.AverageTime = 1;
+            mTableGT.Add(cResult);
+
+
+            cResult = new ResultsInstance();
+            cResult.InstanceName = "mccormick & 39 &";
+            cResult.BestObjective = 43;
+            cResult.AverageTime = 2;
+            mTableGT.Add(cResult);
+
+
+            cResult = new ResultsInstance();
+            cResult.InstanceName = "seifoddini & 33 &";
+            cResult.BestObjective = 54 ;
+            cResult.AverageTime = 0;
+            mTableGT.Add(cResult);
+
+
+            cResult = new ResultsInstance();
+            cResult.InstanceName = "sule & 31 &";
+            cResult.BestObjective = 46;
+            cResult.AverageTime = 0;
+            mTableGT.Add(cResult);
+
+
+
+        }
+
+
+        public void InitInstancesTable1Res()
+        {
+
+            ResultsInstance cResult;
+
+            mTable1 = new List<ResultsInstance>();
+            cResult = new ResultsInstance();
+            cResult.InstanceName = "CPn25-1.txt & 25 &";
             cResult.BestObjective = 4636;
+            cResult.AverageTime = 8;
             mTable1.Add(cResult);
 
             cResult = new ResultsInstance();
-            cResult.InstanceName = "CPn25-2.txt";
+            cResult.InstanceName = "CPn25-2.txt & 25 &";
             cResult.BestObjective = 4023;
+            cResult.AverageTime = 3;
             mTable1.Add(cResult);
 
             cResult = new ResultsInstance();
-            cResult.InstanceName = "CPn25-3.txt";
+            cResult.InstanceName = "CPn25-3.txt & 25 &";
             cResult.BestObjective = 5043;
+            cResult.AverageTime = 10;
             mTable1.Add(cResult);
 
             cResult = new ResultsInstance();
-            cResult.InstanceName = "CPn25-4.txt";
+            cResult.InstanceName = "CPn25-4.txt & 25 &";
             cResult.BestObjective = 4564;
+            cResult.AverageTime = 11;
             mTable1.Add(cResult);
 
 
             cResult = new ResultsInstance();
-            cResult.InstanceName = "CPn35-1.txt";
+            cResult.InstanceName = "CPn35-1.txt & 35 &";
             cResult.BestObjective = 7837;
+            cResult.AverageTime = 496;
             mTable1.Add(cResult);
 
             cResult = new ResultsInstance();
-            cResult.InstanceName = "CPn35-2.txt";
+            cResult.InstanceName = "CPn35-2.txt & 35 &";
             cResult.BestObjective = 7215;
+            cResult.AverageTime = 403;
             mTable1.Add(cResult);
 
             cResult = new ResultsInstance();
-            cResult.InstanceName = "CPn35-3.txt";
+            cResult.InstanceName = "CPn35-3.txt & 35 &";
             cResult.BestObjective = 7633;
+            cResult.AverageTime = 95;
             mTable1.Add(cResult);
 
             cResult = new ResultsInstance();
-            cResult.InstanceName = "CPn35-4.txt";
+            cResult.InstanceName = "CPn35-4.txt & 35 &";
             cResult.BestObjective = 7652;
+            cResult.AverageTime = 292;
             mTable1.Add(cResult);
 
 
             cResult = new ResultsInstance();
-            cResult.InstanceName = "CPn45-1.txt";
+            cResult.InstanceName = "CPn45-1.txt & 45 &";
             cResult.BestObjective = 11545;
+            cResult.AverageTime = 1305;
             mTable1.Add(cResult);
 
             cResult = new ResultsInstance();
-            cResult.InstanceName = "CPn45-2.txt";
+            cResult.InstanceName = "CPn45-2.txt& 45 &";
             cResult.BestObjective = 12137;
+            cResult.AverageTime = 2492;
             mTable1.Add(cResult);
 
             cResult = new ResultsInstance();
-            cResult.InstanceName = "CPn45-3.txt";
-            cResult.BestObjective = 11672;
+            cResult.InstanceName = "CPn45-3.txt& 45 &";
+            cResult.BestObjective = 11800;
+            cResult.AverageTime = 7595;
             mTable1.Add(cResult);
 
             cResult = new ResultsInstance();
-            cResult.InstanceName = "CPn45-4.txt";
-            cResult.BestObjective = 10338;
+            cResult.InstanceName = "CPn45-4.txt & 45 &";
+            cResult.BestObjective = 10506;
+            cResult.AverageTime = 4280;
             mTable1.Add(cResult);
 
 
 
             cResult = new ResultsInstance();
-            cResult.InstanceName = "CPn50-1.txt";
-            cResult.BestObjective = 12373;
-            mTable1.Add(cResult);
-
-            cResult = new ResultsInstance();
-            cResult.InstanceName = "CPn50-2.txt";
+            cResult.InstanceName = "CPn50-1.txt & 50 &";
             cResult.BestObjective = 13543;
+            cResult.AverageTime = 46616;
             mTable1.Add(cResult);
 
             cResult = new ResultsInstance();
-            cResult.InstanceName = "CPn50-3.txt";
-            cResult.BestObjective = 12191;
+            cResult.InstanceName = "CPn50-2.txt  & 50 &";
+            cResult.BestObjective = 14080;
+            cResult.AverageTime = 18831;
             mTable1.Add(cResult);
 
             cResult = new ResultsInstance();
-            cResult.InstanceName = "CPn50-4.txt";
-            cResult.BestObjective = 13009;
+            cResult.InstanceName = "CPn50-3.txt  & 50 &";
+            cResult.BestObjective = 13034;
+            cResult.AverageTime = 50630;
+            mTable1.Add(cResult);
+
+            cResult = new ResultsInstance();
+            cResult.InstanceName = "CPn50-4.txt  & 50 &";
+            cResult.BestObjective = 13728;
+            cResult.AverageTime = 69040;
             mTable1.Add(cResult);
 
 
@@ -130,6 +267,7 @@ namespace CPP
 
 
         }
+
 
 
         void InitMDMCPResults() {
@@ -1153,17 +1291,17 @@ namespace CPP
             mInstancesTable1.Add(new TestInstance(20, "CPn35-4.txt", Folder));
 
 
-            mInstancesTable1.Add(new TestInstance(20, "CPn35-1.txt", Folder));
-            mInstancesTable1.Add(new TestInstance(20, "CPn35-2.txt", Folder));
-            mInstancesTable1.Add(new TestInstance(20, "CPn35-3.txt", Folder));
-            mInstancesTable1.Add(new TestInstance(20, "CPn35-4.txt", Folder));
-
-
-
             mInstancesTable1.Add(new TestInstance(20, "CPn45-1.txt", Folder));
             mInstancesTable1.Add(new TestInstance(20, "CPn45-2.txt", Folder));
             mInstancesTable1.Add(new TestInstance(20, "CPn45-3.txt", Folder));
             mInstancesTable1.Add(new TestInstance(20, "CPn45-4.txt", Folder));
+
+
+
+            mInstancesTable1.Add(new TestInstance(20, "CPn50-1.txt", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "CPn50-2.txt", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "CPn50-3.txt", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "CPn50-4.txt", Folder));
 
 
 
@@ -1176,27 +1314,29 @@ namespace CPP
             string Folder = "c:\\primeri\\CPP\\MIP\\Table2\\";
             mInstancesTable1 = new List<TestInstance>();
 
-            mInstancesTable1.Add(new TestInstance(20, "Cars.txt", Folder));
-            mInstancesTable1.Add(new TestInstance(20, "Cetacea.txt", Folder));
-            mInstancesTable1.Add(new TestInstance(20, "Company.txt", Folder));
-            mInstancesTable1.Add(new TestInstance(20, "Micro.txt", Folder));
-
-
-            mInstancesTable1.Add(new TestInstance(20, "Random1.txt", Folder));
-            mInstancesTable1.Add(new TestInstance(20, "Random2.txt", Folder));
-            mInstancesTable1.Add(new TestInstance(20, "Random3.txt", Folder));
-            mInstancesTable1.Add(new TestInstance(20, "UNO1984A.txt", Folder));
-
-
-            mInstancesTable1.Add(new TestInstance(20, "UNO1984B.txt", Folder));
-            mInstancesTable1.Add(new TestInstance(20, "UNO54.txt", Folder));
-            mInstancesTable1.Add(new TestInstance(20, "UNO84A2.txt", Folder));
-            mInstancesTable1.Add(new TestInstance(20, "UNO84B2.txt", Folder));
-
-
-
             mInstancesTable1.Add(new TestInstance(20, "Wildcats.txt", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "Cars.txt", Folder));
             mInstancesTable1.Add(new TestInstance(20, "Workers.txt", Folder));
+
+
+            mInstancesTable1.Add(new TestInstance(20, "UNO54.txt", Folder));
+//            mInstancesTable1.Add(new TestInstance(20, "UNO84A2.txt", Folder));
+//            mInstancesTable1.Add(new TestInstance(20, "UNO84B2.txt", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "UNO1984A.txt", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "UNO1984B.txt", Folder));
+
+
+            //            mInstancesTable1.Add(new TestInstance(20, "Cetacea.txt", Folder));
+            //            mInstancesTable1.Add(new TestInstance(20, "Company.txt", Folder));
+            //            mInstancesTable1.Add(new TestInstance(20, "Micro.txt", Folder));
+
+
+            //            mInstancesTable1.Add(new TestInstance(20, "Random1.txt", Folder));
+            //            mInstancesTable1.Add(new TestInstance(20, "Random2.txt", Folder));
+            //            mInstancesTable1.Add(new TestInstance(20, "Random3.txt", Folder));
+
+
+
 
 
 
@@ -1210,9 +1350,9 @@ namespace CPP
             string Folder = "c:\\primeri\\CPP\\MIP\\GT\\";
             mInstancesTable1 = new List<TestInstance>();
 
-            mInstancesTable1.Add(new TestInstance(20, "bur.txt", Folder));
-            mInstancesTable1.Add(new TestInstance(200, "gro.txt", Folder));
             mInstancesTable1.Add(new TestInstance(20, "kkv.txt", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "bur.txt", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "gro.txt", Folder));
             mInstancesTable1.Add(new TestInstance(20, "les.txt", Folder));
 
 
@@ -1535,26 +1675,44 @@ namespace CPP
             CPPProblem tProblem;
             StreamWriter S = new StreamWriter("ResAllTable1.txt");
             CPPInstance In;
-//            InitInstances();
+            //            InitInstances();
+
+            S = new StreamWriter(".\\MIPRes\\ResAllTable1.txt");
+            S.Close();
+
             InitInstancesTable1();
+            InitInstancesTable1Res();
             string Folder = "c:\\primeri\\CPP\\MIP\\Table1\\";
 
             S.Close();
+            int counter=0;
+            double TimeBest;
+            string STimeBest; 
             foreach (TestInstance t in mInstancesTable1)
             {
 
                 In = new CPPInstance();
                 In.LoadMIP1(Folder + t.mFileName);
                 tProblem = new CPPProblem(Folder + t.mFileName, t.mFileName, In);
+//                tProblem.InitTracking();
                 tProblem.AllocateSolution();
 
                 tProblem.SASelect = SASelectType.Dual;
                 tProblem.Calibrate(6);
                 tProblem.Solve(100000, t.mCalcTime/10);
 
-                S = new StreamWriter("ResAllTable1.txt", true);
-                S.WriteLine(t.mFileName + " " + tProblem.BestSolution);
+                TimeBest = tProblem.GetBestTime();
+                if (TimeBest < 100)
+                    STimeBest = "0.1 > ";
+                else
+                    STimeBest = (TimeBest / 1000).ToString("0.0");
+                
+                S = new StreamWriter(".\\MIPRes\\ResAllTable1.txt", true);
+                S.WriteLine( mTable1[counter].InstanceName 
+                           + " &  " + mTable1[counter].BestObjective +" & " + tProblem.BestSolution  
+                           + " & " + mTable1[counter].AverageTime + " & " + STimeBest + "\\\\");
                 S.Close();
+                counter++;
             }
 
         }
@@ -1563,13 +1721,18 @@ namespace CPP
         {
 
             CPPProblem tProblem;
-            StreamWriter S = new StreamWriter("ResAllTable2.txt");
+            StreamWriter S = new StreamWriter(".\\MIPRes\\ResAllTable2.txt");
             CPPInstance In;
             //            InitInstances();
             InitInstancesTable2();
+            InitInstancesTable2Res();
+
             string Folder = "c:\\primeri\\CPP\\MIP\\Table2\\";
 
             S.Close();
+            int counter = 0;
+            long TimeBest;
+            string STimeBest;
             foreach (TestInstance t in mInstancesTable1)
             {
 
@@ -1581,10 +1744,20 @@ namespace CPP
                 tProblem.SASelect = SASelectType.Dual;
                 tProblem.Calibrate(6);
                 tProblem.Solve(100000, t.mCalcTime / 10);
+                
+                TimeBest = tProblem.GetBestTime();
+                if (TimeBest < 100)
+                    STimeBest = "0.1 > ";
+                else
+                    STimeBest = ((double)TimeBest / 1000).ToString("0.0");
 
-                S = new StreamWriter("ResAllTable2.txt", true);
-                S.WriteLine(t.mFileName + " " + tProblem.BestSolution);
+
+                S = new StreamWriter(".\\MIPRes\\ResAllTable2.txt", true);
+                S.WriteLine(mTable2[counter].InstanceName
+                         + " &  " + mTable2[counter].BestObjective + " & " + tProblem.BestSolution
+                         + " & " + mTable2[counter].AverageTime + " & " + STimeBest + "\\\\");
                 S.Close();
+                counter++;
             }
 
         }
@@ -1594,11 +1767,16 @@ namespace CPP
         {
 
             CPPProblem tProblem;
-            StreamWriter S = new StreamWriter("ResAllTableGT.txt");
+            StreamWriter S = new StreamWriter(".\\MIPRes\\ResAllTableGT.txt");
             CPPInstance In;
             //            InitInstances();
             InitInstancesTableGT();
+            InitInstancesTableGTRes();
             string Folder = "c:\\primeri\\CPP\\MIP\\GT\\";
+            int counter = 0;
+            long TimeBest;
+            string STimeBest;
+
 
             S.Close();
             foreach (TestInstance t in mInstancesTable1)
@@ -1613,9 +1791,18 @@ namespace CPP
                 tProblem.Calibrate(6);
                 tProblem.Solve(100000, t.mCalcTime / 10);
 
-                S = new StreamWriter("ResAllTableGT.txt", true);
-                S.WriteLine(t.mFileName + " " + tProblem.BestSolution);
+                TimeBest = tProblem.GetBestTime();
+                if (TimeBest < 100)
+                    STimeBest = "0.1 > ";
+                else
+                    STimeBest = ((double)TimeBest / 1000).ToString("0.0");
+
+                S = new StreamWriter(".\\MIPRes\\ResAllTableGT.txt", true);
+                S.WriteLine(mTableGT[counter].InstanceName
+                       + " &  " + mTableGT[counter].BestObjective + " & " + tProblem.BestSolution
+                       + " & " + mTableGT[counter].AverageTime + " & " + STimeBest + "\\\\");
                 S.Close();
+                counter++;
             }
 
         }

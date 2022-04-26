@@ -36,9 +36,9 @@ namespace CPP
         public CPPInstance(string FileName)
         {
 
-//            Load(FileName);
+            Load(FileName);
 
-            LoadMIP1(FileName);
+  //          LoadMIP1(FileName);
         }
         public int GetWeight(int n1, int n2)
         {
@@ -277,6 +277,7 @@ namespace CPP
             double Sum = 0;
             temp = Lines[cLine];
             int k=0;
+            List<string> TempWords;
             words = temp.Split(Sep);
             N= Convert.ToInt32(words[0]);
             M = Convert.ToDouble(words[1]);
@@ -284,7 +285,17 @@ namespace CPP
             for (int i = 0; i < N; i++) {
                 temp = Lines[cLine];
                 words = temp.Split(Sep);
-                k = words.Length -1;
+
+                TempWords = new List<string>() ;
+                foreach (string l in words) { 
+                
+                    if(!TempWords.Contains(l))
+                        TempWords.Add(l);
+                }
+
+                k = TempWords.Count - 1;
+
+//                k = words.Length -1;
 
                 Sum += (k *k) / (4 * M*M);
                 cLine++;
@@ -301,7 +312,7 @@ namespace CPP
         
         }
 
-        public void LoadMIP_MM(string FileName)
+        public double  LoadMIP_MM(string FileName)
         {
 
             string[] Lines = File.ReadAllLines(FileName);
@@ -309,6 +320,7 @@ namespace CPP
             int cLine = 0;
             char[] Sep = { ' ', '\t' };
             char[] SepMip = { '=' };
+            double C = 0; 
 
             string[] words;
             string pattern = "[\\s+\\t]";
@@ -333,6 +345,15 @@ namespace CPP
             cLine++;
             //next
 
+            
+            Temp = Lines[cLine];
+
+            Temp = Temp.Replace(';', ' ');
+            words = Temp.Split(SepMip);
+
+            C = Convert.ToDouble(words[1]);
+            cLine++;
+
             cLine++;
             //param
             cLine++;
@@ -350,7 +371,7 @@ namespace CPP
 
                 }
             }
-            for (int i = 0; i < Lines.Length - 3; i++)
+            for (int i = 0; i < Lines.Length - 4; i++)
             {
 
                 Temp = Lines[cLine].Replace(';', ' ');
@@ -390,6 +411,8 @@ namespace CPP
             }
 
             InitNegativeWeights();
+
+            return C;
 
         }
 

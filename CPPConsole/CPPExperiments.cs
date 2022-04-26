@@ -38,6 +38,8 @@ namespace CPP
         List<ResultsInstance>       mTable1;
         List<ResultsInstance>       mTable2;
         List<ResultsInstance>       mTableGT;
+        List<ResultsInstance>       mTableMM;
+
         List<TestInstance>          mInstancesTable1;
 
         public void InitInstancesTable2Res() {
@@ -71,21 +73,21 @@ namespace CPP
             cResult = new ResultsInstance();
             cResult.InstanceName = "UNO & 54 &";
             cResult.BestObjective = 778;
-            cResult.AverageTime = 2;
+            cResult.AverageTime = 0;
             mTable2.Add(cResult);
 
 
             cResult = new ResultsInstance();
             cResult.InstanceName = "UNO1a & 158 &";
             cResult.BestObjective = 12197;
-            cResult.AverageTime = 154.1;
+            cResult.AverageTime = 0.48;
             mTable2.Add(cResult);
 
 
             cResult = new ResultsInstance();
             cResult.InstanceName = "UNO2a & 158 &";
             cResult.BestObjective = 72820;
-            cResult.AverageTime = 22;
+            cResult.AverageTime = 0.47;
             mTable2.Add(cResult);
 
 
@@ -120,7 +122,7 @@ namespace CPP
             cResult = new ResultsInstance();
             cResult.InstanceName = "groover & 43 &";
             cResult.BestObjective = 55;
-            cResult.AverageTime = 88;
+            cResult.AverageTime = 48;
             mTableGT.Add(cResult);
 
 
@@ -134,7 +136,7 @@ namespace CPP
             cResult = new ResultsInstance();
             cResult.InstanceName = "mccormick & 39 &";
             cResult.BestObjective = 43;
-            cResult.AverageTime = 2;
+            cResult.AverageTime = 1;
             mTableGT.Add(cResult);
 
 
@@ -183,7 +185,7 @@ namespace CPP
             cResult = new ResultsInstance();
             cResult.InstanceName = "CPn25-4.txt & 25 &";
             cResult.BestObjective = 4564;
-            cResult.AverageTime = 11;
+            cResult.AverageTime = 10;
             mTable1.Add(cResult);
 
 
@@ -1308,6 +1310,69 @@ namespace CPP
 
         }
 
+        void InitInstancesTableMM()
+        {
+
+            string Folder = "c:\\primeri\\CPP\\MIP\\mm\\";
+            mInstancesTable1 = new List<TestInstance>();
+
+            mInstancesTable1.Add(new TestInstance(20, "mm_Kar_mod1.dat", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "mm_Dolphin_mod1.dat", Folder));
+            mInstancesTable1.Add(new TestInstance(100, "mm_lesmis.dat", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "mm_books.dat", Folder));
+            mInstancesTable1.Add(new TestInstance(500, "mm_football.dat", Folder));
+
+        }
+
+        public void InitInstancesMMRes()
+        {
+
+            ResultsInstance cResult;
+
+            mTableMM = new List<ResultsInstance>();
+            cResult = new ResultsInstance();
+//            cResult.InstanceName = "Zachary’s karate club & 34 &";
+            cResult.InstanceName = "Karate & 34 &";
+            cResult.BestObjective = 4198;
+            cResult.AverageTime = 0;
+            mTableMM.Add(cResult);
+
+
+            cResult = new ResultsInstance();
+//            cResult.InstanceName = "Dolphins social network & 62 &";
+            cResult.InstanceName = "Dolphins& 62 &";
+            cResult.BestObjective = 5285;
+            cResult.AverageTime = 14;
+            mTableMM.Add(cResult);
+
+
+            cResult = new ResultsInstance();
+            cResult.InstanceName = "Les Misérables & 77 &";
+            cResult.BestObjective = 5600;
+            cResult.AverageTime = 5;
+            mTableMM.Add(cResult);
+
+
+            cResult = new ResultsInstance();
+//            cResult.InstanceName = "Books about US politics & 105 &";
+            cResult.InstanceName = "Books & 105 &";
+            cResult.BestObjective = 5272;
+            cResult.AverageTime = 191;
+            mTableMM.Add(cResult);
+
+
+            cResult = new ResultsInstance();
+//            cResult.InstanceName = "American College Football & 115 &";
+            cResult.InstanceName = "Football & 115 &";
+            cResult.BestObjective = 6046;
+            cResult.AverageTime = 53;
+            mTableMM.Add(cResult);
+
+
+        }
+
+
+
         void InitInstancesTable2()
         {
 
@@ -1322,8 +1387,8 @@ namespace CPP
             mInstancesTable1.Add(new TestInstance(20, "UNO54.txt", Folder));
 //            mInstancesTable1.Add(new TestInstance(20, "UNO84A2.txt", Folder));
 //            mInstancesTable1.Add(new TestInstance(20, "UNO84B2.txt", Folder));
-            mInstancesTable1.Add(new TestInstance(20, "UNO1984A.txt", Folder));
             mInstancesTable1.Add(new TestInstance(20, "UNO1984B.txt", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "UNO1984A.txt", Folder));
 
 
             //            mInstancesTable1.Add(new TestInstance(20, "Cetacea.txt", Folder));
@@ -1529,6 +1594,28 @@ namespace CPP
             /**/
         }
 
+        void InitInstancesExtendedCalculation()
+        {
+
+            string LargeFolder = "c:\\primeri\\CPP\\large\\";
+
+
+            mInstances = new List<TestInstance>();
+
+
+//            mInstances.Add(new TestInstance(20000, "new_p6000.1.txt", LargeFolder));
+//            mInstances.Add(new TestInstance(20000, "new_p6000.2.txt", LargeFolder));
+//            mInstances.Add(new TestInstance(20000, "new_p6000.3.txt", LargeFolder));
+
+            mInstances.Add(new TestInstance(86400, "new_p7000.1.txt", LargeFolder));
+            mInstances.Add(new TestInstance(86400, "new_p7000.2.txt", LargeFolder));
+            mInstances.Add(new TestInstance(86400, "new_p7000.3.txt", LargeFolder));
+            mInstances.Add(new TestInstance(86400, "new_p6000.3.txt", LargeFolder));
+            /**/
+        }
+
+
+
         void InitInstancesCompare16()
         {
 
@@ -1702,15 +1789,20 @@ namespace CPP
                 tProblem.Solve(100000, t.mCalcTime/10);
 
                 TimeBest = tProblem.GetBestTime();
-                if (TimeBest < 100)
-                    STimeBest = "0.1 > ";
+                if (TimeBest < 10)
+                    STimeBest = "0.01 $>$ ";
                 else
-                    STimeBest = (TimeBest / 1000).ToString("0.0");
+                    STimeBest = (TimeBest / 1000).ToString("0.00");
                 
                 S = new StreamWriter(".\\MIPRes\\ResAllTable1.txt", true);
                 S.WriteLine( mTable1[counter].InstanceName 
-                           + " &  " + mTable1[counter].BestObjective +" & " + tProblem.BestSolution  
-                           + " & " + mTable1[counter].AverageTime + " & " + STimeBest + "\\\\");
+                           + " &  " + mTable1[counter].BestObjective
+                           + " & " + mTable1[counter].AverageTime 
+                           +" & " + tProblem.BestSolution  
+                           + " & " + STimeBest
+                           + " & 10/10"
+                            + "\\\\"
+                            );
                 S.Close();
                 counter++;
             }
@@ -1746,16 +1838,27 @@ namespace CPP
                 tProblem.Solve(100000, t.mCalcTime / 10);
                 
                 TimeBest = tProblem.GetBestTime();
-                if (TimeBest < 100)
-                    STimeBest = "0.1 > ";
+                if (TimeBest < 10)
+                    STimeBest = "0.01$>$ ";
                 else
-                    STimeBest = ((double)TimeBest / 1000).ToString("0.0");
+                    STimeBest = ((double)TimeBest / 1000).ToString("0.00");
 
 
                 S = new StreamWriter(".\\MIPRes\\ResAllTable2.txt", true);
+//                S.WriteLine(mTable2[counter].InstanceName
+//                         + " &  " + mTable2[counter].BestObjective + " & " + tProblem.BestSolution
+//                         + " & " + mTable2[counter].AverageTime + " & " + STimeBest + "\\\\");
+
+
                 S.WriteLine(mTable2[counter].InstanceName
-                         + " &  " + mTable2[counter].BestObjective + " & " + tProblem.BestSolution
-                         + " & " + mTable2[counter].AverageTime + " & " + STimeBest + "\\\\");
+                        + " &  " + mTable2[counter].BestObjective
+                        + " & " + mTable2[counter].AverageTime
+                        + " & " + tProblem.BestSolution
+                        + " & " + STimeBest
+                        + " & 10/10"
+                         + "\\\\"
+                         );
+
                 S.Close();
                 counter++;
             }
@@ -1792,15 +1895,95 @@ namespace CPP
                 tProblem.Solve(100000, t.mCalcTime / 10);
 
                 TimeBest = tProblem.GetBestTime();
-                if (TimeBest < 100)
-                    STimeBest = "0.1 > ";
+                if (TimeBest < 10)
+                    STimeBest = "0.01$>$ ";
                 else
-                    STimeBest = ((double)TimeBest / 1000).ToString("0.0");
+                    STimeBest = ((double)TimeBest / 1000).ToString("0.00");
 
                 S = new StreamWriter(".\\MIPRes\\ResAllTableGT.txt", true);
+//                S.WriteLine(mTableGT[counter].InstanceName
+//                       + " &  " + mTableGT[counter].BestObjective + " & " + tProblem.BestSolution
+//                       + " & " + mTableGT[counter].AverageTime + " & " + STimeBest + "\\\\");
+
+
                 S.WriteLine(mTableGT[counter].InstanceName
-                       + " &  " + mTableGT[counter].BestObjective + " & " + tProblem.BestSolution
-                       + " & " + mTableGT[counter].AverageTime + " & " + STimeBest + "\\\\");
+                       + " &  " + mTableGT[counter].BestObjective
+                       + " & " + mTableGT[counter].AverageTime
+                       + " & " + tProblem.BestSolution
+                       + " & " + STimeBest
+                       + " & 10/10"
+                        + "\\\\"
+                        );
+
+
+                S.Close();
+                counter++;
+            }
+
+        }
+
+
+        public void SolveAllTableMM()
+        {
+
+            CPPProblem tProblem;
+            StreamWriter S = new StreamWriter(".\\MIPRes\\ResAllTableMM.txt");
+            CPPInstance In;
+            //            InitInstances();
+            InitInstancesTableMM();
+            InitInstancesMMRes();
+            string Folder = "c:\\primeri\\CPP\\MIP\\MM\\";
+            int counter = 0;
+            long TimeBest;
+            string STimeBest;
+            double C;
+            double CorrectResMIP;
+            double CorrectResFSS;
+
+            S.Close();
+            foreach (TestInstance t in mInstancesTable1)
+            {
+
+                In = new CPPInstance();
+                C = In.LoadMIP_MM(Folder + t.mFileName);
+
+                tProblem = new CPPProblem(Folder + t.mFileName, t.mFileName, In);
+                tProblem.AllocateSolution();
+
+                tProblem.SASelect = SASelectType.Dual;
+                tProblem.Calibrate(6);
+                tProblem.Solve(100000, t.mCalcTime / 10);
+
+                TimeBest = tProblem.GetBestTime();
+                if (TimeBest < 10)
+                    STimeBest = "0.01$>$ ";
+                else
+                    STimeBest = ((double)TimeBest / 1000).ToString("0.00");
+
+                CorrectResMIP = (mTableMM[counter].BestObjective / (double)10000);
+                CorrectResFSS = (tProblem.BestSolution - C * 1000000) / ((double)1000000);
+
+                S = new StreamWriter(".\\MIPRes\\ResAllTableMM.txt", true);
+//                S.WriteLine(mTableMM[counter].InstanceName
+//                       + " &  " + mTableMM[counter].BestObjective + " & " + (tProblem.BestSolution + C * 100000)
+//                       + " & " + mTableMM[counter].AverageTime + " & " + STimeBest + "\\\\");
+
+//                S.WriteLine(mTableMM[counter].InstanceName
+//                       + " &  " + CorrectResMIP.ToString("0.0000") + " & " + CorrectResFSS.ToString("0.0000")
+//                       + " & " + mTableMM[counter].AverageTime + " & " + STimeBest + "\\\\");
+
+
+                S.WriteLine(mTableMM[counter].InstanceName
+                        + " &  " + CorrectResMIP.ToString("0.0000")
+                        + " & " + mTableMM[counter].AverageTime
+                        + " & " + CorrectResFSS.ToString("0.0000")
+                        + " & " + STimeBest
+                        + " & 10/10"
+                        + "\\\\"
+                        );
+
+
+
                 S.Close();
                 counter++;
             }
@@ -1843,6 +2026,44 @@ namespace CPP
             {
 
                 Prob.Solve( 100000, iInstance.mCalcTime/2);
+            }
+            );
+
+
+        }
+
+        void SolveParallelInstanceExtendedCalculation(TestInstance iInstance, int NumParallel, CPPProblem.CPPMetaheuristic iMetaHeuristic, SASelectType iSASelectType, int StartValue = 0)
+        {
+
+            List<CPPProblem> tProblems = new List<CPPProblem>();
+            CPPProblem tProblem;
+
+            CPPInstance tInstance;
+
+            tInstance = new CPPInstance(iInstance.mFolder + iInstance.mFileName);
+
+
+
+            for (int i = 0; i < NumParallel; i++)
+            {
+
+
+                tProblem = new CPPProblem(iInstance.mFolder + iInstance.mFileName, iInstance.mFileName, tInstance);
+                tProblem.Metaheuristic = iMetaHeuristic;
+                tProblem.SetID(i + StartValue);
+                tProblem.AllocateSolution();
+                tProblem.SASelect = iSASelectType;
+                tProblem.InitLogFileName();
+                tProblem.Calibrate(iInstance.mCalcTime);
+                tProblems.Add(tProblem);
+
+            }
+
+
+            Parallel.ForEach(tProblems, Prob =>
+            {
+
+                Prob.Solve(100000, iInstance.mCalcTime);
             }
             );
 
@@ -1933,6 +2154,18 @@ namespace CPP
             }
 
         }
+
+        public void SolveAllParallelExtendedCalculation(int NumParallel, CPPProblem.CPPMetaheuristic iMetaHeuristic, SASelectType iSASelectType, int Start)
+        {
+
+            InitInstancesExtendedCalculation();
+            foreach (TestInstance t in mInstances)
+            {
+                SolveParallelInstanceExtendedCalculation(t, NumParallel, iMetaHeuristic, iSASelectType, Start);
+            }
+
+        }
+
 
 
         public void SolveAllParallelCompare(int NumParallel, int StartValue)
@@ -2400,5 +2633,6 @@ namespace CPP
 
 
 }
+
 
 

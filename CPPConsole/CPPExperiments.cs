@@ -229,7 +229,7 @@ namespace CPP
             cResult = new ResultsInstance();
             cResult.InstanceName = "CPn45-3.txt& 45 &";
             cResult.BestObjective = 11800;
-            cResult.AverageTime = 7595;
+            cResult.AverageTime = 90;
             mTable1.Add(cResult);
 
             cResult = new ResultsInstance();
@@ -264,6 +264,77 @@ namespace CPP
             cResult.AverageTime = 69040;
             mTable1.Add(cResult);
 
+
+
+
+            cResult = new ResultsInstance();
+            cResult.InstanceName = "CPn65-1.txt & 65 &";
+            cResult.BestObjective = 19156;
+            cResult.AverageTime = 302;
+            mTable1.Add(cResult);
+
+            cResult = new ResultsInstance();
+            cResult.InstanceName = "CPn65-2.txt& 65 &";
+            cResult.BestObjective = 19413;
+            cResult.AverageTime = 1493;
+            mTable1.Add(cResult);
+
+            cResult = new ResultsInstance();
+            cResult.InstanceName = "CPn65-3.txt& 65 &";
+            cResult.BestObjective = 19286;
+            cResult.AverageTime = 3521;
+            mTable1.Add(cResult);
+
+            cResult = new ResultsInstance();
+            cResult.InstanceName = "CPn65-4.txt & 65 &";
+            cResult.BestObjective = 19285;
+            cResult.AverageTime = 3461;
+            mTable1.Add(cResult);
+
+
+            cResult = new ResultsInstance();
+            cResult.InstanceName = "CPn100-1.txt & 65 &";
+            cResult.BestObjective = 33588;
+            cResult.AverageTime = 3578;
+            mTable1.Add(cResult);
+
+            cResult = new ResultsInstance();
+            cResult.InstanceName = "CPn100-2.txt& 65 &";
+            cResult.BestObjective = 34157;
+            cResult.AverageTime = 829;
+            mTable1.Add(cResult);
+
+            cResult = new ResultsInstance();
+            cResult.InstanceName = "CPn100-3.txt& 65 &";
+            cResult.BestObjective = 35424;
+            cResult.AverageTime = 3600;
+            mTable1.Add(cResult);
+
+            cResult = new ResultsInstance();
+            cResult.InstanceName = "CPn100-4.txt & 65 &";
+            cResult.BestObjective = 34293;
+            cResult.AverageTime = 1889;
+            mTable1.Add(cResult);
+
+
+
+            cResult = new ResultsInstance();
+            cResult.InstanceName = "Wang 250& 250 &";
+            cResult.BestObjective = 368;
+            cResult.AverageTime = 3600;
+            mTable1.Add(cResult);
+
+            cResult = new ResultsInstance();
+            cResult.InstanceName = "Wang 800 & 800 &";
+            cResult.BestObjective = 525;
+            cResult.AverageTime = 3600;
+            mTable1.Add(cResult);
+
+            cResult = new ResultsInstance();
+            cResult.InstanceName = "Wang 1250 & 1250 &";
+            cResult.BestObjective = 785;
+            cResult.AverageTime = 3335;
+            mTable1.Add(cResult);
 
 
 
@@ -1305,6 +1376,21 @@ namespace CPP
             mInstancesTable1.Add(new TestInstance(20, "CPn50-3.txt", Folder));
             mInstancesTable1.Add(new TestInstance(20, "CPn50-4.txt", Folder));
 
+
+            mInstancesTable1.Add(new TestInstance(20, "CPn65-1.txt", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "CPn65-2.txt", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "CPn65-3.txt", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "CPn65-4.txt", Folder));
+
+            mInstancesTable1.Add(new TestInstance(20, "CPn100-1.txt", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "CPn100-2.txt", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "CPn100-3.txt", Folder));
+            mInstancesTable1.Add(new TestInstance(20, "CPn100-4.txt", Folder));
+
+
+            mInstancesTable1.Add(new TestInstance(100, "Wang Large1.dat", Folder));
+            mInstancesTable1.Add(new TestInstance(100, "Wang Large2.dat", Folder));
+            mInstancesTable1.Add(new TestInstance(100, "Wang Large3.dat", Folder));
 
 
 
@@ -2627,6 +2713,91 @@ namespace CPP
         }
 
 
+        long GetValueForTime(long iTime, List<long[]> TimeValues)
+        {
+
+            long Result = TimeValues[0][1];
+
+            for (int i = 0; i < TimeValues.Count; i++)
+                if (TimeValues[i][0] <= iTime)
+                    Result = TimeValues[i][1];
+
+            return Result;
+        }
+
+
+        public void LoadAllRuns(string FileBase, string Directory, int NumInstanaces)
+        {
+            string[] lines;
+            string FileName;
+            string[] words;
+            string temp;
+            List<long[]>[] Solutions = new List<long[]>[10];
+            long[] tempData;
+            List<long> AllTimes = new List<long>();
+            List<double> AllValuesForTime = new List<double>();
+
+            for (int i = 0; i < NumInstanaces; i++)
+                Solutions[i] = new List<long[]>();
+
+            for (int i = 0; i < NumInstanaces; i++)
+            {
+
+
+                FileName = Directory + "FSS_Dual_Log_" + i + "_" + FileBase;
+                lines = System.IO.File.ReadAllLines(FileName);
+
+                for (int j = 0; j < lines.Length; j++)
+                {
+                    temp = lines[j];
+                    words = temp.Split(' ');
+
+                    tempData = new long[2];
+
+                    tempData[0] = Convert.ToInt64(words[2]);
+                    tempData[1] = Convert.ToInt64(words[0]);
+
+                    if (Solutions[i].Count == 0)
+                        Solutions[i].Add(tempData);
+                    else
+                    {
+                        if (Solutions[i][Solutions[i].Count - 1][1] != tempData[1])
+                            Solutions[i].Add(tempData);
+                    }
+
+                    if (!AllTimes.Contains(tempData[0]))
+                        AllTimes.Add(tempData[0]);
+                }
+            }
+
+            AllTimes.Sort();
+
+            for (int i = 0; i < AllTimes.Count; i++)
+            {
+
+                AllValuesForTime.Add(0);
+
+                for (int j = 0; j < 10; j++)
+                {
+
+                    AllValuesForTime[i] += GetValueForTime(AllTimes[i], Solutions[j]);
+                }
+
+                AllValuesForTime[i] /= NumInstanaces;
+            }
+
+
+            StreamWriter tFile = new StreamWriter(Directory + FileBase + "avg.txt");
+
+            for (int i = 0; i < AllTimes.Count; i++)
+            {
+
+                tFile.WriteLine((AllTimes[i]/ 1000)+ " " + AllValuesForTime[i]);
+            }
+            tFile.Close();
+
+
+        }
 
 
     }

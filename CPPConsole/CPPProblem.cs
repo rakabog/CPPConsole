@@ -247,7 +247,7 @@ namespace CPP
 
 
             mRCL = new RCL<CPPCandidate>(mRCLSize);
-            mLogFileName = ".\\MIPRes\\Log" + mInstanceName;
+            mLogFileName = ".\\Log" + mInstanceName;
             StreamWriter S = new StreamWriter(mLogFileName);
             S.Close();
             mSolutionHolder = new CPPSolutionHolder();

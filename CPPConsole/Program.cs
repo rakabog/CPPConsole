@@ -14,20 +14,20 @@ namespace CPPConsole
 
             CPPExperiments tExperiments = new CPPExperiments();
 
-            CPPInstance In = new CPPInstance();
+            //   CPPInstance In = new CPPInstance();
 
             //                        In.LoadMIP1("c:\\primeri\\CPP\\MIP\\CPP data\\CPn25-3.txt");
 
             //CPPProblem Pr = new CPPProblem("c:\\primeri\\CPP\\MIP\\CPP data\\CPn35-3.txt", "CPn35 - 3.txt");
 
             //               Pr.Solve(100, 100);
-//                             string filename = "mm_kar_mod1.dat";
+            //                             string filename = "mm_kar_mod1.dat";
             //                             string filename = "mm_lesmis.dat";
             //   string filename = "mm_netscience.dat";
-//                        string filename = "mm_Dolphin_mod1.dat";
+            //                        string filename = "mm_Dolphin_mod1.dat";
             //            string filename = "mm_A00main.dat";
 
-//            double C = In.GetCForModularityMaximization("c:\\primeri\\CPP\\MIP\\mm\\lesmis.graph");
+            //            double C = In.GetCForModularityMaximization("c:\\primeri\\CPP\\MIP\\mm\\lesmis.graph");
             //       In.LoadMIP_MM("c:\\primeri\\CPP\\MIP\\mm\\"+ filename);
             //             In.LoadMIP_Convert("c:\\primeri\\CPP\\MIP\\Table2\\Micro.txt");
             //            In.LoadMIP_Convert("c:\\primeri\\CPP\\MIP\\Table2\\convert_mcc.txt");
@@ -53,13 +53,15 @@ namespace CPPConsole
             //            for (int i=0; i< 4; i++)
             //                      tExperiments.SolveAllParallelCompare(5, i*4);
             //            tExperiments.SolveAllTable2();
-            //            tExperiments.SolveAllTable1();
+                        tExperiments.SolveAllTable1();
             //            tExperiments.SolveAllTableGT();
             //            tExperiments.SolveAllTableMM();   
             //            tExperiments.SolveSingle();
 
+         //tExperiments.LoadAllRuns("new_p7000.2.txt", ".\\Extended\\Finished\\", 10);
+//            tExperiments.LoadAllRuns("new_p7000.1.txt", ".\\Extended\\Finished\\", 10);
 
-            tExperiments.SolveAllParallelExtendedCalculation(10, CPPProblem.CPPMetaheuristic.FSS, SASelectType.Dual, 0);
+            //            tExperiments.SolveAllParallelExtendedCalculation(10, CPPProblem.CPPMetaheuristic.FSS, SASelectType.Dual, 0);
 
             //         tExperiments.CreateCompareTable(20, ".\\Compare16\\", "16");
             //                      tExperiments.CreateCompareTable(10, ".\\ParallelCompare\\", "32" );
